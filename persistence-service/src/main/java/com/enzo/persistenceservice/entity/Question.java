@@ -6,26 +6,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Quiz {
+public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
-    private String title;
-    private int lives;
-    private int passingScore;
+    private String text;
 
-    @OneToOne
-    @JoinColumn(name = "lesson_id")
-    private Lesson lesson;
-
-    @OneToMany(mappedBy = "quiz")
-    private List<Question> questions;
+    @ManyToOne
+    @JoinColumn(name = "quizId")
+    private Quiz quiz;
 }
