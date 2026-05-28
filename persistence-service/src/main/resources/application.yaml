@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: persistence-service
+
+  datasource:
+    url: jdbc:postgresql://${PERSISTENCE_DB_HOST}:${PERSISTENCE_DB_PORT}/${PERSISTENCE_DB_NAME}
+    username: ${PERSISTENCE_DB_USERNAME}
+    password: ${PERSISTENCE_DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  cloud:
+    consul:
+      host: ${CONSUL_HOST}
+      port: ${CONSUL_PORT}
+      discovery:
+        enabled: true
+        register: true
+
+server:
+  port: ${PERSISTENCE_SERVICE_PORT}
