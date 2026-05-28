@@ -28,4 +28,7 @@ public class Quiz {
 
     @OneToMany(mappedBy = "quiz")
     private List<Question> questions;
+
+    @OneToMany(mappedBy = "quiz")
+    private List<Result> results;
 }
