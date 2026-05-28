@@ -22,4 +22,7 @@ public class Lesson {
     @ManyToOne
     @JoinColumn(name = "chapter_id")
     private Chapter chapter;
+
+    @OneToOne(mappedBy = "lesson")
+    private Quiz quiz;
 }
