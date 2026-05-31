@@ -29,7 +29,11 @@ public class UserService {
     }
 
     public User updateProfile(User user) {
-        return userRepository.save(user);
+        User existingUser = findById(user.getId());
+        existingUser.setUsername(user.getUsername());
+        existingUser.setEmail(user.getEmail());
+        existingUser.setPassword(user.getPassword());
+        return userRepository.save(existingUser);
     }
 
     public void delete(Long id) {
