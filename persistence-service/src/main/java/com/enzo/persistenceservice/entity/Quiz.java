@@ -1,5 +1,7 @@
 package com.enzo.persistenceservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -24,11 +26,14 @@ public class Quiz {
 
     @OneToOne
     @JoinColumn(name = "lesson_id")
+    @JsonBackReference
     private Lesson lesson;
 
     @OneToMany(mappedBy = "quiz")
+    @JsonManagedReference
     private List<Question> questions;
 
     @OneToMany(mappedBy = "quiz")
+    @JsonManagedReference
     private List<Result> results;
 }

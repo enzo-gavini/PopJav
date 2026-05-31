@@ -1,5 +1,6 @@
 package com.enzo.persistenceservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -22,5 +23,6 @@ public class Chapter {
     private String description;
     private int orderIndex;
     @OneToMany(mappedBy = "chapter")
+    @JsonManagedReference
     private List<Lesson> lessons;
 }
