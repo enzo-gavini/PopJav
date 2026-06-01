@@ -1,7 +1,5 @@
-package com.enzo.userservice.service;
+package com.enzo.authservice.service;
 
-import com.enzo.userservice.entity.User;
-import com.enzo.userservice.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

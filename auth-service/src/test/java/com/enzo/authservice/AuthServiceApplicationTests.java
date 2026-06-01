@@ -1,10 +1,10 @@
-package com.enzo.userservice;
+package com.enzo.authservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class UserServiceApplicationTests {
+class AuthServiceApplicationTests {
 
     @Test
     void contextLoads() {

@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: auth-service
+
+  cloud:
+    consul:
+      host: ${CONSUL_HOST}
+      port: ${CONSUL_PORT}
+      discovery:
+        enabled: true
+        register: true
+
+server:
+  port: ${AUTH_SERVICE_PORT}
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION}

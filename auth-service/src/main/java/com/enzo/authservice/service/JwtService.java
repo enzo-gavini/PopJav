@@ -1,4 +1,4 @@
-package com.enzo.userservice.service;
+package com.enzo.authservice.service;
 
 
 import io.jsonwebtoken.Claims;
@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
-import java.util.function.Function;
 
 @Service
 public class JwtService {
