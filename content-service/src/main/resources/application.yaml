@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: content-service
+
+  cloud:
+    consul:
+      host: ${CONSUL_HOST}
+      port: ${CONSUL_PORT}
+      discovery:
+        enabled: true
+        register: true
+server:
+  port: ${CONTENT_SERVICE_PORT}
