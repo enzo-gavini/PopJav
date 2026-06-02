@@ -1,4 +1,4 @@
-package com.enzo.userservice.entity;
+package com.enzo.authservice.entity;
 
 public enum Role {
     ADMIN,
