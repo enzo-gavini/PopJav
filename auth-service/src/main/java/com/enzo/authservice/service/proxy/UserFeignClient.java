@@ -1,6 +1,8 @@
 package com.enzo.authservice.service.proxy;
 
+import com.enzo.authservice.dto.UserCreateRequest;
 import com.enzo.authservice.dto.UserDTO;
+import com.enzo.authservice.dto.UserFullDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +12,7 @@ import java.util.List;
 public interface UserFeignClient {
 
     @PostMapping
-    public UserDTO save(@RequestBody UserDTO userDTO);
+    public UserDTO save(@RequestBody UserCreateRequest request);
 
     @GetMapping
     public List<UserDTO> getAllUser();
@@ -25,7 +27,7 @@ public interface UserFeignClient {
     public void deleteUser(@PathVariable Long id);
 
     @GetMapping("/search")
-    public UserDTO getUserByEmail(@RequestParam String email);
+    public UserFullDTO getUserByEmail(@RequestParam String email);
 
     @GetMapping("/exists/email")
     public boolean existsByEmail(@RequestParam String email);
