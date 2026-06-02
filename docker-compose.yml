@@ -6,6 +6,8 @@ services:
       POSTGRES_DB: ${PERSISTENCE_DB_NAME}
       POSTGRES_USER: ${PERSISTENCE_DB_USERNAME}
       POSTGRES_PASSWORD: ${PERSISTENCE_DB_PASSWORD}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
 
     ports:
       - "5432:5432"
@@ -32,6 +34,9 @@ services:
       start_period: 10s
     networks:
       - popjav-network
+
+volumes:
+  postgres-data:
 
 networks:
   popjav-network:
