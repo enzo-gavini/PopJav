@@ -2,6 +2,7 @@ package com.enzo.persistenceservice.controller;
 
 import com.enzo.persistenceservice.entity.Lesson;
 import com.enzo.persistenceservice.service.LessonService;
+import com.enzo.persistenceservice.service.dto.LessonCreateDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +15,8 @@ public class LessonController {
     private final LessonService lessonService;
 
     @PostMapping
-    public Lesson save(@RequestBody Lesson lesson) {
-        return lessonService.create(lesson);
+    public Lesson save(@RequestBody LessonCreateDTO dto) {
+        return lessonService.create(dto);
     }
 
     @GetMapping
