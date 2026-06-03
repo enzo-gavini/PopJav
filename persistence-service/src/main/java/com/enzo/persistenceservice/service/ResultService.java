@@ -1,7 +1,10 @@
 package com.enzo.persistenceservice.service;
 
+import com.enzo.persistenceservice.entity.Quiz;
 import com.enzo.persistenceservice.entity.Result;
+import com.enzo.persistenceservice.repository.QuizRepository;
 import com.enzo.persistenceservice.repository.ResultRepository;
+import com.enzo.persistenceservice.service.dto.ResultCreateDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +14,19 @@ import java.util.List;
 @AllArgsConstructor
 public class ResultService {
     private final ResultRepository resultRepository;
+    private final QuizRepository quizRepository;
 
-    public Result create(Result result) {
-        return resultRepository.save(result);
+    public Result create(ResultCreateDTO dto) {
+        Quiz quiz = quizRepository.findById(dto.getQuizId())
+                .orElseThrow(()-> new RuntimeException("Quiz not found"));
+
+        Result result = new Result();
+        result.setScore(dto.getScore());
+        result.setCompleted(dto.isCompleted());
+        result.setAttempts(dto.getAttempts());
+        result.setUserId(dto.getUserId());
+        result.setQuiz(quiz);
+        return  resultRepository.save(result);
     }
 
     public List<Result> findAll() {

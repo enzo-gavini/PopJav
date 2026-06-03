@@ -2,6 +2,7 @@
 
     import com.enzo.persistenceservice.entity.Question;
     import com.enzo.persistenceservice.service.QuestionService;
+    import com.enzo.persistenceservice.service.dto.QuestionCreateDTO;
     import lombok.AllArgsConstructor;
     import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +16,8 @@
         private final QuestionService questionService;
 
         @PostMapping
-        public Question save(@RequestBody Question question) {
-            return questionService.create(question);
+        public Question save(@RequestBody QuestionCreateDTO dto) {
+            return questionService.create(dto);
         }
 
         @GetMapping
