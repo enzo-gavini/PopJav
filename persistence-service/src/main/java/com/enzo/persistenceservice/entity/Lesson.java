@@ -29,4 +29,8 @@ public class Lesson {
     @OneToOne(mappedBy = "lesson")
     @JsonManagedReference
     private Quiz quiz;
+
+    public Long getChapterId() {
+        return chapter != null ? chapter.getId() : null;
+    }
 }

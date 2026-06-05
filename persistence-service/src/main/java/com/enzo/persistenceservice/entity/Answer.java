@@ -22,4 +22,8 @@ public class Answer {
     @JoinColumn(name = "question_id")
     @JsonBackReference
     private Question question;
+
+    public Long getQuestionId() {
+        return question != null ? question.getId() : null;
+    }
 }

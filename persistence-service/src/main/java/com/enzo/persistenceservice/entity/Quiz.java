@@ -36,4 +36,8 @@ public class Quiz {
     @OneToMany(mappedBy = "quiz")
     @JsonManagedReference
     private List<Result> results;
+
+    public Long getLessonId() {
+        return lesson != null ? lesson.getId() : null;
+    }
 }
