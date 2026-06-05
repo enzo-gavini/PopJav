@@ -30,4 +30,8 @@ public class Question {
     @OneToMany(mappedBy = "question")
     @JsonManagedReference
     private List<Answer> answers;
+
+    public Long getQuizId() {
+        return quiz != null ? quiz.getId() : null;
+    }
 }

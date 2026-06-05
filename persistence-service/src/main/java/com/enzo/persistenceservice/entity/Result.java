@@ -24,4 +24,8 @@ public class Result {
     @JsonBackReference
     private Quiz quiz;
 
+    public Long getQuizId() {
+        return quiz != null ? quiz.getId() : null;
+    }
+
 }
