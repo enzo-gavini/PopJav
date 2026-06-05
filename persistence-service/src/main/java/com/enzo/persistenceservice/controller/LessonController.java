@@ -30,8 +30,8 @@ public class LessonController {
     }
 
     @PutMapping("/{id}")
-    public Lesson updateLesson(@PathVariable Long id, @RequestBody Lesson lesson) {
-        return lessonService.updateLesson(lesson);
+    public Lesson updateLesson(@PathVariable Long id, @RequestBody LessonCreateDTO dto) {
+        return lessonService.updateLesson(id, dto);
     }
 
     @DeleteMapping("/{id}")

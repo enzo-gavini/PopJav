@@ -30,8 +30,8 @@ public class AnswerController {
     }
 
     @PutMapping("/{id}")
-    public Answer updateAnswer(@PathVariable Long id, @RequestBody Answer answer) {
-        return answerService.updateAnswer(answer);
+    public Answer updateAnswer(@PathVariable Long id, @RequestBody AnswerCreateDTO dto) {
+        return answerService.updateAnswer(id,dto);
     }
 
     @DeleteMapping("/{id}")

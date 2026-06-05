@@ -37,8 +37,16 @@ public class QuizService {
         return quizRepository.findById(id).orElseThrow(()-> new RuntimeException("Quiz not found"));
     }
 
-    public Quiz updateQuiz(Quiz quiz) {
-        return quizRepository.save(quiz);
+    public Quiz updateQuiz(Long id, QuizCreateDTO dto) {
+        Quiz existingQuiz = findById(id);
+        Lesson lesson = lessonRepository.findById(dto.getLessonId())
+                .orElseThrow(() -> new RuntimeException("Lesson not found"));
+
+        existingQuiz.setTitle(dto.getTitle());
+        existingQuiz.setLives(dto.getLives());
+        existingQuiz.setPassingScore(dto.getPassingScore());
+        existingQuiz.setLesson(lesson);
+        return quizRepository.save(existingQuiz);
     }
 
     public void delete(Long id) {quizRepository.deleteById(id);}

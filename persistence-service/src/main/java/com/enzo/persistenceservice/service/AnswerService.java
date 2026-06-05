@@ -35,8 +35,15 @@ public class AnswerService {
         return answerRepository.findById(id).orElseThrow(() -> new RuntimeException("Answer not found"));
     }
 
-    public Answer updateAnswer(Answer answer) {
-        return answerRepository.save(answer);
+    public Answer updateAnswer(Long id, AnswerCreateDTO dto) {
+        Answer existingAnswer = findById(id);
+        Question question = questionRepository.findById(dto.getQuestionId())
+                .orElseThrow(() -> new RuntimeException("Question not found"));
+
+        existingAnswer.setText(dto.getText());
+        existingAnswer.setCorrect(dto.isCorrect());
+        existingAnswer.setQuestion(question);
+        return answerRepository.save(existingAnswer);
     }
 
     public void delete(Long id) {answerRepository.deleteById(id);}

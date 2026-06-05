@@ -31,8 +31,8 @@
         }
 
         @PutMapping("/{id}")
-        public Question updateQuestion(@PathVariable Long id, @RequestBody Question question) {
-            return questionService.updateQuestion(question);
+        public Question updateQuestion(@PathVariable Long id, @RequestBody QuestionCreateDTO dto) {
+            return questionService.updateQuestion(id, dto);
         }
 
         @DeleteMapping("/{id}")

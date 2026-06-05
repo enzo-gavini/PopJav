@@ -34,8 +34,14 @@ public class QuestionService {
         return questionRepository.findById(id).orElseThrow(() -> new RuntimeException("Question not found"));
     }
 
-    public Question updateQuestion(Question question) {
-        return questionRepository.save(question);
+    public Question updateQuestion(Long id, QuestionCreateDTO dto) {
+        Question existingQuestion = findById(id);
+        Quiz quiz = quizRepository.findById(dto.getQuizId())
+                .orElseThrow(() -> new RuntimeException("Quiz not found"));
+
+        existingQuestion.setText(dto.getText());
+        existingQuestion.setQuiz(quiz);
+        return questionRepository.save(existingQuestion);
     }
 
     public void delete(Long id) {questionRepository.deleteById(id);}

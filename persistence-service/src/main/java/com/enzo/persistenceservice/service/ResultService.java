@@ -37,8 +37,17 @@ public class ResultService {
         return resultRepository.findById(id).orElseThrow(() -> new RuntimeException("Result not found"));
     }
 
-    public Result updateResult(Result result) {
-        return resultRepository.save(result);
+    public Result updateResult(Long id, ResultCreateDTO dto) {
+        Result existingResult = findById(id);
+        Quiz quiz = quizRepository.findById(dto.getQuizId())
+                .orElseThrow(() -> new RuntimeException("Quiz not found"));
+
+        existingResult.setScore(dto.getScore());
+        existingResult.setCompleted(dto.isCompleted());
+        existingResult.setAttempts(dto.getAttempts());
+        existingResult.setUserId(dto.getUserId());
+        existingResult.setQuiz(quiz);
+        return resultRepository.save(existingResult);
     }
 
     public void delete(Long id) {resultRepository.deleteById(id);}

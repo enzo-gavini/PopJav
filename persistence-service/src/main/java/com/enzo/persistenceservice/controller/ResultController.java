@@ -30,8 +30,8 @@ public class ResultController {
     }
 
     @PutMapping("/{id}")
-    public Result updateResult(@PathVariable Long id, @RequestBody Result result) {
-        return resultService.updateResult(result);
+    public Result updateResult(@PathVariable Long id, @RequestBody ResultCreateDTO dto) {
+        return resultService.updateResult(id, dto);
     }
 
     @DeleteMapping("/{id}")

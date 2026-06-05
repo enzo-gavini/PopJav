@@ -36,8 +36,16 @@ public class LessonService {
         return lessonRepository.findById(id).orElseThrow(() -> new RuntimeException("Lesson not found"));
     }
 
-    public Lesson updateLesson(Lesson lesson) {
-        return lessonRepository.save(lesson);
+    public Lesson updateLesson(Long id, LessonCreateDTO dto) {
+        Lesson existingLesson = findById(id);
+        Chapter chapter = chapterRepository.findById(dto.getChapterId())
+                .orElseThrow(() -> new RuntimeException("Chapter not found"));
+
+        existingLesson.setTitle(dto.getTitle());
+        existingLesson.setContent(dto.getContent());
+        existingLesson.setOrderIndex(dto.getOrderIndex());
+        existingLesson.setChapter(chapter);
+        return lessonRepository.save(existingLesson);
     }
 
     public void delete(Long id) {lessonRepository.deleteById(id);}

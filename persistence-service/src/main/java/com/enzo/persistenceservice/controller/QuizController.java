@@ -30,8 +30,8 @@ public class QuizController {
     }
 
     @PutMapping("/{id}")
-    public Quiz updateQuiz(@PathVariable Long id, @RequestBody Quiz quiz) {
-        return quizService.updateQuiz(quiz);
+    public Quiz updateQuiz(@PathVariable Long id, @RequestBody QuizCreateDTO dto) {
+        return quizService.updateQuiz(id, dto);
     }
 
     @DeleteMapping("/{id}")
