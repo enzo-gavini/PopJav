@@ -2,6 +2,7 @@ package com.enzo.persistenceservice.controller;
 
 import com.enzo.persistenceservice.entity.Result;
 import com.enzo.persistenceservice.service.ResultService;
+import com.enzo.persistenceservice.service.dto.ResultCreateDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +15,8 @@ public class ResultController {
     private final ResultService resultService;
 
     @PostMapping
-    public Result save(@RequestBody Result result) {
-        return resultService.create(result);
+    public Result save(@RequestBody ResultCreateDTO dto) {
+        return resultService.create(dto);
     }
 
     @GetMapping
@@ -29,8 +30,8 @@ public class ResultController {
     }
 
     @PutMapping("/{id}")
-    public Result updateResult(@PathVariable Long id, @RequestBody Result result) {
-        return resultService.updateResult(result);
+    public Result updateResult(@PathVariable Long id, @RequestBody ResultCreateDTO dto) {
+        return resultService.updateResult(id, dto);
     }
 
     @DeleteMapping("/{id}")

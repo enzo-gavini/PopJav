@@ -2,6 +2,7 @@ package com.enzo.persistenceservice.controller;
 
 import com.enzo.persistenceservice.entity.Quiz;
 import com.enzo.persistenceservice.service.QuizService;
+import com.enzo.persistenceservice.service.dto.QuizCreateDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +15,8 @@ public class QuizController {
     private final QuizService quizService;
 
     @PostMapping
-    public Quiz save(@RequestBody Quiz quiz) {
-        return quizService.create(quiz);
+    public Quiz save(@RequestBody QuizCreateDTO dto) {
+        return quizService.create(dto);
     }
 
     @GetMapping
@@ -29,8 +30,8 @@ public class QuizController {
     }
 
     @PutMapping("/{id}")
-    public Quiz updateQuiz(@PathVariable Long id, @RequestBody Quiz quiz) {
-        return quizService.updateQuiz(quiz);
+    public Quiz updateQuiz(@PathVariable Long id, @RequestBody QuizCreateDTO dto) {
+        return quizService.updateQuiz(id, dto);
     }
 
     @DeleteMapping("/{id}")
