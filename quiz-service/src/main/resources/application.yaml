@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: quiz-service
+
+  cloud:
+    consul:
+      host: ${CONSUL_HOST}
+      port: ${CONSUL_PORT}
+      discovery:
+        enabled: true
+        register: true
+server:
+  port: ${QUIZ_SERVICE_PORT}
