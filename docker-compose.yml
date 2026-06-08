@@ -8,7 +8,6 @@ services:
       POSTGRES_PASSWORD: ${PERSISTENCE_DB_PASSWORD}
     volumes:
       - postgres-data:/var/lib/postgresql/data
-
     ports:
       - "5432:5432"
     healthcheck:
@@ -19,6 +18,21 @@ services:
       start_period: 20s
     networks:
       - popjav-network
+
+  mongo:
+    image: mongo:7
+    container_name: mongo-popjav
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${COMMENT_DB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${COMMENT_DB_PASSWORD}
+      MONGO_INITDB_DATABASE: ${COMMENT_DB_NAME}
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - popjav-network
+
 
   consul:
     image: hashicorp/consul:1.21.3
@@ -37,6 +51,7 @@ services:
 
 volumes:
   postgres-data:
+  mongo-data:
 
 networks:
   popjav-network:

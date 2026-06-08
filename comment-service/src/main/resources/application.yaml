@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: comment-service
+
+  data:
+    mongodb:
+      uri: mongodb://${COMMENT_DB_USERNAME}:${COMMENT_DB_PASSWORD}@${COMMENT_DB_HOST}:${COMMENT_DB_PORT}/${COMMENT_DB_NAME}?authSource=admin
+
+  cloud:
+    consul:
+      host: ${CONSUL_HOST}
+      port: ${CONSUL_PORT}
+      discovery:
+        enabled: true
+        register: true
+
+server:
+  port: ${COMMENT_SERVICE_PORT}
