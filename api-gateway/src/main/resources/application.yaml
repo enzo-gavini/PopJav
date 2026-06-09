@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    consul:
+      host: ${CONSUL_HOST}
+      port: ${CONSUL_PORT}
+      discovery:
+        enabled: true
+        register: true
+    gateway:
+      routes:
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/auth/**
+        - id: content-service
+          uri: lb://content-service
+          predicates:
+            - Path=/api/chapters/**, /api/lessons/**
+        - id: quiz-service
+          uri: lb://quiz-service
+          predicates:
+            - Path=/api/quizzes/**, /api/questions/**, /api/answers/**, /api/results/**
+        - id: comment-service
+          uri: lb://comment-service
+          predicates:
+            - Path=/api/comments/**
+
+server:
+  port: ${GATEWAY_PORT}
+
+jwt:
+  secret: ${JWT_SECRET}
