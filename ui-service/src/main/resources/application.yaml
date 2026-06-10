@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: ui-service
+
+  cloud:
+    consul:
+      host: ${CONSUL_HOST}
+      port: ${CONSUL_PORT}
+      discovery:
+        enabled: true
+        register: true
+server:
+  port: ${UI_SERVICE_PORT}
