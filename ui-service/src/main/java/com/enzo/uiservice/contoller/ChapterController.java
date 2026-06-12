@@ -47,7 +47,7 @@ public class ChapterController {
     }
 
     @PostMapping("/edit/{id}")
-    public String showEditPage(@PathVariable Long id, @ModelAttribute("chapterDTO") ChapterDTO chapter) {
+    public String updateChapter(@PathVariable Long id, @ModelAttribute("chapterDTO") ChapterDTO chapter) {
         chapterFeignClient.updateChapter(id, chapter);
         return "redirect:/chapters";
     }
