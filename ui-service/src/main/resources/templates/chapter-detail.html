@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Détail du chapitre</title>
+</head>
+<body>
+<h1 th:text="${chapterDTO.title}">Titre</h1>
+<p th:text="${chapterDTO.description}">Description</p>
+<p>Ordre : <span th:text="${chapterDTO.orderIndex}">0</span></p>
+
+<h2>Leçons</h2>
+<div th:each="lesson : ${chapterDTO.lessons}">
+    <a th:href="@{/lessons/{id}(id=${lesson.id})}" th:text="${lesson.title}">Leçon</a>
+</div>
+<p th:if="${#lists.isEmpty(chapterDTO.lessons)}">Aucune leçon</p>
+
+<a th:href="@{/chapters/edit/{id}(id=${chapterDTO.id})}">Modifier</a>
+<a th:href="@{/chapters/delete/{id}(id=${chapterDTO.id})}">Supprimer</a>
+<a href="/chapters">Retour</a>
+</body>
+</html>

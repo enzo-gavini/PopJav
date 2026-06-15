@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Chapitres</title>
+</head>
+<body>
+<h1>Liste des chapitres</h1>
+<a href="/chapters/create">Créer un chapitre</a>
+
+<div th:each="chapter : ${chapters}">
+    <h2 th:text="${chapter.title}">Titre</h2>
+    <p th:text="${chapter.description}">Description</p>
+    <p>Ordre : <span th:text="${chapter.orderIndex}">0</span></p>
+    <a th:href="@{/chapters/{id}(id=${chapter.id})}">Voir</a>
+    <a th:href="@{/chapters/edit/{id}(id=${chapter.id})}">Modifier</a>
+    <a th:href="@{/chapters/delete/{id}(id=${chapter.id})}">Supprimer</a>
+</div>
+</body>
+</html>

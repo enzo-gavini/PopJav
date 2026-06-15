@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Créer un chapitre</title>
+</head>
+<body>
+<h1>Créer un chapitre</h1>
+<form th:action="@{/chapters/create}" th:object="${chapterDTO}" method="post">
+    <input type="text" th:field="*{title}" placeholder="Titre">
+    <input type="text" th:field="*{description}" placeholder="Description">
+    <input type="number" th:field="*{orderIndex}" placeholder="Ordre">
+    <button type="submit">Créer</button>
+</form>
+<a href="/chapters">Retour</a>
+</body>
+</html>
