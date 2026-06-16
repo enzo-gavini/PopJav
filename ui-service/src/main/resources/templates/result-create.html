@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Créer un résultat</title>
+</head>
+<body>
+<h1>Créer un résultat</h1>
+<form th:action="@{/results/create}" th:object="${resultDTO}" method="post">
+    <input type="number" th:field="*{score}" placeholder="Score">
+    <label>Complété : <input type="checkbox" th:field="*{completed}"></label>
+    <input type="number" th:field="*{attempts}" placeholder="Tentatives">
+    <input type="number" th:field="*{userId}" placeholder="Utilisateur">
+    <input type="number" th:field="*{quizId}" placeholder="Quiz">
+    <button type="submit">Créer</button>
+</form>
+<a href="/results">Retour</a>
+</body>
+</html>

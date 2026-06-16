@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier une réponse</title>
+</head>
+<body>
+<h1>Modifier une réponse</h1>
+<form th:action="@{/answers/edit/{id}(id=${answerDTO.id})}" th:object="${answerDTO}" method="post">
+    <input type="text" th:field="*{text}" placeholder="Texte">
+    <label>Correct : <input type="checkbox" th:field="*{correct}"></label>
+    <input type="number" th:field="*{questionId}" placeholder="Question">
+    <button type="submit">Modifier</button>
+</form>
+<a href="/answers">Retour</a>
+</body>
+</html>

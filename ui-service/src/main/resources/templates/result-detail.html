@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Détail du résultat</title>
+</head>
+<body>
+<h1>Résultat</h1>
+<p>Score : <span th:text="${resultDTO.score}">0</span></p>
+<p>Complété : <span th:text="${resultDTO.completed}">false</span></p>
+<p>Tentatives : <span th:text="${resultDTO.attempts}">0</span></p>
+
+<a th:href="@{/results/edit/{id}(id=${resultDTO.id})}">Modifier</a>
+<a th:href="@{/results/delete/{id}(id=${resultDTO.id})}">Supprimer</a>
+<a href="/results">Retour</a>
+</body>
+</html>

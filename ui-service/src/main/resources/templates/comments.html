@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Commentaires</title>
+</head>
+<body>
+<h1>Liste des commentaires</h1>
+<a href="/comments/create">Créer un commentaire</a>
+
+<div th:each="comment : ${comments}">
+    <p th:text="${comment.text}">Texte</p>
+    <small th:text="${comment.createdAt}">Date</small>
+    <a th:href="@{/comments/{id}(id=${comment.id})}">Voir</a>
+    <a th:href="@{/comments/edit/{id}(id=${comment.id})}">Modifier</a>
+    <a th:href="@{/comments/delete/{id}(id=${comment.id})}">Supprimer</a>
+</div>
+</body>
+</html>

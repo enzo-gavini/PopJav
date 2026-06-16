@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Résultats</title>
+</head>
+<body>
+<h1>Liste des résultats</h1>
+
+<div th:each="result : ${results}">
+    <p>Score : <span th:text="${result.score}">0</span></p>
+    <p>Complété : <span th:text="${result.completed}">false</span></p>
+    <p>Tentatives : <span th:text="${result.attempts}">0</span></p>
+    <a th:href="@{/results/{id}(id=${result.id})}">Voir</a>
+    <a th:href="@{/results/edit/{id}(id=${result.id})}">Modifier</a>
+    <a th:href="@{/results/delete/{id}(id=${result.id})}">Supprimer</a>
+</div>
+</body>
+</html>

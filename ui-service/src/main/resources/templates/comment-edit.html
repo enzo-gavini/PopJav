@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier un commentaire</title>
+</head>
+<body>
+<h1>Modifier un commentaire</h1>
+<form th:action="@{/comments/edit/{id}(id=${commentDTO.id})}" th:object="${commentDTO}" method="post">
+    <textarea th:field="*{text}" placeholder="Votre commentaire"></textarea>
+    <button type="submit">Modifier</button>
+</form>
+<a href="/comments">Retour</a>
+</body>
+</html>

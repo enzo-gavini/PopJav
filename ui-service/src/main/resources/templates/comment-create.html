@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Créer un commentaire</title>
+</head>
+<body>
+<h1>Créer un commentaire</h1>
+<form th:action="@{/comments/create}" th:object="${commentDTO}" method="post">
+    <textarea th:field="*{text}" placeholder="Votre commentaire"></textarea>
+    <input type="number" th:field="*{userId}" placeholder="Utilisateur">
+    <input type="number" th:field="*{lessonId}" placeholder="Leçon">
+    <button type="submit">Créer</button>
+</form>
+<a href="/comments">Retour</a>
+</body>
+</html>

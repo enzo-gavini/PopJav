@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Réponses</title>
+</head>
+<body>
+<h1>Liste des réponses</h1>
+<a href="/answers/create">Créer une réponse</a>
+
+<div th:each="answer : ${answers}">
+    <p th:text="${answer.text}">Texte</p>
+    <span th:if="${answer.correct}" style="color:green">✓ Correct</span>
+    <span th:if="${!answer.correct}" style="color:red">✗ Incorrect</span>
+    <a th:href="@{/answers/{id}(id=${answer.id})}">Voir</a>
+    <a th:href="@{/answers/edit/{id}(id=${answer.id})}">Modifier</a>
+    <a th:href="@{/answers/delete/{id}(id=${answer.id})}">Supprimer</a>
+</div>
+</body>
+</html>

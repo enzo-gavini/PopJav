@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Détail du commentaire</title>
+</head>
+<body>
+<h1>Commentaire</h1>
+<p th:text="${commentDTO.text}">Texte</p>
+<small th:text="${commentDTO.createdAt}">Date</small>
+
+<a th:href="@{/comments/edit/{id}(id=${commentDTO.id})}">Modifier</a>
+<a th:href="@{/comments/delete/{id}(id=${commentDTO.id})}">Supprimer</a>
+<a href="/comments">Retour</a>
+</body>
+</html>
