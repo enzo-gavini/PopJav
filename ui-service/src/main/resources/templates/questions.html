@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Questions</title>
+</head>
+<body>
+<h1>Liste de questions</h1>
+<a href="/questions/create">Créer une question</a>
+
+<div th:each="question : ${questions}">
+    <h2 th:text="${question.text}">Text</h2>
+    <a th:href="@{/questions/{id}(id=${question.id})}">Voir</a>
+    <a th:href="@{/questions/edit/{id}(id=${question.id})}">Modifier</a>
+    <a th:href="@{/questions/delete/{id}(id=${question.id})}">Supprimer</a>
+</div>
+</body>
+</html>

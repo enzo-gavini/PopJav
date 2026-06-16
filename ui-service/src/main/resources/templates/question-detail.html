@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Détail de la question</title>
+</head>
+<body>
+<h1 th:text="${questionDTO.text}">Question</h1>
+
+<h2>Réponses</h2>
+<div th:each="answer : ${questionDTO.answers}">
+    <p>
+        <span th:text="${answer.text}">Réponse</span>
+        <span th:if="${answer.correct}" style="color:green"> ✓ Correct</span>
+        <span th:if="${!answer.correct}" style="color:red"> ✗ Incorrect</span>
+    </p>
+</div>
+<p th:if="${#lists.isEmpty(questionDTO.answers)}">Aucune réponse</p>
+
+<a th:href="@{/questions/edit/{id}(id=${questionDTO.id})}">Modifier</a>
+<a th:href="@{/questions/delete/{id}(id=${questionDTO.id})}">Supprimer</a>
+<a href="/questions">Retour</a>
+</body>
+</html>

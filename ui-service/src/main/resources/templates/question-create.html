@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Créer une question</title>
+</head>
+<body>
+<h1>Créer une question</h1>
+<form th:action="@{/questions/create}" th:object="${questionDTO}" method="post">
+    <input type="text" th:field="*{text}" placeholder="Text">
+    <input type="number" th:field="*{quizId}" placeholder="Quiz">
+    <button type="submit">Créer</button>
+</form>
+<a href="/questions">Retour</a>
+</body>
+</html>

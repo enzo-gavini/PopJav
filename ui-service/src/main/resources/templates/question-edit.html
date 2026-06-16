@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier une question</title>
+</head>
+<body>
+<h1>Modifier une question</h1>
+<form th:action="@{/questions/edit/{id}(id=${questionDTO.id})}" th:object="${questionDTO}" method="post">
+    <input type="text" th:field="*{text}" placeholder="Text">
+    <input type="number" th:field="*{quizId}" placeholder="Quiz">
+    <button type="submit">Modifier</button>
+</form>
+<a href="/questions">Retour</a>
+</body>
+</html>
