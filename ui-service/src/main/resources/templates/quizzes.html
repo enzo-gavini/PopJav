@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quizs</title>
+</head>
+<body>
+<h1>Liste des quizs</h1>
+<a href="/quizzes/create">Créer un quiz</a>
+
+<div th:each="quiz : ${quizzes}">
+    <h2 th:text="${quiz.title}">Titre</h2>
+    <a th:href="@{/quizzes/{id}(id=${quiz.id})}">Voir</a>
+    <a th:href="@{/quizzes/edit/{id}(id=${quiz.id})}">Modifier</a>
+    <a th:href="@{/quizzes/delete/{id}(id=${quiz.id})}">Supprimer</a>
+</div>
+</body>
+</html>

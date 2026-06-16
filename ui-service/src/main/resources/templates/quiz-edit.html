@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier un quiz</title>
+</head>
+<body>
+<h1>Modifier un quiz</h1>
+<form th:action="@{/quizzes/edit/{id}(id=${quizDTO.id})}" th:object="${quizDTO}" method="post">
+    <input type="text" th:field="*{title}" placeholder="Titre">
+    <input type="number" th:field="*{lives}" placeholder="Vie">
+    <input type="number" th:field="*{passingScore}" placeholder="Score de passage">
+    <input type="number" th:field="*{lessonId}" placeholder="Leçon">
+    <button type="submit">Modifier</button>
+</form>
+<a href="/quizzes">Retour</a>
+</body>
+</html>

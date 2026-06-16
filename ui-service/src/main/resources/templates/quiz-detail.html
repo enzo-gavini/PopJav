@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Détail du quiz</title>
+</head>
+<body>
+<h1 th:text="${quizDTO.title}">Titre</h1>
+<p th:text="${quizDTO.lives}">Vie</p>
+<p th:text="${quizDTO.passingScore}">Score de passage</p>
+
+<h2>Questions</h2>
+<div th:each="question : ${quizDTO.questions}">
+    <a th:href="@{/questions/{id}(id=${question.id})}" th:text="${question.text}">Question</a>
+</div>
+<p th:if="${#lists.isEmpty((quizDTO.questions))}">Aucune question</p>
+<a th:href="@{/quizzes/edit/{id}(id=${quizDTO.id})}">Modifier</a>
+<a th:href="@{/quizzes/delete/{id}(id=${quizDTO.id})}">Supprimer</a>
+<a href="/quizzes">Retour</a>
+</body>
+</html>
