@@ -9,4 +9,5 @@ public class LessonDTO {
     private String content;
     private int orderIndex;
     private Long chapterId;
+    private QuizDTO quiz;
 }

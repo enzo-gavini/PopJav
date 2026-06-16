@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier la leçon</title>
+</head>
+<body>
+<h1>Modifier la leçon</h1>
+<form th:action="@{/lessons/edit/{id}(id=${lessonDTO.id})}" th:object="${lessonDTO}" method="post">
+    <input type="text" th:field="*{title}" placeholder="Titre">
+    <input type="text" th:field="*{content}" placeholder="Contenue">
+    <input type="number" th:field="*{orderIndex}" placeholder="Ordre">
+    <input type="number" th:field="*{chapterId}" placeholder="Chapitre">
+    <button type="submit">Modifier</button>
+</form>
+<a href="/lessons">Retour</a>
+</body>
+</html>
