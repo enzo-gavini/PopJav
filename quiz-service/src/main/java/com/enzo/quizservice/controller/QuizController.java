@@ -1,6 +1,8 @@
 package com.enzo.quizservice.controller;
 
 import com.enzo.quizservice.dto.QuizDTO;
+import com.enzo.quizservice.dto.QuizResultDTO;
+import com.enzo.quizservice.dto.QuizSubmissionDTO;
 import com.enzo.quizservice.service.QuizService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -36,5 +38,10 @@ public class QuizController {
     @DeleteMapping("/{id}")
     public void deleteQuiz(@PathVariable Long id) {
         quizService.delete(id);
+    }
+
+    @PostMapping("/submit")
+    public QuizResultDTO submitQuiz(@RequestBody QuizSubmissionDTO submission) {
+        return quizService.submitQuiz(submission);
     }
 }
