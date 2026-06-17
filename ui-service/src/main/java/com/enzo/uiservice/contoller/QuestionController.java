@@ -26,7 +26,7 @@ public class QuestionController {
     @GetMapping("/{id}")
     public String showQuestionById(Model model, @PathVariable Long id) {
         model.addAttribute("questionDTO", questionFeignClient.getQuestionById(id));
-        return "question-details";
+        return "question-detail";
     }
 
     @GetMapping("/create")
