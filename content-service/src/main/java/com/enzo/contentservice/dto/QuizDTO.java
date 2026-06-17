@@ -1,8 +1,6 @@
-package com.enzo.quizservice.dto;
+package com.enzo.contentservice.dto;
 
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 public class QuizDTO {
@@ -11,5 +9,4 @@ public class QuizDTO {
     private int lives;
     private int passingScore;
     private Long lessonId;
-    List<QuestionDTO> questions;
 }
