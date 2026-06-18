@@ -68,6 +68,10 @@ public class QuizService {
             detail.setCorrectAnswerId(correctAnswer != null ? correctAnswer.getId() : null);
             detail.setCorrect(isCorrect);
             details.add(detail);
+
+            if (lives <= 0) {
+                break;
+            }
         }
 
         int totalQuestions = quiz.getQuestions().size();
