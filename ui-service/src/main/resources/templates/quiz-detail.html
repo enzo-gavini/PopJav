@@ -12,6 +12,7 @@
 <h2>Questions</h2>
 <div th:each="question : ${quizDTO.questions}">
     <a th:href="@{/questions/{id}(id=${question.id})}" th:text="${question.text}">Question</a>
+    <a th:href="@{/quizzes/play/{id}(id=${quizDTO.id})}">Jouer</a>
 </div>
 <p th:if="${#lists.isEmpty((quizDTO.questions))}">Aucune question</p>
 <a th:href="@{/quizzes/edit/{id}(id=${quizDTO.id})}">Modifier</a>
