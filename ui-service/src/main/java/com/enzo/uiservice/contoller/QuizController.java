@@ -1,7 +1,10 @@
 package com.enzo.uiservice.contoller;
 
 import com.enzo.uiservice.dto.QuizDTO;
+import com.enzo.uiservice.dto.QuizResultDTO;
+import com.enzo.uiservice.dto.QuizSubmissionDTO;
 import com.enzo.uiservice.proxy.QuizFeignClient;
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,5 +59,22 @@ public class QuizController {
     public String deleteQuiz(@PathVariable Long id) {
         quizFeignClient.deleteQuiz(id);
         return "redirect:/quizzes";
+    }
+
+    @GetMapping("/play/{id}")
+    public String playQuiz(@PathVariable Long id, Model model) {
+        QuizDTO quiz = quizFeignClient.getQuizById(id);
+        model.addAttribute("quiz", quiz);
+        model.addAttribute("submission", new QuizSubmissionDTO());
+        return "quiz-play";
+    }
+
+    @PostMapping("/play/{id}")
+    public String submitQuiz(@PathVariable Long id, @ModelAttribute QuizSubmissionDTO submission, HttpSession session, Model model) {
+        submission.setQuizId(id);
+        submission.setUserId(1L);
+        QuizResultDTO result = quizFeignClient.submitQuiz(submission);
+        model.addAttribute("result", result);
+        return "quiz-result";
     }
 }

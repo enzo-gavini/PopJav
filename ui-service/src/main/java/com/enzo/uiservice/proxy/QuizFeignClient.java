@@ -1,6 +1,8 @@
 package com.enzo.uiservice.proxy;
 
 import com.enzo.uiservice.dto.QuizDTO;
+import com.enzo.uiservice.dto.QuizResultDTO;
+import com.enzo.uiservice.dto.QuizSubmissionDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,4 +25,7 @@ public interface QuizFeignClient {
 
     @DeleteMapping("/{id}")
     public void deleteQuiz(@PathVariable Long id);
+
+    @PostMapping("/submit")
+    public QuizResultDTO submitQuiz(@RequestBody QuizSubmissionDTO submission);
 }

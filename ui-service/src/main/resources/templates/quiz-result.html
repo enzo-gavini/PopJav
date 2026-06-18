@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Résultat quiz</title>
+</head>
+<body>
+<h1 th:if="${result.passed}" style="color:green">Quiz réussi !</h1>
+<h1 th:if="${!result.passed}" style="color:red">Quiz raté</h1>
+
+<p>Score : <span th:text="${result.score}">0</span>%</p>
+<p>Questions : <span th:text="${result.totalQuestions}">0</span></p>
+<p>Vies restantes : <span th:text="${result.livesRemaining}">0</span></p>
+
+<h2>Détail des réponses</h2>
+<div th:each="detail : ${result.details}">
+    <div th:style="${detail.correct} ? 'color:green' : 'color:red'">
+        <p th:text="${detail.questionText}">Question</p>
+        <span th:if="${detail.correct}">✓ Correct</span>
+        <span th:if="${!detail.correct}">✗ Incorrect</span>
+    </div>
+</div>
+
+<a href="/quizzes">Retour aux quizzes</a>
+</body>
+</html>
