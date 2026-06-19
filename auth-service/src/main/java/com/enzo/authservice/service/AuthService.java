@@ -40,7 +40,7 @@ public class AuthService {
                 .roles(savedUser.getRole().name())
                 .build();
 
-        String token = jwtService.generateToken(userDetails);
+        String token = jwtService.generateToken(userDetails, savedUser.getId());
 
         AuthResponse response = new AuthResponse();
         response.setToken(token);
@@ -59,7 +59,7 @@ public class AuthService {
                 .roles(user.getRole().name())
                 .build();
 
-        String token = jwtService.generateToken(userDetails);
+        String token = jwtService.generateToken(userDetails, user.getId());
 
         AuthResponse response = new AuthResponse();
         response.setToken(token);
