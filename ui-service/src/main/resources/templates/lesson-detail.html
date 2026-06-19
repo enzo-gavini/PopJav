@@ -18,7 +18,7 @@
 <h2>Commentaires</h2>
 <form th:action="@{/comments/create}" th:object="${commentDTO}" method="post">
     <input type="hidden" name="lessonId" th:value="${lessonDTO.id}">
-    <input type="hidden" name="userId" value="1">
+    <input type="hidden" name="userId" th:value="${session.userId}">
     <textarea th:field="*{text}" placeholder="Écrire un commentaire"></textarea>
     <button type="submit">Commenter</button>
 </form>

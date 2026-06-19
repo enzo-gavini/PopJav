@@ -72,7 +72,7 @@ public class QuizController {
     @PostMapping("/play/{id}")
     public String submitQuiz(@PathVariable Long id, @ModelAttribute QuizSubmissionDTO submission, HttpSession session, Model model) {
         submission.setQuizId(id);
-        submission.setUserId(1L);
+        submission.setUserId((Long) session.getAttribute("userId"));
         QuizResultDTO result = quizFeignClient.submitQuiz(submission);
         model.addAttribute("result", result);
         return "quiz-result";

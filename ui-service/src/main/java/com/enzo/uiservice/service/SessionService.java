@@ -10,10 +10,16 @@ public class SessionService {
         session.setAttribute("token", token);
         String[] parts = token.split("\\.");
         String payload = new String(java.util.Base64.getUrlDecoder().decode(parts[1]));
+
         if (payload.contains("ADMIN")) {
             session.setAttribute("role", "ADMIN");
         } else {
             session.setAttribute("role", "USER");
         }
+
+        int start = payload.indexOf("\"userId\":") + 9;
+        int end = payload.indexOf(",", start);
+        if (end == -1) end = payload.indexOf("}", start);
+        session.setAttribute("userId", Long.parseLong(payload.substring(start, end)));
     }
 }
