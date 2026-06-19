@@ -5,6 +5,7 @@ import com.enzo.uiservice.dto.AuthResponseDTO;
 import com.enzo.uiservice.dto.LoginRequestDTO;
 import com.enzo.uiservice.dto.RegisterRequestDTO;
 import com.enzo.uiservice.proxy.AuthFeignClient;
+import com.enzo.uiservice.service.SessionService;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @AllArgsConstructor
 public class AuthController {
     private final AuthFeignClient authFeignClient;
+    private final SessionService sessionService;
 
     @GetMapping("/register")
     public String showRegisterPage(Model model) {
@@ -29,7 +31,7 @@ public class AuthController {
     @PostMapping("/register")
     public String register(@ModelAttribute RegisterRequestDTO request, HttpSession session) {
         AuthResponseDTO reponse = authFeignClient.register(request);
-        session.setAttribute("token", reponse.getToken());
+        sessionService.storeTokenAndRole(session, reponse.getToken());
         return "redirect:/";
     }
 
@@ -42,7 +44,7 @@ public class AuthController {
     @PostMapping("/login")
     public String login(@ModelAttribute LoginRequestDTO request, HttpSession session) {
         AuthResponseDTO response = authFeignClient.login(request);
-        session.setAttribute("token", response.getToken());
+        sessionService.storeTokenAndRole(session, response.getToken());
         return "redirect:/";
     }
 
