@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login</title>
-</head>
+<head th:replace="~{fragments/header :: header('Connexion')}"></head>
 <body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 <div>
     <form th:action="@{/auth/login}" th:object="${loginRequest}" method="post">
         <input type="email" th:field="*{email}" placeholder="Email">
@@ -13,5 +10,6 @@
         <button type="submit">Se connecter</button>
     </form>
 </div>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

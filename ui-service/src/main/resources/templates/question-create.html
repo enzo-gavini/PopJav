@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Créer une question</title>
-</head>
+<head th:replace="~{fragments/header :: header('Créer une question')}"></head>
 <body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 <h1>Créer une question</h1>
 <form th:action="@{/questions/create}" th:object="${questionDTO}" method="post">
     <input type="text" th:field="*{text}" placeholder="Text">
@@ -12,5 +10,6 @@
     <button type="submit">Créer</button>
 </form>
 <a href="/questions">Retour</a>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

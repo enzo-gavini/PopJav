@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Détail du quiz</title>
-</head>
+<head th:replace="~{fragments/header :: header('Détail du quiz')}"></head>
 <body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 <h1 th:text="${quizDTO.title}">Titre</h1>
 <p th:text="${quizDTO.lives}">Vie</p>
 <p th:text="${quizDTO.passingScore}">Score de passage</p>
@@ -18,5 +16,6 @@
 <a th:href="@{/quizzes/edit/{id}(id=${quizDTO.id})}">Modifier</a>
 <a th:href="@{/quizzes/delete/{id}(id=${quizDTO.id})}">Supprimer</a>
 <a href="/quizzes">Retour</a>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

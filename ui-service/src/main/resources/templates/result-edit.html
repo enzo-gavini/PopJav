@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Modifier un résultat</title>
-</head>
+<head th:replace="~{fragments/header :: header('Modifier un résultat')}"></head>
 <body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 <h1>Modifier un résultat</h1>
 <form th:action="@{/results/edit/{id}(id=${resultDTO.id})}" th:object="${resultDTO}" method="post">
     <input type="number" th:field="*{score}" placeholder="Score">
@@ -15,5 +13,6 @@
     <button type="submit">Modifier</button>
 </form>
 <a href="/results">Retour</a>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

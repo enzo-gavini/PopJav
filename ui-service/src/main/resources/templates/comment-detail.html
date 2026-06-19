@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Détail du commentaire</title>
-</head>
+<head th:replace="~{fragments/header :: header('Détail du commentaire')}"></head>
 <body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 <h1>Commentaire</h1>
 <p th:text="${commentDTO.text}">Texte</p>
 <small th:text="${commentDTO.createdAt}">Date</small>
@@ -12,5 +10,6 @@
 <a th:href="@{/comments/edit/{id}(id=${commentDTO.id})}">Modifier</a>
 <a th:href="@{/comments/delete/{id}(id=${commentDTO.id})}">Supprimer</a>
 <a href="/comments">Retour</a>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

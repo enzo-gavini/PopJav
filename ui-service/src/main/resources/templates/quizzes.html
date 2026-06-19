@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Quizs</title>
-</head>
+<head th:replace="~{fragments/header :: header('Quizs')}"></head>
 <body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 <h1>Liste des quizs</h1>
 <a href="/quizzes/create">Créer un quiz</a>
 
@@ -15,5 +13,6 @@
     <a th:href="@{/quizzes/edit/{id}(id=${quiz.id})}">Modifier</a>
     <a th:href="@{/quizzes/delete/{id}(id=${quiz.id})}">Supprimer</a>
 </div>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

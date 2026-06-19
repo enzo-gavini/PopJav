@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Modifier la leçon</title>
-</head>
+<head th:replace="~{fragments/header :: header('Modifier la leçon')}"></head>
 <body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 <h1>Modifier la leçon</h1>
 <form th:action="@{/lessons/edit/{id}(id=${lessonDTO.id})}" th:object="${lessonDTO}" method="post">
     <input type="text" th:field="*{title}" placeholder="Titre">
@@ -14,5 +12,6 @@
     <button type="submit">Modifier</button>
 </form>
 <a href="/lessons">Retour</a>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

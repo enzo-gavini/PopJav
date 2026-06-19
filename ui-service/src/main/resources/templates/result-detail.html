@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Détail du résultat</title>
-</head>
+<head th:replace="~{fragments/header :: header('Détail du résultat')}"></head>
 <body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 <h1>Résultat</h1>
 <p>Score : <span th:text="${resultDTO.score}">0</span></p>
 <p>Complété : <span th:text="${resultDTO.completed}">false</span></p>
@@ -13,5 +11,6 @@
 <a th:href="@{/results/edit/{id}(id=${resultDTO.id})}">Modifier</a>
 <a th:href="@{/results/delete/{id}(id=${resultDTO.id})}">Supprimer</a>
 <a href="/results">Retour</a>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

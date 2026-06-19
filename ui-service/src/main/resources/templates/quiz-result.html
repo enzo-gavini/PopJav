@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Résultat quiz</title>
-</head>
+<head th:replace="~{fragments/header :: header('Résultat quiz')}"></head>
 <body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 <h1 th:if="${result.passed}" style="color:green">Quiz réussi !</h1>
 <h1 th:if="${!result.passed}" style="color:red">Quiz raté</h1>
 
@@ -22,5 +20,7 @@
 </div>
 
 <a href="/quizzes">Retour aux quizzes</a>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>
