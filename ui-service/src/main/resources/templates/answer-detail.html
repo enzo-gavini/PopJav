@@ -7,8 +7,8 @@
 <p th:if="${answerDTO.correct}" style="color:green">✓ Correct</p>
 <p th:if="${!answerDTO.correct}" style="color:red">✗ Incorrect</p>
 
-<a th:href="@{/answers/edit/{id}(id=${answerDTO.id})}">Modifier</a>
-<a th:href="@{/answers/delete/{id}(id=${answerDTO.id})}">Supprimer</a>
+<a th:if="${session.role == 'ADMIN'}" th:href="@{/answers/edit/{id}(id=${answerDTO.id})}">Modifier</a>
+<a th:if="${session.role == 'ADMIN'}" th:href="@{/answers/delete/{id}(id=${answerDTO.id})}">Supprimer</a>
 <a href="/answers">Retour</a>
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>

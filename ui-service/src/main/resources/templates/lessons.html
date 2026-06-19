@@ -4,14 +4,14 @@
 <body>
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 <h1>Liste des leçons</h1>
-<a href="/lessons/create">Créer une leçons</a>
+<a th:if="${session.role == 'ADMIN'}" href="/lessons/create">Créer une leçons</a>
 
 <div th:each="lesson : ${lessons}">
     <h2 th:text="${lesson.title}">Titre</h2>
     <p>Ordre : <span th:text="${lesson.orderIndex}">0</span></p>
     <a th:href="@{/lessons/{id}(id=${lesson.id})}">Voir</a>
-    <a th:href="@{/lessons/edit/{id}(id=${lesson.id})}">Modifier</a>
-    <a th:href="@{/lessons/delete/{id}(id=${lesson.id})}">Supprimer</a>
+    <a th:if="${session.role == 'ADMIN'}" th:href="@{/lessons/edit/{id}(id=${lesson.id})}">Modifier</a>
+    <a th:if="${session.role == 'ADMIN'}" th:href="@{/lessons/delete/{id}(id=${lesson.id})}">Supprimer</a>
 </div>
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>

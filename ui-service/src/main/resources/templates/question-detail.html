@@ -15,8 +15,8 @@
 </div>
 <p th:if="${#lists.isEmpty(questionDTO.answers)}">Aucune réponse</p>
 
-<a th:href="@{/questions/edit/{id}(id=${questionDTO.id})}">Modifier</a>
-<a th:href="@{/questions/delete/{id}(id=${questionDTO.id})}">Supprimer</a>
+<a th:if="${session.role == 'ADMIN'}" th:href="@{/questions/edit/{id}(id=${questionDTO.id})}">Modifier</a>
+<a th:if="${session.role == 'ADMIN'}" th:href="@{/questions/delete/{id}(id=${questionDTO.id})}">Supprimer</a>
 <a href="/questions">Retour</a>
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>

@@ -8,8 +8,8 @@
 <p>Complété : <span th:text="${resultDTO.completed}">false</span></p>
 <p>Tentatives : <span th:text="${resultDTO.attempts}">0</span></p>
 
-<a th:href="@{/results/edit/{id}(id=${resultDTO.id})}">Modifier</a>
-<a th:href="@{/results/delete/{id}(id=${resultDTO.id})}">Supprimer</a>
+<a th:if="${session.role == 'ADMIN'}" th:href="@{/results/edit/{id}(id=${resultDTO.id})}">Modifier</a>
+<a th:if="${session.role == 'ADMIN'}" th:href="@{/results/delete/{id}(id=${resultDTO.id})}">Supprimer</a>
 <a href="/results">Retour</a>
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>

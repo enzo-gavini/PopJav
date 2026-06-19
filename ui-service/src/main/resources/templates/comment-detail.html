@@ -7,8 +7,8 @@
 <p th:text="${commentDTO.text}">Texte</p>
 <small th:text="${commentDTO.createdAt}">Date</small>
 
-<a th:href="@{/comments/edit/{id}(id=${commentDTO.id})}">Modifier</a>
-<a th:href="@{/comments/delete/{id}(id=${commentDTO.id})}">Supprimer</a>
+<a th:if="${session.role == 'ADMIN'}" th:href="@{/comments/edit/{id}(id=${commentDTO.id})}">Modifier</a>
+<a th:if="${session.role == 'ADMIN'}" th:href="@{/comments/delete/{id}(id=${commentDTO.id})}">Supprimer</a>
 <a href="/comments">Retour</a>
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>

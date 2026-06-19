@@ -13,8 +13,8 @@
 </div>
 <p th:if="${#lists.isEmpty(chapterDTO.lessons)}">Aucune leçon</p>
 
-<a th:href="@{/chapters/edit/{id}(id=${chapterDTO.id})}">Modifier</a>
-<a th:href="@{/chapters/delete/{id}(id=${chapterDTO.id})}">Supprimer</a>
+<a th:if="${session.role == 'ADMIN'}" th:href="@{/chapters/edit/{id}(id=${chapterDTO.id})}">Modifier</a>
+<a th:if="${session.role == 'ADMIN'}" th:href="@{/chapters/delete/{id}(id=${chapterDTO.id})}">Supprimer</a>
 <a href="/chapters">Retour</a>
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>

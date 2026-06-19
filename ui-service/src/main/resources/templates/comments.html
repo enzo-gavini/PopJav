@@ -4,14 +4,14 @@
 <body>
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 <h1>Liste des commentaires</h1>
-<a href="/comments/create">Créer un commentaire</a>
+<a th:if="${session.role == 'ADMIN'}" href="/comments/create">Créer un commentaire</a>
 
 <div th:each="comment : ${comments}">
     <p th:text="${comment.text}">Texte</p>
     <small th:text="${comment.createdAt}">Date</small>
     <a th:href="@{/comments/{id}(id=${comment.id})}">Voir</a>
-    <a th:href="@{/comments/edit/{id}(id=${comment.id})}">Modifier</a>
-    <a th:href="@{/comments/delete/{id}(id=${comment.id})}">Supprimer</a>
+    <a th:if="${session.role == 'ADMIN'}" th:href="@{/comments/edit/{id}(id=${comment.id})}">Modifier</a>
+    <a th:if="${session.role == 'ADMIN'}" th:href="@{/comments/delete/{id}(id=${comment.id})}">Supprimer</a>
 </div>
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>

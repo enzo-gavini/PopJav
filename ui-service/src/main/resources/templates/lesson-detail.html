@@ -14,8 +14,8 @@
 </div>
 <p th:if="${lessonDTO.quiz == null}">Aucun quiz</p>
 
-<a th:href="@{/lessons/edit/{id}(id=${lessonDTO.id})}">Modifier</a>
-<a th:href="@{/lessons/delete/{id}(id=${lessonDTO.id})}">Supprimer</a>
+<a th:if="${session.role == 'ADMIN'}" th:href="@{/lessons/edit/{id}(id=${lessonDTO.id})}">Modifier</a>
+<a th:if="${session.role == 'ADMIN'}" th:href="@{/lessons/delete/{id}(id=${lessonDTO.id})}">Supprimer</a>
 <a href="/lessons">Retour</a>
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
