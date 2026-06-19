@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home</title>
-</head>
+<head th:replace="~{fragments/header :: header('Accueil')}"></head>
 <body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 <h1>Bienvenue sur PopJav !</h1>
 <a href="/auth/login">Se connecter</a>
 <a href="/auth/register">S'inscrire</a>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>
