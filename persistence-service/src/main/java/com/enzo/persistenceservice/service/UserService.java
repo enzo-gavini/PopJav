@@ -29,11 +29,14 @@ public class UserService {
     }
 
     public User updateProfile(User user) {
-        User existingUser = findById(user.getId());
-        existingUser.setUsername(user.getUsername());
-        existingUser.setEmail(user.getEmail());
-        existingUser.setPassword(user.getPassword());
-        return userRepository.save(existingUser);
+        User existing = findById(user.getId());
+        existing.setUsername(user.getUsername());
+        existing.setEmail(user.getEmail());
+        existing.setRole(user.getRole());
+        if (user.getPassword() != null) {
+            existing.setPassword(user.getPassword());
+        }
+        return userRepository.save(existing);
     }
 
     public void delete(Long id) {
