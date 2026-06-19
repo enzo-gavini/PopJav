@@ -3,20 +3,37 @@
 <head th:replace="~{fragments/header :: header('Détail de la leçon')}"></head>
 <body>
 <div th:replace="~{fragments/navbar :: navbar}"></div>
+
 <h1 th:text="${lessonDTO.title}">Titre</h1>
 <p th:text="${lessonDTO.content}">Contenu</p>
 <p>Ordre : <span th:text="${lessonDTO.orderIndex}">0</span></p>
 
 <h2>Quiz</h2>
 <div th:if="${lessonDTO.quiz != null}">
-    <a th:href="@{/quizzes/{id}(id=${lessonDTO.quiz.id})}" th:text="${lessonDTO.quiz.title}">Quiz</a>
+    <a th:href="@{/quizzes/play/{id}(id=${lessonDTO.quiz.id})}" th:text="${lessonDTO.quiz.title}">Quiz</a>
     <a th:href="@{/quizzes/play/{id}(id=${lessonDTO.quiz.id})}">Jouer</a>
 </div>
 <p th:if="${lessonDTO.quiz == null}">Aucun quiz</p>
 
+<h2>Commentaires</h2>
+<form th:action="@{/comments/create}" th:object="${commentDTO}" method="post">
+    <input type="hidden" th:field="*{lessonId}" th:value="${lessonDTO.id}">
+    <input type="hidden" th:field="*{userId}" value="1">
+    <textarea th:field="*{text}" placeholder="Écrire un commentaire"></textarea>
+    <button type="submit">Commenter</button>
+</form>
+
+<div th:each="comment : ${comments}">
+    <p th:text="${comment.text}">Commentaire</p>
+    <small th:text="${comment.createdAt}">Date</small>
+    <a th:if="${session.role == 'ADMIN'}" th:href="@{/comments/delete/{id}(id=${comment.id}, lessonId=${lessonDTO.id})}">Supprimer</a>
+</div>
+<p th:if="${#lists.isEmpty(comments)}">Aucun commentaire</p>
+
 <a th:if="${session.role == 'ADMIN'}" th:href="@{/lessons/edit/{id}(id=${lessonDTO.id})}">Modifier</a>
 <a th:if="${session.role == 'ADMIN'}" th:href="@{/lessons/delete/{id}(id=${lessonDTO.id})}">Supprimer</a>
 <a href="/lessons">Retour</a>
+
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

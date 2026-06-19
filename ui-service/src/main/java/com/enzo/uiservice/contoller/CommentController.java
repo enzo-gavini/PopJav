@@ -37,7 +37,7 @@ public class CommentController {
     @PostMapping("/create")
     public String create(@ModelAttribute("commentDTO") CommentDTO comment) {
         commentFeignClient.save(comment);
-        return "redirect:/comments";
+        return "redirect:/lessons/" + comment.getLessonId();
     }
 
     @GetMapping("/edit/{id}")
@@ -53,9 +53,9 @@ public class CommentController {
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteComment(@PathVariable String id) {
+    public String deleteComment(@PathVariable String id, @RequestParam Long lessonId) {
         commentFeignClient.deleteComment(id);
-        return "redirect:/comments";
+        return "redirect:/lessons/" + lessonId;
     }
 
     @GetMapping("/user")

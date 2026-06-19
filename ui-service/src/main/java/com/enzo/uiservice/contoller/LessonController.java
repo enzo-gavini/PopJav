@@ -1,6 +1,8 @@
 package com.enzo.uiservice.contoller;
 
+import com.enzo.uiservice.dto.CommentDTO;
 import com.enzo.uiservice.dto.LessonDTO;
+import com.enzo.uiservice.proxy.CommentFeignClient;
 import com.enzo.uiservice.proxy.LessonFeignClient;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 public class LessonController {
     private final LessonFeignClient lessonFeignClient;
+    private final CommentFeignClient commentFeignClient;
 
     @GetMapping
     public String showLesson(Model model) {
@@ -25,6 +28,8 @@ public class LessonController {
     @GetMapping("/{id}")
     public String showLessonById(Model model, @PathVariable Long id) {
         model.addAttribute("lessonDTO", lessonFeignClient.getLessonById(id));
+        model.addAttribute("comments", commentFeignClient.findByLessonId(id));
+        model.addAttribute("commentDTO", new CommentDTO());
         return "lesson-detail";
     }
 
