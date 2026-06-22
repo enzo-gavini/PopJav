@@ -4,4 +4,5 @@
     <a th:if="${session.role == 'ADMIN'}" th:href="@{/chapters/create}">Admin</a>
     <a th:if="${session.token == null}" th:href="@{/auth/login}">Connexion</a>
     <a th:if="${session.token != null}" th:href="@{/auth/logout}">Déconnexion</a>
+    <a th:if="${session.token != null}" th:href="@{/profile}">Profil</a>
 </nav>
