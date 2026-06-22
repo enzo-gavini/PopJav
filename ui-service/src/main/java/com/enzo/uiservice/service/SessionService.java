@@ -23,7 +23,7 @@ public class SessionService {
 
         session.setAttribute("userId", Long.parseLong(payload.substring(start, end)));
 
-        int emailStart = payload.indexOf("\"sub\":\"") + 6;
+        int emailStart = payload.indexOf("\"sub\":\"") + 7;
         int emailEnd = payload.indexOf("\"", emailStart);
         session.setAttribute("email", payload.substring(emailStart, emailEnd));
     }
