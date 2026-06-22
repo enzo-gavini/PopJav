@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header('Erreur')}"></head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<h1>Oops !</h1>
+<p th:text="${message}">Une erreur est survenue</p>
+<a href="/">Retour à l'accueil</a>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>
