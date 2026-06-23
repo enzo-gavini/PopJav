@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('Connexion')}"></head>
-<body>
+<body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
-<div>
-    <form th:action="@{/auth/login}" th:object="${loginRequest}" method="post">
-        <input type="email" th:field="*{email}" placeholder="Email">
-        <input type="password" th:field="*{password}" placeholder="Password">
-        <button type="submit">Se connecter</button>
-    </form>
+
+<div class="form-container">
+    <div class="form-card">
+        <h1 class="form-title">Connexion</h1>
+        <form th:action="@{/auth/login}" th:object="${loginRequest}" method="post">
+            <input type="email" th:field="*{email}" placeholder="Email" class="form-input">
+            <input type="password" th:field="*{password}" placeholder="Mot de passe" class="form-input">
+            <button type="submit" class="form-btn">Se connecter</button>
+        </form>
+        <p class="form-link">Pas de compte ? <a th:href="@{/auth/register}">S'inscrire</a></p>
+    </div>
 </div>
+
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>
