@@ -1,0 +1,43 @@
+.footer {
+    background: linear-gradient(135deg, #4B1D74 0%, #6A2CA0 100%);
+    padding: 24px;
+    text-align: center;
+    margin-top: 32px;
+}
+
+.footer-brand {
+    font-family: 'Baloo 2', cursive;
+    font-size: 22px;
+    color: white;
+    margin-bottom: 8px;
+}
+
+.footer-brand span {
+    color: #FFC300;
+}
+
+.footer-techs {
+    color: rgba(255,255,255,0.7);
+    font-size: 12px;
+    margin-bottom: 12px;
+}
+
+.footer-links {
+    margin-bottom: 12px;
+}
+
+.footer-links a {
+    color: #FFC300;
+    text-decoration: none;
+    font-size: 12px;
+    margin: 0 8px;
+}
+
+.footer-links a:hover {
+    color: white;
+}
+
+.footer-copy {
+    color: rgba(255,255,255,0.7);
+    font-size: 12px;
+}

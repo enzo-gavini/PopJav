@@ -1,0 +1,23 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #F5F5F7;
+    color: #2C2C2C;
+}
+
+h1 {
+    font-family: 'Baloo 2', cursive;
+    color: #4B1D74;
+}
+
+h2 {
+    font-family: 'Baloo 2', cursive;
+    color: #6A2CA0;
+}
+
+a {
+    color: #F72585;
+}
+
+a:hover {
+    color: #FF4FA3;
+}

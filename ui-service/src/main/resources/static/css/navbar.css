@@ -1,0 +1,47 @@
+.navbar {
+    background: linear-gradient(135deg, #4B1D74 0%, #6A2CA0 50%, #9C6ADE 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 24px;
+}
+
+.nav-pill {
+    color: white;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 50px;
+    padding: 8px 24px;
+}
+
+.nav-pill:hover {
+    background: #F72585;
+    border-color: #F72585;
+    color: white;
+}
+
+.btn-connect {
+    background: linear-gradient(135deg, #F72585, #FF4FA3);
+    border-color: transparent;
+    color: white;
+}
+
+.btn-logout {
+    background: #F72585;
+    border-color: #F72585;
+}
+
+.btn-logout:hover {
+    background: #FF4FA3;
+    border-color: #FF4FA3;
+}
+
+.nav-logo {
+    width: 96px;
+    height: 96px;
+    object-fit: contain;
+}

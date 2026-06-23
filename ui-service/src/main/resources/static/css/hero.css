@@ -1,0 +1,35 @@
+.hero {
+    background: linear-gradient(135deg, #4B1D74 0%, #6A2CA0 40%, #F72585 100%);
+    padding: 60px 24px;
+    text-align: center;
+}
+
+.hero h1 {
+    color: white;
+}
+
+.hero-highlight {
+    color: #FFC300;
+}
+
+.hero-subtitle {
+    color: rgba(255,255,255,0.85);
+    font-size: 16px;
+    margin-bottom: 24px;
+}
+
+.hero-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #FFC300, #FFD84D);
+    color: #4B1D74;
+    font-weight: 700;
+    padding: 12px 32px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.hero-btn:hover {
+    color: #4B1D74;
+    opacity: 0.9;
+}

@@ -1,8 +1,10 @@
-<nav th:fragment="navbar">
-    <a th:href="@{/}">Accueil</a>
-    <a th:href="@{/chapters}">Chapitres</a>
-    <a th:if="${session.role == 'ADMIN'}" th:href="@{/chapters/create}">Admin</a>
-    <a th:if="${session.token == null}" th:href="@{/auth/login}">Connexion</a>
-    <a th:if="${session.token != null}" th:href="@{/auth/logout}">Déconnexion</a>
-    <a th:if="${session.token != null}" th:href="@{/profile}">Profil</a>
+<nav th:fragment="navbar" class="navbar">
+    <a th:href="@{/}" class="nav-pill">HOME</a>
+    <a th:href="@{/chapters}" class="nav-pill">Chapitres</a>
+    <a th:href="@{/}">
+        <img th:src="@{/images/logo.png}" alt="PopJav" class="nav-logo">
+    </a>
+    <a th:if="${session.token != null}" th:href="@{/profile}" class="nav-pill">Profil</a>
+    <a th:if="${session.token == null}" th:href="@{/auth/login}" class="nav-pill btn-connect">Connexion</a>
+    <a th:if="${session.token != null}" th:href="@{/auth/logout}" class="nav-pill btn-logout">Déconnexion</a>
 </nav>
