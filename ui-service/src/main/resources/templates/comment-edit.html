@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('Modifier un commentaire')}"></head>
-<body>
+<body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
-<h1>Modifier un commentaire</h1>
-<form th:action="@{/comments/edit/{id}(id=${commentDTO.id})}" th:object="${commentDTO}" method="post">
-    <textarea th:field="*{text}" placeholder="Votre commentaire"></textarea>
-    <button type="submit">Modifier</button>
-</form>
-<a href="/comments">Retour</a>
+
+<div class="form-container">
+    <div class="form-card">
+        <h1 class="form-title">Modifier un commentaire</h1>
+        <form th:action="@{/comments/edit/{id}(id=${commentDTO.id})}" th:object="${commentDTO}" method="post">
+            <textarea th:field="*{text}" placeholder="Votre commentaire" class="form-input form-textarea"></textarea>
+            <button type="submit" class="form-btn">Modifier</button>
+        </form>
+        <p class="form-link"><a th:href="@{/comments}">Retour aux commentaires</a></p>
+    </div>
+</div>
+
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

@@ -66,3 +66,17 @@
 .form-link a:hover {
     color: #FF4FA3;
 }
+
+.form-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: #2C2C2C;
+}
+
+.form-textarea {
+    min-height: 100px;
+    resize: vertical;
+}

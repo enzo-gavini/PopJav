@@ -59,6 +59,38 @@
     color: white;
 }
 
+.card-btn-secondary {
+    background: linear-gradient(135deg, #FFC300, #FFD84D);
+    color: #4B1D74;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.card-btn-secondary:hover {
+    opacity: 0.9;
+    color: #4B1D74;
+}
+
+.card-btn-danger {
+    background: linear-gradient(135deg, #dc2626, #ef4444);
+    color: white;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.card-btn-danger:hover {
+    opacity: 0.9;
+    color: white;
+}
+
 .quiz-banner {
     background: linear-gradient(135deg, #F72585 0%, #FF4FA3 50%, #FFC300 100%);
     border-radius: 12px;

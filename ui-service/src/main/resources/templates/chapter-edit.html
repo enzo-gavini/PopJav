@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/header :: header('Modifier le chapitre')}"></head>
-<body>
+<head th:replace="~{fragments/header :: header('Modifier un chapitre')}"></head>
+<body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
-<h1>Modifier le chapitre</h1>
-<form th:action="@{/chapters/edit/{id}(id=${chapterDTO.id})}" th:object="${chapterDTO}" method="post">
-    <input type="text" th:field="*{title}" placeholder="Titre">
-    <input type="text" th:field="*{description}" placeholder="Description">
-    <input type="number" th:field="*{orderIndex}" placeholder="Ordre">
-    <button type="submit">Modifier</button>
-</form>
-<a href="/chapters">Retour</a>
+
+<div class="form-container">
+    <div class="form-card">
+        <h1 class="form-title">Modifier un chapitre</h1>
+        <form th:action="@{/chapters/edit/{id}(id=${chapterDTO.id})}" th:object="${chapterDTO}" method="post">
+            <input type="text" th:field="*{title}" placeholder="Titre" class="form-input">
+            <input type="text" th:field="*{description}" placeholder="Description" class="form-input">
+            <input type="number" th:field="*{orderIndex}" placeholder="Ordre" class="form-input">
+            <button type="submit" class="form-btn">Modifier</button>
+        </form>
+        <p class="form-link"><a th:href="@{/chapters}">Retour aux chapitres</a></p>
+    </div>
+</div>
+
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>
