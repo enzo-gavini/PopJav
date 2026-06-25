@@ -18,6 +18,7 @@ public class Lesson {
     private Long id;
     @NotBlank
     private String title;
+    @Column(columnDefinition = "TEXT")
     private String content;
     private int orderIndex;
 

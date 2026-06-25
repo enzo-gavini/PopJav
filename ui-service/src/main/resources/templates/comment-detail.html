@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('Détail du commentaire')}"></head>
-<body>
+<body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
-<h1>Commentaire</h1>
-<p th:text="${commentDTO.text}">Texte</p>
-<small th:text="${commentDTO.createdAt}">Date</small>
 
-<a th:if="${session.role == 'ADMIN'}" th:href="@{/comments/edit/{id}(id=${commentDTO.id})}">Modifier</a>
-<a th:if="${session.role == 'ADMIN'}" th:href="@{/comments/delete/{id}(id=${commentDTO.id})}">Supprimer</a>
-<a href="/comments">Retour</a>
+<div class="detail-container">
+    <div class="detail-card">
+        <h1>Commentaire</h1>
+        <p th:text="${commentDTO.text}">Texte</p>
+        <small style="color:#888;" th:text="${commentDTO.createdAt}">Date</small>
+
+        <div class="detail-actions">
+            <a th:if="${session.role == 'ADMIN'}" th:href="@{/comments/edit/{id}(id=${commentDTO.id})}" class="card-btn-secondary">Modifier</a>
+            <a th:if="${session.role == 'ADMIN'}" th:href="@{/comments/delete/{id}(id=${commentDTO.id})}" class="card-btn-danger">Supprimer</a>
+            <a th:href="@{/comments}" class="card-btn">Retour</a>
+        </div>
+    </div>
+</div>
+
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

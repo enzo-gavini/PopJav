@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('Leçons')}"></head>
-<body>
+<body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
-<h1>Liste des leçons</h1>
-<a th:if="${session.role == 'ADMIN'}" href="/lessons/create">Créer une leçons</a>
 
-<div th:each="lesson : ${lessons}">
-    <h2 th:text="${lesson.title}">Titre</h2>
-    <p>Ordre : <span th:text="${lesson.orderIndex}">0</span></p>
-    <a th:href="@{/lessons/{id}(id=${lesson.id})}">Voir</a>
-    <a th:if="${session.role == 'ADMIN'}" th:href="@{/lessons/edit/{id}(id=${lesson.id})}">Modifier</a>
-    <a th:if="${session.role == 'ADMIN'}" th:href="@{/lessons/delete/{id}(id=${lesson.id})}">Supprimer</a>
-</div>
+<main class="flex-grow max-w-4xl mx-auto p-6 w-full">
+    <h1 class="text-center text-3xl mb-6">Leçons</h1>
+    <a th:if="${session.role == 'ADMIN'}" th:href="@{/lessons/create}" class="card-btn mb-4 inline-block">Créer une leçon</a>
+
+    <div class="cards">
+        <div th:each="lesson : ${lessons}" class="card">
+            <div>
+                <h3 th:text="${lesson.title}">Titre</h3>
+            </div>
+            <div class="flex gap-2 items-center">
+                <a th:href="@{/lessons/{id}(id=${lesson.id})}" class="card-btn">Voir</a>
+                <a th:if="${session.role == 'ADMIN'}" th:href="@{/lessons/edit/{id}(id=${lesson.id})}" class="card-btn-secondary">Modifier</a>
+                <a th:if="${session.role == 'ADMIN'}" th:href="@{/lessons/delete/{id}(id=${lesson.id})}" class="card-btn-danger">Supprimer</a>
+            </div>
+        </div>
+    </div>
+</main>
+
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

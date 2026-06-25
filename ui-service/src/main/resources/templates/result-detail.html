@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('Détail du résultat')}"></head>
-<body>
+<body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
-<h1>Résultat</h1>
-<p>Score : <span th:text="${resultDTO.score}">0</span></p>
-<p>Complété : <span th:text="${resultDTO.completed}">false</span></p>
-<p>Tentatives : <span th:text="${resultDTO.attempts}">0</span></p>
 
-<a th:if="${session.role == 'ADMIN'}" th:href="@{/results/edit/{id}(id=${resultDTO.id})}">Modifier</a>
-<a th:if="${session.role == 'ADMIN'}" th:href="@{/results/delete/{id}(id=${resultDTO.id})}">Supprimer</a>
-<a href="/results">Retour</a>
+<div class="detail-container">
+    <div class="detail-card">
+        <h1>Résultat</h1>
+        <p>Score : <span th:text="${resultDTO.score}">0</span>%</p>
+        <p>Complété : <span th:text="${resultDTO.completed}">false</span></p>
+        <p>Tentatives : <span th:text="${resultDTO.attempts}">0</span></p>
+
+        <div class="detail-actions">
+            <a th:if="${session.role == 'ADMIN'}" th:href="@{/results/edit/{id}(id=${resultDTO.id})}" class="card-btn-secondary">Modifier</a>
+            <a th:if="${session.role == 'ADMIN'}" th:href="@{/results/delete/{id}(id=${resultDTO.id})}" class="card-btn-danger">Supprimer</a>
+            <a th:href="@{/results}" class="card-btn">Retour</a>
+        </div>
+    </div>
+</div>
+
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

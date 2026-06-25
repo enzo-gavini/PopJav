@@ -20,6 +20,7 @@ public class Chapter {
 
     @NotBlank
     private String title;
+    @Column(columnDefinition = "TEXT")
     private String description;
     private int orderIndex;
     @OneToMany(mappedBy = "chapter")

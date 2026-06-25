@@ -4,12 +4,12 @@
 <body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<div class="form-container">
+<div class="form-container-lg">
     <div class="form-card">
         <h1 class="form-title">Modifier un chapitre</h1>
         <form th:action="@{/chapters/edit/{id}(id=${chapterDTO.id})}" th:object="${chapterDTO}" method="post">
             <input type="text" th:field="*{title}" placeholder="Titre" class="form-input">
-            <input type="text" th:field="*{description}" placeholder="Description" class="form-input">
+            <textarea th:field="*{description}" placeholder="Description" class="form-input form-textarea"></textarea>
             <input type="number" th:field="*{orderIndex}" placeholder="Ordre" class="form-input">
             <button type="submit" class="form-btn">Modifier</button>
         </form>

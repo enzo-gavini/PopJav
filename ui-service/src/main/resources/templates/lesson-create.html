@@ -4,12 +4,12 @@
 <body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<div class="form-container">
+<div class="form-container-lg">
     <div class="form-card">
         <h1 class="form-title">Créer une leçon</h1>
         <form th:action="@{/lessons/create}" th:object="${lessonDTO}" method="post">
             <input type="text" th:field="*{title}" placeholder="Titre" class="form-input">
-            <input type="text" th:field="*{content}" placeholder="Contenu" class="form-input">
+            <textarea th:field="*{content}" placeholder="Contenu de la leçon" class="form-input form-textarea"></textarea>
             <input type="number" th:field="*{orderIndex}" placeholder="Ordre" class="form-input">
             <input type="number" th:field="*{chapterId}" placeholder="ID du chapitre" class="form-input">
             <button type="submit" class="form-btn">Créer</button>

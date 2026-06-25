@@ -1,38 +1,51 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('Détail de la leçon')}"></head>
-<body>
+<body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<h1 th:text="${lessonDTO.title}">Titre</h1>
-<p th:text="${lessonDTO.content}">Contenu</p>
-<p>Ordre : <span th:text="${lessonDTO.orderIndex}">0</span></p>
+<div class="detail-container">
+    <div class="detail-card">
+        <h1 th:text="${lessonDTO.title}">Titre</h1>
+        <p th:text="${lessonDTO.content}">Contenu</p>
+        <p>Ordre : <span th:text="${lessonDTO.orderIndex}">0</span></p>
 
-<h2>Quiz</h2>
-<div th:if="${lessonDTO.quiz != null}">
-    <a th:href="@{/quizzes/play/{id}(id=${lessonDTO.quiz.id})}" th:text="${lessonDTO.quiz.title}">Quiz</a>
-    <a th:href="@{/quizzes/play/{id}(id=${lessonDTO.quiz.id})}">Jouer</a>
+        <div class="detail-section">
+            <h2>Quiz</h2>
+            <div th:if="${lessonDTO.quiz != null}" class="card">
+                <div>
+                    <h3 th:text="${lessonDTO.quiz.title}">Quiz</h3>
+                </div>
+                <a th:href="@{/quizzes/play/{id}(id=${lessonDTO.quiz.id})}" class="card-btn">Jouer</a>
+            </div>
+            <p th:if="${lessonDTO.quiz == null}">Aucun quiz</p>
+        </div>
+
+        <div class="detail-section">
+            <h2>Commentaires</h2>
+            <form th:action="@{/comments/create}" th:object="${commentDTO}" method="post" style="margin-bottom:16px;">
+                <input type="hidden" name="lessonId" th:value="${lessonDTO.id}">
+                <input type="hidden" name="userId" th:value="${session.userId}">
+                <textarea th:field="*{text}" placeholder="Écrire un commentaire" class="form-input form-textarea" style="min-height:80px;"></textarea>
+                <button type="submit" class="form-btn">Commenter</button>
+            </form>
+            <div th:each="comment : ${comments}" class="card">
+                <div>
+                    <p th:text="${comment.text}">Commentaire</p>
+                    <small style="color:#888;" th:text="${comment.createdAt}">Date</small>
+                </div>
+                <a th:if="${session.role == 'ADMIN'}" th:href="@{/comments/delete/{id}(id=${comment.id}, lessonId=${lessonDTO.id})}" class="card-btn-danger">Supprimer</a>
+            </div>
+            <p th:if="${#lists.isEmpty(comments)}">Aucun commentaire</p>
+        </div>
+
+        <div class="detail-actions">
+            <a th:if="${session.role == 'ADMIN'}" th:href="@{/lessons/edit/{id}(id=${lessonDTO.id})}" class="card-btn-secondary">Modifier</a>
+            <a th:if="${session.role == 'ADMIN'}" th:href="@{/lessons/delete/{id}(id=${lessonDTO.id})}" class="card-btn-danger">Supprimer</a>
+            <a th:href="@{/lessons}" class="card-btn">Retour</a>
+        </div>
+    </div>
 </div>
-<p th:if="${lessonDTO.quiz == null}">Aucun quiz</p>
-
-<h2>Commentaires</h2>
-<form th:action="@{/comments/create}" th:object="${commentDTO}" method="post">
-    <input type="hidden" name="lessonId" th:value="${lessonDTO.id}">
-    <input type="hidden" name="userId" th:value="${session.userId}">
-    <textarea th:field="*{text}" placeholder="Écrire un commentaire"></textarea>
-    <button type="submit">Commenter</button>
-</form>
-
-<div th:each="comment : ${comments}">
-    <p th:text="${comment.text}">Commentaire</p>
-    <small th:text="${comment.createdAt}">Date</small>
-    <a th:if="${session.role == 'ADMIN'}" th:href="@{/comments/delete/{id}(id=${comment.id}, lessonId=${lessonDTO.id})}">Supprimer</a>
-</div>
-<p th:if="${#lists.isEmpty(comments)}">Aucun commentaire</p>
-
-<a th:if="${session.role == 'ADMIN'}" th:href="@{/lessons/edit/{id}(id=${lessonDTO.id})}">Modifier</a>
-<a th:if="${session.role == 'ADMIN'}" th:href="@{/lessons/delete/{id}(id=${lessonDTO.id})}">Supprimer</a>
-<a href="/lessons">Retour</a>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>

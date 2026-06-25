@@ -1,21 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('Détail du quiz')}"></head>
-<body>
+<body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
-<h1 th:text="${quizDTO.title}">Titre</h1>
-<p th:text="${quizDTO.lives}">Vie</p>
-<p th:text="${quizDTO.passingScore}">Score de passage</p>
 
-<h2>Questions</h2>
-<div th:each="question : ${quizDTO.questions}">
-    <a th:href="@{/questions/{id}(id=${question.id})}" th:text="${question.text}">Question</a>
-    <a th:href="@{/quizzes/play/{id}(id=${quizDTO.id})}">Jouer</a>
+<div class="detail-container">
+    <div class="detail-card">
+        <h1 th:text="${quizDTO.title}">Titre</h1>
+        <p>Vies : <span th:text="${quizDTO.lives}">0</span></p>
+        <p>Score de passage : <span th:text="${quizDTO.passingScore}">0</span>%</p>
+
+        <div class="detail-section">
+            <h2>Questions</h2>
+            <div class="cards">
+                <div th:each="question : ${quizDTO.questions}" class="card">
+                    <div>
+                        <h3 th:text="${question.text}">Question</h3>
+                    </div>
+                    <a th:href="@{/questions/{id}(id=${question.id})}" class="card-btn">Voir</a>
+                </div>
+            </div>
+            <p th:if="${#lists.isEmpty(quizDTO.questions)}">Aucune question</p>
+        </div>
+
+        <div class="detail-actions">
+            <a th:href="@{/quizzes/play/{id}(id=${quizDTO.id})}" class="card-btn">Jouer</a>
+            <a th:if="${session.role == 'ADMIN'}" th:href="@{/quizzes/edit/{id}(id=${quizDTO.id})}" class="card-btn-secondary">Modifier</a>
+            <a th:if="${session.role == 'ADMIN'}" th:href="@{/quizzes/delete/{id}(id=${quizDTO.id})}" class="card-btn-danger">Supprimer</a>
+            <a th:href="@{/quizzes}" class="card-btn">Retour</a>
+        </div>
+    </div>
 </div>
-<p th:if="${#lists.isEmpty((quizDTO.questions))}">Aucune question</p>
-<a th:if="${session.role == 'ADMIN'}" th:href="@{/quizzes/edit/{id}(id=${quizDTO.id})}">Modifier</a>
-<a th:if="${session.role == 'ADMIN'}" th:href="@{/quizzes/delete/{id}(id=${quizDTO.id})}">Supprimer</a>
-<a href="/quizzes">Retour</a>
+
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

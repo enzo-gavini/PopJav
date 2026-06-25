@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('Détail de la réponse')}"></head>
-<body>
+<body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
-<h1 th:text="${answerDTO.text}">Réponse</h1>
-<p th:if="${answerDTO.correct}" style="color:green">✓ Correct</p>
-<p th:if="${!answerDTO.correct}" style="color:red">✗ Incorrect</p>
 
-<a th:if="${session.role == 'ADMIN'}" th:href="@{/answers/edit/{id}(id=${answerDTO.id})}">Modifier</a>
-<a th:if="${session.role == 'ADMIN'}" th:href="@{/answers/delete/{id}(id=${answerDTO.id})}">Supprimer</a>
-<a href="/answers">Retour</a>
+<div class="detail-container">
+    <div class="detail-card">
+        <h1 th:text="${answerDTO.text}">Réponse</h1>
+        <p th:if="${answerDTO.correct}" style="color:#22c55e;font-weight:600;">✓ Réponse correcte</p>
+        <p th:if="${!answerDTO.correct}" style="color:#dc2626;font-weight:600;">✗ Réponse incorrecte</p>
+
+        <div class="detail-actions">
+            <a th:if="${session.role == 'ADMIN'}" th:href="@{/answers/edit/{id}(id=${answerDTO.id})}" class="card-btn-secondary">Modifier</a>
+            <a th:if="${session.role == 'ADMIN'}" th:href="@{/answers/delete/{id}(id=${answerDTO.id})}" class="card-btn-danger">Supprimer</a>
+            <a th:href="@{/answers}" class="card-btn">Retour</a>
+        </div>
+    </div>
+</div>
+
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

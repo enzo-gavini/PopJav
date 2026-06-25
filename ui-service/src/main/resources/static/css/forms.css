@@ -4,6 +4,12 @@
     padding: 0 16px;
 }
 
+.form-container-lg {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 0 16px;
+}
+
 .form-card {
     background: white;
     border-radius: 12px;
@@ -30,6 +36,11 @@
 
 .form-input:focus {
     border-color: #6A2CA0;
+}
+
+.form-textarea {
+    min-height: 200px;
+    resize: vertical;
 }
 
 .form-btn {
@@ -74,9 +85,4 @@
     margin-bottom: 16px;
     font-size: 14px;
     color: #2C2C2C;
-}
-
-.form-textarea {
-    min-height: 100px;
-    resize: vertical;
 }

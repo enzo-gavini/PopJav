@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('Résultats')}"></head>
-<body>
+<body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
-<h1>Liste des résultats</h1>
 
-<div th:each="result : ${results}">
-    <p>Score : <span th:text="${result.score}">0</span></p>
-    <p>Complété : <span th:text="${result.completed}">false</span></p>
-    <p>Tentatives : <span th:text="${result.attempts}">0</span></p>
-    <a th:href="@{/results/{id}(id=${result.id})}">Voir</a>
-    <a th:href="@{/results/edit/{id}(id=${result.id})}">Modifier</a>
-    <a th:href="@{/results/delete/{id}(id=${result.id})}">Supprimer</a>
-</div>
+<main class="flex-grow max-w-4xl mx-auto p-6 w-full">
+    <h1 class="text-center text-3xl mb-6">Résultats</h1>
+
+    <div class="cards">
+        <div th:each="result : ${results}" class="card">
+            <div>
+                <h3>Score : <span th:text="${result.score}">0</span>%</h3>
+                <p>Tentatives : <span th:text="${result.attempts}">0</span></p>
+            </div>
+            <div class="flex gap-2 items-center">
+                <a th:href="@{/results/{id}(id=${result.id})}" class="card-btn">Voir</a>
+                <a th:if="${session.role == 'ADMIN'}" th:href="@{/results/delete/{id}(id=${result.id})}" class="card-btn-danger">Supprimer</a>
+            </div>
+        </div>
+    </div>
+</main>
+
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

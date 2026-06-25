@@ -1,21 +1,36 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('Détail du chapitre')}"></head>
-<body>
+<body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
-<h1 th:text="${chapterDTO.title}">Titre</h1>
-<p th:text="${chapterDTO.description}">Description</p>
-<p>Ordre : <span th:text="${chapterDTO.orderIndex}">0</span></p>
 
-<h2>Leçons</h2>
-<div th:each="lesson : ${chapterDTO.lessons}">
-    <a th:href="@{/lessons/{id}(id=${lesson.id})}" th:text="${lesson.title}">Leçon</a>
+<div class="detail-container">
+    <div class="detail-card">
+        <h1 th:text="${chapterDTO.title}">Titre</h1>
+        <p th:text="${chapterDTO.description}">Description</p>
+        <p>Ordre : <span th:text="${chapterDTO.orderIndex}">0</span></p>
+
+        <div class="detail-section">
+            <h2>Leçons</h2>
+            <div class="cards">
+                <div th:each="lesson : ${chapterDTO.lessons}" class="card">
+                    <div>
+                        <h3 th:text="${lesson.title}">Leçon</h3>
+                    </div>
+                    <a th:href="@{/lessons/{id}(id=${lesson.id})}" class="card-btn">Voir</a>
+                </div>
+            </div>
+            <p th:if="${#lists.isEmpty(chapterDTO.lessons)}">Aucune leçon</p>
+        </div>
+
+        <div class="detail-actions">
+            <a th:if="${session.role == 'ADMIN'}" th:href="@{/chapters/edit/{id}(id=${chapterDTO.id})}" class="card-btn-secondary">Modifier</a>
+            <a th:if="${session.role == 'ADMIN'}" th:href="@{/chapters/delete/{id}(id=${chapterDTO.id})}" class="card-btn-danger">Supprimer</a>
+            <a th:href="@{/chapters}" class="card-btn">Retour</a>
+        </div>
+    </div>
 </div>
-<p th:if="${#lists.isEmpty(chapterDTO.lessons)}">Aucune leçon</p>
 
-<a th:if="${session.role == 'ADMIN'}" th:href="@{/chapters/edit/{id}(id=${chapterDTO.id})}">Modifier</a>
-<a th:if="${session.role == 'ADMIN'}" th:href="@{/chapters/delete/{id}(id=${chapterDTO.id})}">Supprimer</a>
-<a href="/chapters">Retour</a>
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

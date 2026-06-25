@@ -1,19 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('Chapitres')}"></head>
-<body>
+<body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
-<h1>Liste des chapitres</h1>
-<a th:if="${session.role == 'ADMIN'}" href="/chapters/create">Créer un chapitre</a>
 
-<div th:each="chapter : ${chapters}">
-    <h2 th:text="${chapter.title}">Titre</h2>
-    <p th:text="${chapter.description}">Description</p>
-    <p>Ordre : <span th:text="${chapter.orderIndex}">0</span></p>
-    <a th:href="@{/chapters/{id}(id=${chapter.id})}">Voir</a>
-    <a th:if="${session.role == 'ADMIN'}" th:href="@{/chapters/edit/{id}(id=${chapter.id})}">Modifier</a>
-    <a th:if="${session.role == 'ADMIN'}" th:href="@{/chapters/delete/{id}(id=${chapter.id})}">Supprimer</a>
-</div>
+<main class="flex-grow max-w-4xl mx-auto p-6 w-full">
+    <h1 class="text-center text-3xl mb-6">Chapitres</h1>
+    <a th:if="${session.role == 'ADMIN'}" th:href="@{/chapters/create}" class="card-btn mb-4 inline-block">Créer un chapitre</a>
+
+    <div class="cards">
+        <div th:each="chapter : ${chapters}" class="card">
+            <div>
+                <h3 th:text="${chapter.title}">Titre</h3>
+                <p th:text="${chapter.description}">Description</p>
+            </div>
+            <div class="flex gap-2 items-center">
+                <a th:href="@{/chapters/{id}(id=${chapter.id})}" class="card-btn">Voir</a>
+                <a th:if="${session.role == 'ADMIN'}" th:href="@{/chapters/edit/{id}(id=${chapter.id})}" class="card-btn-secondary">Modifier</a>
+                <a th:if="${session.role == 'ADMIN'}" th:href="@{/chapters/delete/{id}(id=${chapter.id})}" class="card-btn-danger">Supprimer</a>
+            </div>
+        </div>
+    </div>
+</main>
+
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

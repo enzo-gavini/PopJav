@@ -91,6 +91,62 @@
     color: white;
 }
 
+.detail-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px;
+}
+
+.detail-card {
+    background: white;
+    border-radius: 12px;
+    padding: 48px;
+    box-shadow: 0 4px 12px rgba(75, 29, 116, 0.15);
+}
+
+.detail-card h1 {
+    margin-bottom: 24px;
+    font-size: 36px;
+}
+
+.detail-card p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #2C2C2C;
+    margin-bottom: 12px;
+}
+
+.detail-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 3px solid #F5F5F7;
+}
+
+.detail-section {
+    margin-top: 40px;
+    padding: 24px;
+    background: #F5F5F7;
+    border-radius: 12px;
+    border-left: 4px solid #6A2CA0;
+}
+
+.detail-section h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+.detail-section .card {
+    box-shadow: 0 4px 12px rgba(75, 29, 116, 0.15);
+    margin-bottom: 12px;
+    background: white;
+}
+
+.detail-section .cards {
+    gap: 16px;
+}
+
 .quiz-banner {
     background: linear-gradient(135deg, #F72585 0%, #FF4FA3 50%, #FFC300 100%);
     border-radius: 12px;
