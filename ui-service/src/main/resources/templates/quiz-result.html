@@ -1,25 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/header :: header('Résultat quiz')}"></head>
-<body>
+<head th:replace="~{fragments/header :: header('Résultat du quiz')}"></head>
+<body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
-<h1 th:if="${result.passed}" style="color:green">Quiz réussi !</h1>
-<h1 th:if="${!result.passed}" style="color:red">Quiz raté</h1>
 
-<p>Score : <span th:text="${result.score}">0</span>%</p>
-<p>Questions : <span th:text="${result.totalQuestions}">0</span></p>
-<p>Vies restantes : <span th:text="${result.livesRemaining}">0</span></p>
+<div class="detail-container">
+    <div class="detail-card" style="text-align:center;">
+        <h1 th:if="${result.passed}" style="color:#22c55e;">Quiz réussi !</h1>
+        <h1 th:if="${!result.passed}" style="color:#dc2626;">Quiz raté</h1>
 
-<h2>Détail des réponses</h2>
-<div th:each="detail : ${result.details}">
-    <div th:style="${detail.correct} ? 'color:green' : 'color:red'">
-        <p th:text="${detail.questionText}">Question</p>
-        <span th:if="${detail.correct}">✓ Correct</span>
-        <span th:if="${!detail.correct}">✗ Incorrect</span>
+        <div class="quiz-result-stats">
+            <p class="quiz-result-score" th:text="${result.score} + '%'">0%</p>
+            <p>Questions : <span th:text="${result.totalQuestions}">0</span></p>
+            <p>Vies restantes : <span th:text="${result.livesRemaining}">0</span></p>
+        </div>
+
+        <div class="detail-section" style="text-align:left;">
+            <h2>Détail des réponses</h2>
+            <div th:each="detail : ${result.details}" class="quiz-result-detail">
+                <div th:if="${detail.correct}" class="quiz-result-correct">
+                    <p th:text="${detail.questionText}">Question</p>
+                    <span>✓ Correct</span>
+                </div>
+                <div th:if="${!detail.correct}" class="quiz-result-incorrect">
+                    <p th:text="${detail.questionText}">Question</p>
+                    <span>✗ Incorrect</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="detail-actions" style="justify-content:center;">
+            <a th:href="@{/quizzes}" class="card-btn">Retour aux quiz</a>
+        </div>
     </div>
 </div>
-
-<a href="/quizzes">Retour aux quizzes</a>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>

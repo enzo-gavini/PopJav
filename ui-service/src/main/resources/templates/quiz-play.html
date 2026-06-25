@@ -1,23 +1,38 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/header :: header('Quiz-partie')}"></head>
-<body>
+<head th:replace="~{fragments/header :: header('Quiz')}"></head>
+<body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
-<form th:action="@{/quizzes/play/{id}(id=${quiz.id})}" method="post">
-    <div th:each="question : ${quiz.questions}">
-        <h3 th:text="${question.text}">Questions</h3>
 
-        <div th:each="answer : ${question.answers}">
-            <label>
-                <input type="radio"
-                       th:name="'answers[' + ${question.id} + ']'"
-                       th:value="${answer.id}">
-                <span th:text="${answer.text}">Réponse</span>
-            </label>
-        </div>
+<div class="detail-container">
+    <div class="detail-card" style="text-align:center;">
+        <h1 th:text="${quiz.title}">Quiz</h1>
+        <p>Vies : <span th:text="${quiz.lives}">0</span></p>
+        <p id="question-counter" class="quiz-counter">1 / 3</p>
+
+        <form th:action="@{/quizzes/play/{id}(id=${quiz.id})}" method="post">
+            <div th:each="question : ${quiz.questions}" class="quiz-question">
+                <h3 class="quiz-question-text" th:text="${question.text}">Question</h3>
+                <div class="quiz-answers-grid">
+                    <label th:each="answer : ${question.answers}" class="quiz-radio">
+                        <input type="radio"
+                               th:name="'answers[' + ${question.id} + ']'"
+                               th:value="${answer.id}">
+                        <span th:text="${answer.text}">Réponse</span>
+                    </label>
+                </div>
+            </div>
+
+            <div style="margin-top:32px;display:flex;justify-content:center;gap:12px;">
+                <button type="button" id="prev-btn" class="card-btn-secondary" style="padding:10px 24px;font-size:14px;border:none;cursor:pointer;">Précédent</button>
+                <button type="button" id="next-btn" class="card-btn" style="padding:10px 24px;font-size:14px;border:none;cursor:pointer;">Suivant</button>
+                <button type="submit" id="submit-btn" class="form-btn" style="width:auto;padding:10px 32px;display:none;">Valider</button>
+            </div>
+        </form>
     </div>
-    <button type="submit">Valider</button>
-</form>
+</div>
+
+<script th:src="@{/js/quiz.js}"></script>
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>
