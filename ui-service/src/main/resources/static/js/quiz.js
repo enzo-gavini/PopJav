@@ -4,10 +4,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const nextBtn = document.getElementById('next-btn');
     const submitBtn = document.getElementById('submit-btn');
     const counter = document.getElementById('question-counter');
+    const timerDisplay = document.getElementById('quiz-timer');
     let current = 0;
 
     function showQuestion(index) {
-        questions.forEach((q, i) => {
+        questions.forEach(function(q, i) {
             q.style.display = i === index ? 'block' : 'none';
         });
         counter.textContent = (index + 1) + ' / ' + questions.length;
@@ -30,4 +31,25 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     showQuestion(0);
+
+    if (timerDisplay) {
+        var totalSeconds = questions.length * 30;
+
+        var interval = setInterval(function() {
+            var minutes = Math.floor(totalSeconds / 60);
+            var seconds = totalSeconds % 60;
+            timerDisplay.textContent = minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+
+            if (totalSeconds <= 30) {
+                timerDisplay.style.color = '#dc2626';
+            }
+
+            if (totalSeconds <= 0) {
+                clearInterval(interval);
+                document.querySelector('form').submit();
+            }
+
+            totalSeconds--;
+        }, 1000);
+    }
 });
