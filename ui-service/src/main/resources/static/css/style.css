@@ -21,3 +21,19 @@ a {
 a:hover {
     color: #FF4FA3;
 }
+
+.error-title {
+    font-size: 48px;
+    margin-bottom: 8px;
+}
+
+.error-message {
+    font-size: 18px;
+    color: #888;
+    margin-bottom: 24px;
+}
+
+.error-btn {
+    padding: 10px 28px;
+    font-size: 14px;
+}

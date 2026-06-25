@@ -5,9 +5,9 @@
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
 <div class="detail-container">
-    <div class="detail-card" style="text-align:center;">
-        <h1 th:if="${result.passed}" style="color:#22c55e;">Quiz réussi !</h1>
-        <h1 th:if="${!result.passed}" style="color:#dc2626;">Quiz raté</h1>
+    <div class="detail-card detail-card-center">
+        <h1 th:if="${result.passed}" class="quiz-passed">Quiz réussi !</h1>
+        <h1 th:if="${!result.passed}" class="quiz-failed">Quiz raté</h1>
 
         <div class="quiz-result-stats">
             <p class="quiz-result-score" th:text="${result.score} + '%'">0%</p>
@@ -15,7 +15,7 @@
             <p>Vies restantes : <span th:text="${result.livesRemaining}">0</span></p>
         </div>
 
-        <div class="detail-section" style="text-align:left;">
+        <div class="detail-section detail-section-left">
             <h2>Détail des réponses</h2>
             <div th:each="detail : ${result.details}" class="quiz-result-detail">
                 <div th:if="${detail.correct}" class="quiz-result-correct">
@@ -29,7 +29,7 @@
             </div>
         </div>
 
-        <div class="detail-actions" style="justify-content:center;">
+        <div class="detail-actions detail-actions-center">
             <a th:href="@{/quizzes}" class="card-btn">Retour aux quiz</a>
         </div>
     </div>

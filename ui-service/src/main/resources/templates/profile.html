@@ -1,13 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/header :: header('Profile')}"></head>
-<body>
+<head th:replace="~{fragments/header :: header('Profil')}"></head>
+<body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
-<h1>Profile</h1>
-<p th:text="${user.username}">Username</p>
-<p th:text="${user.email}">Email</p>
-<p th:text="${user.role}">Role</p>
-<p th:text="${user.createdAt}">Date de création</p>
+
+<div class="detail-container">
+    <div class="detail-card detail-card-center">
+        <h1>Mon Profil</h1>
+
+        <div class="profile-info">
+            <div class="profile-avatar">
+                <span th:text="${#strings.toUpperCase(#strings.substring(user.username, 0, 1))}">E</span>
+            </div>
+            <div class="profile-details">
+                <p><strong>Nom d'utilisateur :</strong> <span th:text="${user.username}">Username</span></p>
+                <p><strong>Email :</strong> <span th:text="${user.email}">Email</span></p>
+                <p><strong>Rôle :</strong> <span th:text="${user.role}">Role</span></p>
+                <p><strong>Membre depuis :</strong> <span th:text="${user.createdAt}">Date</span></p>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>

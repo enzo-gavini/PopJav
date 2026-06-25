@@ -5,7 +5,7 @@
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
 <div class="detail-container">
-    <div class="detail-card" style="text-align:center;">
+    <div class="detail-card detail-card-center">
         <h1 th:text="${quiz.title}">Quiz</h1>
         <p>Vies : <span th:text="${quiz.lives}">0</span></p>
         <p id="question-counter" class="quiz-counter">1 / 3</p>
@@ -23,10 +23,10 @@
                 </div>
             </div>
 
-            <div style="margin-top:32px;display:flex;justify-content:center;gap:12px;">
-                <button type="button" id="prev-btn" class="card-btn-secondary" style="padding:10px 24px;font-size:14px;border:none;cursor:pointer;">Précédent</button>
-                <button type="button" id="next-btn" class="card-btn" style="padding:10px 24px;font-size:14px;border:none;cursor:pointer;">Suivant</button>
-                <button type="submit" id="submit-btn" class="form-btn" style="width:auto;padding:10px 32px;display:none;">Valider</button>
+            <div class="quiz-buttons">
+                <button type="button" id="prev-btn" class="card-btn-secondary quiz-btn-prev">Précédent</button>
+                <button type="button" id="next-btn" class="card-btn quiz-btn-next">Suivant</button>
+                <button type="submit" id="submit-btn" class="form-btn quiz-btn-submit">Valider</button>
             </div>
         </form>
     </div>

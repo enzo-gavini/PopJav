@@ -43,6 +43,10 @@
     resize: vertical;
 }
 
+.form-textarea-small {
+    min-height: 80px;
+}
+
 .form-btn {
     width: 100%;
     background: linear-gradient(135deg, #F72585, #FF4FA3);
@@ -85,4 +89,8 @@
     margin-bottom: 16px;
     font-size: 14px;
     color: #2C2C2C;
+}
+
+.form-comment {
+    margin-bottom: 16px;
 }

@@ -104,6 +104,10 @@
     box-shadow: 0 4px 12px rgba(75, 29, 116, 0.15);
 }
 
+.detail-card-center {
+    text-align: center;
+}
+
 .detail-card h1 {
     margin-bottom: 24px;
     font-size: 36px;
@@ -124,12 +128,20 @@
     border-top: 3px solid #F5F5F7;
 }
 
+.detail-actions-center {
+    justify-content: center;
+}
+
 .detail-section {
     margin-top: 40px;
     padding: 24px;
     background: #F5F5F7;
     border-radius: 12px;
     border-left: 4px solid #6A2CA0;
+}
+
+.detail-section-left {
+    text-align: left;
 }
 
 .detail-section h2 {

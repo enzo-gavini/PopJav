@@ -1,0 +1,27 @@
+.profile-info {
+    margin-top: 24px;
+}
+
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #F72585, #FF4FA3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    font-family: 'Baloo 2', cursive;
+    font-size: 36px;
+    color: white;
+}
+
+.profile-details {
+    text-align: left;
+}
+
+.profile-details p {
+    padding: 12px 0;
+    border-bottom: 1px solid #F5F5F7;
+    font-size: 15px;
+}
