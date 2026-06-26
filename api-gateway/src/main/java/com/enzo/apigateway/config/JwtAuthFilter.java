@@ -1,6 +1,5 @@
 package com.enzo.apigateway.config;
 
-
 import com.enzo.apigateway.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -34,6 +33,7 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
         }
+
         String token = authHeader.substring(7);
 
         if (!jwtService.validateToken(token)) {
@@ -43,12 +43,13 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
 
         return chain.filter(exchange);
     }
-private boolean isPublicRoute(String path) {
-        return publicRoutes.stream().anyMatch(path::startsWith);
-}
 
-@Override
+    private boolean isPublicRoute(String path) {
+        return publicRoutes.stream().anyMatch(path::startsWith);
+    }
+
+    @Override
     public int getOrder() {
         return -1;
-}
+    }
 }

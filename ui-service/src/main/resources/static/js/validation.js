@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     const forms = document.querySelectorAll('form');
+    var isRegisterPage = window.location.pathname.includes('/register');
 
     forms.forEach(function(form) {
         form.addEventListener('submit', function(event) {
@@ -28,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
 
-                if (input.type === 'password') {
+                if (input.type === 'password' && isRegisterPage) {
                     var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
                     if (!passwordRegex.test(input.value)) {
                         valid = false;

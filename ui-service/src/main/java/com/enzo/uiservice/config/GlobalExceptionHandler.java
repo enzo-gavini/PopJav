@@ -13,9 +13,23 @@ public class GlobalExceptionHandler {
         return "redirect:/auth/login";
     }
 
+
     @ExceptionHandler(FeignException.class)
-    public String handleFeignError(Model model) {
-        model.addAttribute("message", "Service indisponible");
+    public String handleFeignError(FeignException e, Model model) {
+        String message = e.contentUTF8();
+        if (message.contains("Password must")) {
+            model.addAttribute("message", "Le mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial.");
+        } else if (message.contains("Email already")) {
+            model.addAttribute("message", "Cet email est déjà utilisé.");
+        } else if (message.contains("Username already")) {
+            model.addAttribute("message", "Ce nom d'utilisateur est déjà pris.");
+        } else if (message.contains("Invalid email")) {
+            model.addAttribute("message", "Format d'email invalide.");
+        } else if (message.contains("Invalid password")) {
+            model.addAttribute("message", "Mot de passe incorrect.");
+        } else {
+            model.addAttribute("message", "Service indisponible");
+        }
         return "error";
     }
 
