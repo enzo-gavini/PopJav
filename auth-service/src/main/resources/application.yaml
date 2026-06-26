@@ -12,6 +12,8 @@ spring:
 
 server:
   port: ${AUTH_SERVICE_PORT}
+  error:
+    include-message: always
 
 jwt:
   secret: ${JWT_SECRET}
