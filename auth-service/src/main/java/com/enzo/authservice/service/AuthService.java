@@ -24,6 +24,18 @@ public class AuthService {
             throw new RuntimeException("Username already exists");
         }
 
+        if (request.getPassword().length() < 8 ||
+                !request.getPassword().matches(".*[A-Z].*") ||
+                !request.getPassword().matches(".*[a-z].*") ||
+                !request.getPassword().matches(".*\\d.*") ||
+                !request.getPassword().matches(".*[!@#$%^&*].*")) {
+            throw new RuntimeException("Password must contain at least 8 characters, one uppercase, one lowercase, one digit and one special character");
+        }
+
+        if (!request.getEmail().matches("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$")) {
+            throw new RuntimeException("Invalid email format");
+        }
+
         String hashedPassWord = passwordEncoder.encode(request.getPassword());
 
         UserCreateRequest userCreate = new UserCreateRequest();
