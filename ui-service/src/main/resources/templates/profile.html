@@ -16,7 +16,32 @@
                 <p><strong>Nom d'utilisateur :</strong> <span th:text="${user.username}">Username</span></p>
                 <p><strong>Email :</strong> <span th:text="${user.email}">Email</span></p>
                 <p><strong>Rôle :</strong> <span th:text="${user.role}">Role</span></p>
-                <p><strong>Membre depuis :</strong> <span th:text="${user.createdAt}">Date</span></p>
+                <p><strong>Membre depuis :</strong> <span th:text="${#strings.substring(user.createdAt, 0, 10)}">Date</span></p>
+            </div>
+        </div>
+
+        <div class="detail-section">
+            <h2>Progression</h2>
+            <div class="profile-stats">
+                <div class="profile-stat">
+                    <span class="profile-stat-number" th:text="${totalQuizzes}">0</span>
+                    <span class="profile-stat-label">Quiz tentés</span>
+                </div>
+                <div class="profile-stat">
+                    <span class="profile-stat-number" th:text="${quizzesPassed}">0</span>
+                    <span class="profile-stat-label">Quiz réussis</span>
+                </div>
+            </div>
+        </div>
+
+        <div th:if="${!results.isEmpty()}" class="detail-section">
+            <h2>Historique des quiz</h2>
+            <div class="profile-history">
+                <div th:each="result : ${results}" th:class="${result.completed} ? 'profile-history-item profile-history-passed' : 'profile-history-item profile-history-failed'">
+                    <p><strong th:text="${quizNames[result.quizId]}">Quiz</strong> — Score : <span th:text="${result.score}">0</span>%</p>
+                    <span th:if="${result.completed}" class="profile-history-badge profile-badge-passed">✓ Réussi</span>
+                    <span th:if="${!result.completed}" class="profile-history-badge profile-badge-failed">✗ Raté</span>
+                </div>
             </div>
         </div>
     </div>

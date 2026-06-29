@@ -24,6 +24,10 @@ public class ResultService {
         return resultFeignClient.getResultById(id);
     }
 
+    public List<ResultDTO> findByUserId(Long userId) {
+        return resultFeignClient.getResultsByUserId(userId);
+    }
+
     public ResultDTO updateResult(Long id, ResultDTO resultDTO) {
         return resultFeignClient.updateResult(id, resultDTO);
     }

@@ -29,6 +29,11 @@ public class ResultController {
         return resultService.findById(id);
     }
 
+    @GetMapping("/user/{userId}")
+    public List<Result> getResultsByUserId(@PathVariable Long userId) {
+        return resultService.findByUserId(userId);
+    }
+
     @PutMapping("/{id}")
     public Result updateResult(@PathVariable Long id, @RequestBody ResultCreateDTO dto) {
         return resultService.updateResult(id, dto);
@@ -38,5 +43,4 @@ public class ResultController {
     public void deleteResult(@PathVariable Long id) {
         resultService.delete(id);
     }
-
 }

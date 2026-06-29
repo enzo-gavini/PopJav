@@ -18,7 +18,7 @@ public class ResultService {
 
     public Result create(ResultCreateDTO dto) {
         Quiz quiz = quizRepository.findById(dto.getQuizId())
-                .orElseThrow(()-> new RuntimeException("Quiz not found"));
+                .orElseThrow(() -> new RuntimeException("Quiz not found"));
 
         Result result = new Result();
         result.setScore(dto.getScore());
@@ -26,7 +26,7 @@ public class ResultService {
         result.setAttempts(dto.getAttempts());
         result.setUserId(dto.getUserId());
         result.setQuiz(quiz);
-        return  resultRepository.save(result);
+        return resultRepository.save(result);
     }
 
     public List<Result> findAll() {
@@ -35,6 +35,10 @@ public class ResultService {
 
     public Result findById(Long id) {
         return resultRepository.findById(id).orElseThrow(() -> new RuntimeException("Result not found"));
+    }
+
+    public List<Result> findByUserId(Long userId) {
+        return resultRepository.findByUserId(userId);
     }
 
     public Result updateResult(Long id, ResultCreateDTO dto) {
@@ -50,5 +54,7 @@ public class ResultService {
         return resultRepository.save(existingResult);
     }
 
-    public void delete(Long id) {resultRepository.deleteById(id);}
+    public void delete(Long id) {
+        resultRepository.deleteById(id);
+    }
 }

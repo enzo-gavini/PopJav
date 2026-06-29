@@ -28,6 +28,11 @@ public class ResultController {
         return resultService.findById(id);
     }
 
+    @GetMapping("/user/{userId}")
+    public List<ResultDTO> getResultsByUserId(@PathVariable Long userId) {
+        return resultService.findByUserId(userId);
+    }
+
     @PutMapping("/{id}")
     public ResultDTO updateResult(@PathVariable Long id, @RequestBody ResultDTO resultDTO) {
         return resultService.updateResult(id, resultDTO);

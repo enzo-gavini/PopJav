@@ -10,17 +10,20 @@ import java.util.List;
 public interface ResultFeignClient {
 
     @PostMapping
-    public ResultDTO save(@RequestBody ResultDTO resultDTO);
+    ResultDTO save(@RequestBody ResultDTO resultDTO);
 
     @GetMapping
-    public List<ResultDTO> getAllResult();
+    List<ResultDTO> getAllResult();
 
     @GetMapping("/{id}")
-    public ResultDTO getResultById(@PathVariable Long id);
+    ResultDTO getResultById(@PathVariable Long id);
+
+    @GetMapping("/user/{userId}")
+    List<ResultDTO> getResultsByUserId(@PathVariable Long userId);
 
     @PutMapping("/{id}")
-    public ResultDTO updateResult(@PathVariable Long id, @RequestBody ResultDTO resultDTO);
+    ResultDTO updateResult(@PathVariable Long id, @RequestBody ResultDTO resultDTO);
 
     @DeleteMapping("/{id}")
-    public void deleteResult(@PathVariable Long id);
+    void deleteResult(@PathVariable Long id);
 }

@@ -76,17 +76,18 @@ public class QuizService {
 
         int totalQuestions = quiz.getQuestions().size();
         int percentage = (score * 100) / totalQuestions;
+        boolean passed = percentage >= quiz.getPassingScore();
 
         QuizResultDTO result = new QuizResultDTO();
         result.setScore(percentage);
         result.setTotalQuestions(totalQuestions);
-        result.setPassed(percentage >= quiz.getPassingScore());
+        result.setPassed(passed);
         result.setLivesRemaining(lives);
         result.setDetails(details);
 
         ResultDTO savedResult = new ResultDTO();
         savedResult.setScore(percentage);
-        savedResult.setCompleted(true);
+        savedResult.setCompleted(passed);
         savedResult.setAttempts(1);
         savedResult.setUserId(submission.getUserId());
         savedResult.setQuizId(submission.getQuizId());
