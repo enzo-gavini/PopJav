@@ -75,7 +75,7 @@ public class QuizService {
         }
 
         int totalQuestions = quiz.getQuestions().size();
-        int percentage = (score * 100) / totalQuestions;
+        int percentage = totalQuestions == 0 ? 0 : (score * 100) / totalQuestions;
         boolean passed = percentage >= quiz.getPassingScore();
 
         QuizResultDTO result = new QuizResultDTO();
