@@ -1,4 +1,5 @@
 package com.enzo.persistenceservice.service;
+import com.enzo.persistenceservice.exception.ResourceNotFoundException;
 
 import com.enzo.persistenceservice.entity.User;
 import com.enzo.persistenceservice.repository.UserRepository;
@@ -21,11 +22,11 @@ public class UserService {
     }
 
     public User findById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
     public User findByEmail(String email) {
-        return userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found by email"));
+        return userRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("User not found by email"));
     }
 
     public User updateProfile(User user) {

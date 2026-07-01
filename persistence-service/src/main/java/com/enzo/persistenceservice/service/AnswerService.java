@@ -1,4 +1,5 @@
 package com.enzo.persistenceservice.service;
+import com.enzo.persistenceservice.exception.ResourceNotFoundException;
 
 import com.enzo.persistenceservice.entity.Answer;
 import com.enzo.persistenceservice.entity.Question;
@@ -18,7 +19,7 @@ public class AnswerService {
 
     public Answer create(AnswerCreateDTO dto) {
         Question question = questionRepository.findById(dto.getQuestionId())
-                .orElseThrow(() -> new RuntimeException("Question not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Question not found"));
 
         Answer answer = new Answer();
         answer.setText(dto.getText());
@@ -32,13 +33,13 @@ public class AnswerService {
     }
 
     public Answer findById(Long id) {
-        return answerRepository.findById(id).orElseThrow(() -> new RuntimeException("Answer not found"));
+        return answerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Answer not found"));
     }
 
     public Answer updateAnswer(Long id, AnswerCreateDTO dto) {
         Answer existingAnswer = findById(id);
         Question question = questionRepository.findById(dto.getQuestionId())
-                .orElseThrow(() -> new RuntimeException("Question not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Question not found"));
 
         existingAnswer.setText(dto.getText());
         existingAnswer.setCorrect(dto.isCorrect());

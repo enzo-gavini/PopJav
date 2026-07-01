@@ -1,4 +1,5 @@
 package com.enzo.persistenceservice.service;
+import com.enzo.persistenceservice.exception.ResourceNotFoundException;
 
 import com.enzo.persistenceservice.entity.Chapter;
 import com.enzo.persistenceservice.entity.Lesson;
@@ -18,7 +19,7 @@ public class LessonService {
 
     public Lesson create(LessonCreateDTO dto) {
         Chapter chapter = chapterRepository.findById(dto.getChapterId())
-                .orElseThrow(()-> new RuntimeException("Chapter not found"));
+                .orElseThrow(()-> new ResourceNotFoundException("Chapter not found"));
 
         Lesson lesson = new Lesson();
         lesson.setTitle(dto.getTitle());
@@ -33,13 +34,13 @@ public class LessonService {
     }
 
     public Lesson findById(Long id) {
-        return lessonRepository.findById(id).orElseThrow(() -> new RuntimeException("Lesson not found"));
+        return lessonRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Lesson not found"));
     }
 
     public Lesson updateLesson(Long id, LessonCreateDTO dto) {
         Lesson existingLesson = findById(id);
         Chapter chapter = chapterRepository.findById(dto.getChapterId())
-                .orElseThrow(() -> new RuntimeException("Chapter not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Chapter not found"));
 
         existingLesson.setTitle(dto.getTitle());
         existingLesson.setContent(dto.getContent());

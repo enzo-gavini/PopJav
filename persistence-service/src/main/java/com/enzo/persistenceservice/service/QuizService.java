@@ -1,4 +1,5 @@
 package com.enzo.persistenceservice.service;
+import com.enzo.persistenceservice.exception.ResourceNotFoundException;
 
 import com.enzo.persistenceservice.entity.Lesson;
 import com.enzo.persistenceservice.entity.Quiz;
@@ -19,7 +20,7 @@ public class QuizService {
 
     public Quiz create(QuizCreateDTO dto){
         Lesson lesson = lessonRepository.findById(dto.getLessonId())
-                .orElseThrow(()-> new RuntimeException("Lesson not found"));
+                .orElseThrow(()-> new ResourceNotFoundException("Lesson not found"));
 
         Quiz quiz = new Quiz();
         quiz.setTitle(dto.getTitle());
@@ -34,13 +35,13 @@ public class QuizService {
     }
 
     public Quiz findById(Long id) {
-        return quizRepository.findById(id).orElseThrow(()-> new RuntimeException("Quiz not found"));
+        return quizRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Quiz not found"));
     }
 
     public Quiz updateQuiz(Long id, QuizCreateDTO dto) {
         Quiz existingQuiz = findById(id);
         Lesson lesson = lessonRepository.findById(dto.getLessonId())
-                .orElseThrow(() -> new RuntimeException("Lesson not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Lesson not found"));
 
         existingQuiz.setTitle(dto.getTitle());
         existingQuiz.setLives(dto.getLives());

@@ -1,4 +1,5 @@
 package com.enzo.persistenceservice.service;
+import com.enzo.persistenceservice.exception.ResourceNotFoundException;
 
 import com.enzo.persistenceservice.entity.Chapter;
 import com.enzo.persistenceservice.repository.ChapterRepository;
@@ -21,7 +22,7 @@ public class ChapterService {
     }
 
     public Chapter findById(Long id){
-        return chapterRepository.findById(id).orElseThrow(() -> new RuntimeException("Chapter not found"));
+        return chapterRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Chapter not found"));
     }
 
     public Chapter updateChapter(Chapter chapter) {

@@ -1,4 +1,5 @@
 package com.enzo.persistenceservice.service;
+import com.enzo.persistenceservice.exception.ResourceNotFoundException;
 
 import com.enzo.persistenceservice.entity.Quiz;
 import com.enzo.persistenceservice.entity.Result;
@@ -18,7 +19,7 @@ public class ResultService {
 
     public Result create(ResultCreateDTO dto) {
         Quiz quiz = quizRepository.findById(dto.getQuizId())
-                .orElseThrow(() -> new RuntimeException("Quiz not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Quiz not found"));
 
         Result result = new Result();
         result.setScore(dto.getScore());
@@ -34,7 +35,7 @@ public class ResultService {
     }
 
     public Result findById(Long id) {
-        return resultRepository.findById(id).orElseThrow(() -> new RuntimeException("Result not found"));
+        return resultRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Result not found"));
     }
 
     public List<Result> findByUserId(Long userId) {
@@ -44,7 +45,7 @@ public class ResultService {
     public Result updateResult(Long id, ResultCreateDTO dto) {
         Result existingResult = findById(id);
         Quiz quiz = quizRepository.findById(dto.getQuizId())
-                .orElseThrow(() -> new RuntimeException("Quiz not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Quiz not found"));
 
         existingResult.setScore(dto.getScore());
         existingResult.setCompleted(dto.isCompleted());
