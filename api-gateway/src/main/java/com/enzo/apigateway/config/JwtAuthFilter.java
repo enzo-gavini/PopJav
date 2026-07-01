@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
@@ -41,11 +42,33 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
             return exchange.getResponse().setComplete();
         }
 
+        if (requiresAdmin(exchange.getRequest().getMethod(), path) && !jwtService.isAdmin(token)) {
+            exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
+            return exchange.getResponse().setComplete();
+        }
+
         return chain.filter(exchange);
     }
 
     private boolean isPublicRoute(String path) {
         return publicRoutes.stream().anyMatch(path::startsWith);
+    }
+
+    private boolean requiresAdmin(HttpMethod method, String path) {
+        // Internal credentials lookup (returns the password hash) must never be
+        // reachable by a regular user through the gateway.
+        if (path.startsWith("/api/users/credentials")) {
+            return true;
+        }
+        // Listing every user is an admin-only operation.
+        if (HttpMethod.GET.equals(method) && path.equals("/api/users")) {
+            return true;
+        }
+        // Deleting any user account is reserved to admins.
+        if (HttpMethod.DELETE.equals(method) && path.startsWith("/api/users/")) {
+            return true;
+        }
+        return false;
     }
 
     @Override

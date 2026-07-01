@@ -29,8 +29,13 @@ public class JwtService {
                 .getBody();
     }
 
-    public String extractEmail(String token) {
-        return extractAllClaims(token).getSubject();
+    public boolean isAdmin(String token) {
+        try {
+            Object role = extractAllClaims(token).get("role");
+            return role != null && role.toString().contains("ADMIN");
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public boolean validateToken(String token) {

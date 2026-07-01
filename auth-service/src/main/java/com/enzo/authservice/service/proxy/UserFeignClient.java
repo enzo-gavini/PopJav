@@ -26,7 +26,7 @@ public interface UserFeignClient {
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable Long id);
 
-    @GetMapping("/search")
+    @GetMapping("/credentials")
     public UserFullDTO getUserByEmail(@RequestParam String email);
 
     @GetMapping("/exists/email")
