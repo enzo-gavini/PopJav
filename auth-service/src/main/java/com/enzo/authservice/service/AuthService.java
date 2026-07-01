@@ -2,7 +2,12 @@ package com.enzo.authservice.service;
 
 import com.enzo.authservice.dto.*;
 import com.enzo.authservice.entity.Role;
+import com.enzo.authservice.exception.EmailAlreadyExistsException;
+import com.enzo.authservice.exception.InvalidCredentialsException;
+import com.enzo.authservice.exception.InvalidRequestException;
+import com.enzo.authservice.exception.UsernameAlreadyExistsException;
 import com.enzo.authservice.service.proxy.UserFeignClient;
+import feign.FeignException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,11 +22,11 @@ public class AuthService {
 
     public AuthResponse register(RegisterRequest request) {
         if (userFeignClient.existsByEmail(request.getEmail())) {
-            throw new RuntimeException("Email already exists");
+            throw new EmailAlreadyExistsException("Email already exists");
         }
 
         if (userFeignClient.existsByUsername(request.getUsername())) {
-            throw new RuntimeException("Username already exists");
+            throw new UsernameAlreadyExistsException("Username already exists");
         }
 
         if (request.getPassword().length() < 8 ||
@@ -29,11 +34,11 @@ public class AuthService {
                 !request.getPassword().matches(".*[a-z].*") ||
                 !request.getPassword().matches(".*\\d.*") ||
                 !request.getPassword().matches(".*[!@#$%^&*].*")) {
-            throw new RuntimeException("Password must contain at least 8 characters, one uppercase, one lowercase, one digit and one special character");
+            throw new InvalidRequestException("Password must contain at least 8 characters, one uppercase, one lowercase, one digit and one special character");
         }
 
         if (!request.getEmail().matches("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$")) {
-            throw new RuntimeException("Invalid email format");
+            throw new InvalidRequestException("Invalid email format");
         }
 
         String hashedPassWord = passwordEncoder.encode(request.getPassword());
@@ -56,13 +61,23 @@ public class AuthService {
 
         AuthResponse response = new AuthResponse();
         response.setToken(token);
+        response.setUserId(savedUser.getId());
+        response.setEmail(savedUser.getEmail());
+        response.setRole(savedUser.getRole());
         return  response;
     }
 
     public AuthResponse login(LoginRequest request) {
-        UserFullDTO user = userFeignClient.getUserByEmail(request.getEmail());
+        UserFullDTO user;
+        try {
+            user = userFeignClient.getUserByEmail(request.getEmail());
+        } catch (FeignException e) {
+            // Unknown email: return the same generic error as a wrong password
+            // so the response does not reveal whether the account exists.
+            throw new InvalidCredentialsException("Invalid credentials");
+        }
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new RuntimeException("Invalid password");
+            throw new InvalidCredentialsException("Invalid credentials");
         }
 
         UserDetails userDetails = org.springframework.security.core.userdetails.User.builder()
@@ -75,6 +90,9 @@ public class AuthService {
 
         AuthResponse response = new AuthResponse();
         response.setToken(token);
+        response.setUserId(user.getId());
+        response.setEmail(user.getEmail());
+        response.setRole(user.getRole());
         return  response;
     }
 

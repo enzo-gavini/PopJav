@@ -1,7 +1,6 @@
 package com.enzo.authservice.service;
 
 
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -41,38 +40,4 @@ public class JwtService {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
-// methode générique
-//    private <T> T extractClaims(String token, Function<Claims, T> claimsResolver) {
-//        Claims claims = Jwts.parserBuilder()
-//                .setSigningKey(getSignKey())
-//                .build()
-//                .parseClaimsJws(token)
-//                .getBody();
-//        return claimsResolver.apply(claims);
-//    }
-// ancienne methode lié avec la générique pour tirer l'email
-//    public String extractEmail(String token) {
-//        return extractClaims(token, Claims::getSubject);
-//    }
-    private Claims extractAllClaims(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(getSignKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
-    }
-
-    public String extractEmail(String token) {
-        return extractAllClaims(token).getSubject();
-    }
-
-    public boolean isTokenValid(String token,UserDetails user) {
-        Claims claims = extractAllClaims(token);
-        String email = claims.getSubject();
-        Date exp = claims.getExpiration();
-        return email.equals(user.getUsername()) && exp.after(new Date());
-    }
-
-
-
 }
