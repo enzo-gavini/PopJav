@@ -1,4 +1,4 @@
-package com.enzo.uiservice.contoller;
+package com.enzo.uiservice.controller;
 
 import com.enzo.uiservice.proxy.ChapterFeignClient;
 import jakarta.servlet.http.HttpSession;

@@ -9,7 +9,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(FeignException.Unauthorized.class)
-    public String handleUnauthorized() {
+    public String handleUnauthorized(FeignException.Unauthorized e, Model model) {
+        // A 401 on the login call means wrong credentials: show the message.
+        if (e.request() != null && e.request().url().contains("/auth/login")) {
+            model.addAttribute("message", "Email ou mot de passe incorrect.");
+            return "error";
+        }
+        // Otherwise the session token is missing/expired: send the user to login.
         return "redirect:/auth/login";
     }
 
@@ -25,8 +31,6 @@ public class GlobalExceptionHandler {
             model.addAttribute("message", "Ce nom d'utilisateur est déjà pris.");
         } else if (message.contains("Invalid email")) {
             model.addAttribute("message", "Format d'email invalide.");
-        } else if (message.contains("Invalid password")) {
-            model.addAttribute("message", "Mot de passe incorrect.");
         } else {
             model.addAttribute("message", "Service indisponible");
         }

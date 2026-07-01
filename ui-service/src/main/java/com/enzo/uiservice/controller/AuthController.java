@@ -1,4 +1,4 @@
-package com.enzo.uiservice.contoller;
+package com.enzo.uiservice.controller;
 
 
 import com.enzo.uiservice.dto.AuthResponseDTO;
@@ -31,7 +31,7 @@ public class AuthController {
     @PostMapping("/register")
     public String register(@ModelAttribute RegisterRequestDTO request, HttpSession session) {
         AuthResponseDTO reponse = authFeignClient.register(request);
-        sessionService.storeTokenAndRole(session, reponse.getToken());
+        sessionService.storeSession(session, reponse);
         return "redirect:/";
     }
 
@@ -44,7 +44,7 @@ public class AuthController {
     @PostMapping("/login")
     public String login(@ModelAttribute LoginRequestDTO request, HttpSession session) {
         AuthResponseDTO response = authFeignClient.login(request);
-        sessionService.storeTokenAndRole(session, response.getToken());
+        sessionService.storeSession(session, response);
         return "redirect:/";
     }
 
