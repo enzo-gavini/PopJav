@@ -20,11 +20,27 @@ public class QuizService {
     }
 
     public List<QuizDTO> findAll() {
-        return quizFeignClient.getAllQuiz();
+        List<QuizDTO> quizzes = quizFeignClient.getAllQuiz();
+        quizzes.forEach(this::hideCorrectAnswers);
+        return quizzes;
     }
 
     public QuizDTO findById(Long id) {
-        return quizFeignClient.getQuizById(id);
+        return hideCorrectAnswers(quizFeignClient.getQuizById(id));
+    }
+
+    // The quiz served to the client must never reveal which answer is correct
+    // (a player could read it from the network payload). Scoring is done
+    // server-side in submitQuiz, which fetches its own unmodified copy.
+    private QuizDTO hideCorrectAnswers(QuizDTO quiz) {
+        if (quiz != null && quiz.getQuestions() != null) {
+            for (QuestionDTO question : quiz.getQuestions()) {
+                if (question.getAnswers() != null) {
+                    question.getAnswers().forEach(answer -> answer.setCorrect(false));
+                }
+            }
+        }
+        return quiz;
     }
 
     public QuizDTO updateQuiz(Long id, QuizDTO quizDTO) {
