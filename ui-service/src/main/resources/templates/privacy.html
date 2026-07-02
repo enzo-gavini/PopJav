@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header('Confidentialité')}"></head>
+<body class="min-h-screen flex flex-col">
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<main class="detail-container" id="main-content">
+    <div class="detail-card">
+        <h1>Politique de confidentialité</h1>
+        <p>Cette page décrit comment PopJav traite tes données personnelles, conformément au
+            Règlement Général sur la Protection des Données (RGPD).</p>
+
+        <div class="detail-section">
+            <h2>Données collectées</h2>
+            <p>Lors de la création d'un compte : nom d'utilisateur, adresse e-mail et mot de passe
+                (stocké de façon chiffrée). L'activité d'apprentissage (résultats de quiz) est
+                également enregistrée.</p>
+        </div>
+
+        <div class="detail-section">
+            <h2>Finalité du traitement</h2>
+            <p>Ces données servent uniquement à te fournir le service : authentification, suivi de
+                progression et affichage de ton profil. Elles ne sont ni vendues ni cédées à des tiers.</p>
+        </div>
+
+        <div class="detail-section">
+            <h2>Durée de conservation</h2>
+            <p>Tes données sont conservées tant que ton compte est actif. Elles sont supprimées en
+                cas de suppression du compte.</p>
+        </div>
+
+        <div class="detail-section">
+            <h2>Tes droits</h2>
+            <p>Conformément au RGPD, tu disposes d'un droit d'accès, de rectification et de
+                suppression de tes données. Pour l'exercer, contacte-nous à
+                <a href="mailto:contact@popjav.io">contact@popjav.io</a>.</p>
+        </div>
+
+        <div class="detail-actions">
+            <a th:href="@{/}" class="card-btn">Retour à l'accueil</a>
+        </div>
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

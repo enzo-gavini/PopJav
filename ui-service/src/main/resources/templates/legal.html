@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header('Mentions légales')}"></head>
+<body class="min-h-screen flex flex-col">
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<main class="detail-container" id="main-content">
+    <div class="detail-card">
+        <h1>Mentions légales</h1>
+        <p><em>Site réalisé dans le cadre de la formation Développeur Web et Web Mobile (DWWM).
+            Les informations ci-dessous sont fictives et fournies à titre de démonstration.</em></p>
+
+        <div class="detail-section">
+            <h2>Éditeur du site</h2>
+            <p>Le site PopJav est édité par&nbsp;:<br>
+                PopJav — Entreprise individuelle<br>
+                Enzo Gavini<br>
+                12 rue des Développeurs, 13001 Marseille, France<br>
+                SIRET&nbsp;: 123&nbsp;456&nbsp;789&nbsp;00012 (fictif)<br>
+                Téléphone&nbsp;: +33&nbsp;4&nbsp;00&nbsp;00&nbsp;00&nbsp;00<br>
+                E-mail&nbsp;: <a href="mailto:contact@popjav.io">contact@popjav.io</a></p>
+        </div>
+
+        <div class="detail-section">
+            <h2>Directeur de la publication</h2>
+            <p>Enzo Gavini, en qualité d'éditeur du site.</p>
+        </div>
+
+        <div class="detail-section">
+            <h2>Hébergement</h2>
+            <p>Le site est hébergé par&nbsp;:<br>
+                PopHost SAS<br>
+                8 avenue du Cloud, 75002 Paris, France<br>
+                Téléphone&nbsp;: +33&nbsp;1&nbsp;00&nbsp;00&nbsp;00&nbsp;00</p>
+        </div>
+
+        <div class="detail-section">
+            <h2>Propriété intellectuelle</h2>
+            <p>L'ensemble des contenus présents sur ce site (textes, éléments graphiques, logo,
+                code source) est la propriété de l'éditeur, sauf mention contraire. Toute
+                reproduction, représentation ou diffusion, totale ou partielle, sans autorisation
+                écrite préalable est interdite et constitue une contrefaçon.</p>
+        </div>
+
+        <div class="detail-section">
+            <h2>Responsabilité</h2>
+            <p>L'éditeur s'efforce d'assurer l'exactitude des informations diffusées sur le site,
+                mais ne saurait être tenu responsable des erreurs, omissions ou d'une indisponibilité
+                temporaire du service.</p>
+        </div>
+
+        <div class="detail-section">
+            <h2>Données personnelles</h2>
+            <p>Le traitement de tes données personnelles est décrit dans notre
+                <a th:href="@{/privacy}">politique de confidentialité</a>.</p>
+        </div>
+
+        <div class="detail-actions">
+            <a th:href="@{/}" class="card-btn">Retour à l'accueil</a>
+        </div>
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

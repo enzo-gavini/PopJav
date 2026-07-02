@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header('À propos')}"></head>
+<body class="min-h-screen flex flex-col">
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<main class="detail-container" id="main-content">
+    <div class="detail-card">
+        <h1>À propos de PopJav</h1>
+        <p>PopJav est une plateforme d'apprentissage du langage <strong>Java</strong>, pensée pour
+            rendre la montée en compétences ludique et progressive. Chapitres, leçons et quiz
+            s'enchaînent pour transformer la théorie en pratique.</p>
+
+        <div class="detail-section">
+            <h2>Notre mission</h2>
+            <p>Rendre l'apprentissage de Java accessible et motivant, en alternant contenus courts
+                et défis interactifs, avec un suivi de progression pour rester engagé.</p>
+        </div>
+
+        <div class="detail-section">
+            <h2>Comment ça marche</h2>
+            <ul>
+                <li>Parcours les <strong>chapitres</strong> et leurs <strong>leçons</strong>.</li>
+                <li>Teste tes connaissances avec des <strong>quiz</strong> à système de vies.</li>
+                <li>Suis ta <strong>progression</strong> depuis ton profil.</li>
+            </ul>
+        </div>
+
+        <div class="detail-actions">
+            <a th:href="@{/chapters}" class="card-btn">Commencer</a>
+        </div>
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

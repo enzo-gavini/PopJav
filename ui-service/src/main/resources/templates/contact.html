@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header('Contact')}"></head>
+<body class="min-h-screen flex flex-col">
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<main class="detail-container" id="main-content">
+    <div class="detail-card">
+        <h1>Contact</h1>
+        <p>Une question, une suggestion ou un problème technique ? N'hésite pas à nous écrire,
+            nous répondons généralement sous 48 heures.</p>
+
+        <div class="detail-section">
+            <h2>Nous écrire</h2>
+            <p>Par e-mail : <a href="mailto:contact@popjav.io">contact@popjav.io</a></p>
+        </div>
+
+        <div class="detail-actions">
+            <a th:href="@{/}" class="card-btn">Retour à l'accueil</a>
+        </div>
+    </div>
+</main>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>
