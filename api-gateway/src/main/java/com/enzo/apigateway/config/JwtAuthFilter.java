@@ -74,7 +74,34 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
         if (HttpMethod.DELETE.equals(method) && path.startsWith("/api/users/")) {
             return true;
         }
-        return false;
+
+        // Only writes (create/update/delete) can be admin-restricted; reads stay open.
+        boolean isWrite = HttpMethod.POST.equals(method)
+                || HttpMethod.PUT.equals(method)
+                || HttpMethod.DELETE.equals(method);
+        if (!isWrite) {
+            return false;
+        }
+
+        // Normal user actions, never admin-only:
+        // submitting a quiz, posting a comment, saving a quiz result.
+        if (path.equals("/api/quizzes/submit")) {
+            return false;
+        }
+        if (HttpMethod.POST.equals(method) && path.startsWith("/api/comments")) {
+            return false;
+        }
+        if (path.startsWith("/api/results")) {
+            return false;
+        }
+
+        // Content authoring: only admins may create/update/delete.
+        return path.startsWith("/api/chapters")
+                || path.startsWith("/api/lessons")
+                || path.startsWith("/api/quizzes")
+                || path.startsWith("/api/questions")
+                || path.startsWith("/api/answers")
+                || path.startsWith("/api/comments");
     }
 
     @Override
