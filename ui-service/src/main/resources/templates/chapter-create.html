@@ -1,21 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('Créer un chapitre')}"></head>
 <body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<div class="form-container-lg">
+<main class="form-container-lg" id="main-content">
     <div class="form-card">
         <h1 class="form-title">Créer un chapitre</h1>
         <form th:action="@{/chapters/create}" th:object="${chapterDTO}" method="post">
+            <label for="title" class="form-label">Titre</label>
             <input type="text" th:field="*{title}" placeholder="Titre" class="form-input">
+            <label for="description" class="form-label">Description</label>
             <textarea th:field="*{description}" placeholder="Description" class="form-input form-textarea"></textarea>
+            <label for="orderIndex" class="form-label">Ordre</label>
             <input type="number" th:field="*{orderIndex}" placeholder="Ordre" class="form-input">
             <button type="submit" class="form-btn">Créer</button>
         </form>
         <p class="form-link"><a th:href="@{/chapters}">Retour aux chapitres</a></p>
     </div>
-</div>
+</main>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>

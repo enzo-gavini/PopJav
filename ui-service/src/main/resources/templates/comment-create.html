@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('Créer un commentaire')}"></head>
 <body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<div class="form-container">
+<main class="form-container" id="main-content">
     <div class="form-card">
         <h1 class="form-title">Créer un commentaire</h1>
         <form th:action="@{/comments/create}" th:object="${commentDTO}" method="post">
+            <label for="text" class="form-label">Votre commentaire</label>
             <textarea th:field="*{text}" placeholder="Votre commentaire" class="form-input form-textarea"></textarea>
             <input type="hidden" th:field="*{userId}" value="1">
             <input type="hidden" th:field="*{lessonId}" value="1">
@@ -15,7 +16,7 @@
         </form>
         <p class="form-link"><a th:href="@{/comments}">Retour aux commentaires</a></p>
     </div>
-</div>
+</main>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>

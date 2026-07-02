@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('Détail de la leçon')}"></head>
 <body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<div class="detail-container">
+<main class="detail-container" id="main-content">
     <div class="detail-card">
         <h1 th:text="${lessonDTO.title}">Titre</h1>
         <p th:text="${lessonDTO.content}">Contenu</p>
@@ -18,7 +18,9 @@
                 </div>
                 <a th:href="@{/quizzes/play/{id}(id=${lessonDTO.quiz.id})}" class="card-btn">Jouer</a>
             </div>
-            <p th:if="${lessonDTO.quiz == null}">Aucun quiz</p>
+            <div th:if="${lessonDTO.quiz == null}" class="empty-state">
+                Aucun quiz pour cette leçon
+            </div>
         </div>
 
         <div class="detail-section">
@@ -26,17 +28,20 @@
             <form th:action="@{/comments/create}" th:object="${commentDTO}" method="post" class="form-comment">
                 <input type="hidden" name="lessonId" th:value="${lessonDTO.id}">
                 <input type="hidden" name="userId" th:value="${session.userId}">
+                <label for="text" class="form-label">Votre commentaire</label>
                 <textarea th:field="*{text}" placeholder="Écrire un commentaire" class="form-input form-textarea-small"></textarea>
                 <button type="submit" class="form-btn">Commenter</button>
             </form>
             <div th:each="comment : ${comments}" class="card">
                 <div>
                     <p th:text="${comment.text}">Commentaire</p>
-                    <small class="form-link" th:text="${comment.createdAt}">Date</small>
+                    <small class="text-muted" th:text="${comment.createdAt}">Date</small>
                 </div>
                 <a th:if="${session.role == 'ADMIN'}" th:href="@{/comments/delete/{id}(id=${comment.id}, lessonId=${lessonDTO.id})}" class="card-btn-danger">Supprimer</a>
             </div>
-            <p th:if="${#lists.isEmpty(comments)}">Aucun commentaire</p>
+            <div th:if="${#lists.isEmpty(comments)}" class="empty-state">
+                Sois le premier à commenter
+            </div>
         </div>
 
         <div class="detail-actions">
@@ -45,7 +50,7 @@
             <a th:href="@{/lessons}" class="card-btn">Retour</a>
         </div>
     </div>
-</div>
+</main>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>

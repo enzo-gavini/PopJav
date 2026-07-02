@@ -1,22 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('Créer un quiz')}"></head>
 <body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<div class="form-container">
+<main class="form-container" id="main-content">
     <div class="form-card">
         <h1 class="form-title">Créer un quiz</h1>
         <form th:action="@{/quizzes/create}" th:object="${quizDTO}" method="post">
+            <label for="title" class="form-label">Titre</label>
             <input type="text" th:field="*{title}" placeholder="Titre" class="form-input">
+            <label for="lives" class="form-label">Nombre de vies</label>
             <input type="number" th:field="*{lives}" placeholder="Nombre de vies" class="form-input">
+            <label for="passingScore" class="form-label">Score de passage</label>
             <input type="number" th:field="*{passingScore}" placeholder="Score de passage" class="form-input">
+            <label for="lessonId" class="form-label">ID de la leçon</label>
             <input type="number" th:field="*{lessonId}" placeholder="ID de la leçon" class="form-input">
             <button type="submit" class="form-btn">Créer</button>
         </form>
         <p class="form-link"><a th:href="@{/quizzes}">Retour aux quiz</a></p>
     </div>
-</div>
+</main>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>

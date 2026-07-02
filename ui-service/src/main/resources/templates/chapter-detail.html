@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('Détail du chapitre')}"></head>
 <body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<div class="detail-container">
+<main class="detail-container" id="main-content">
     <div class="detail-card">
         <h1 th:text="${chapterDTO.title}">Titre</h1>
         <p th:text="${chapterDTO.description}">Description</p>
@@ -20,7 +20,9 @@
                     <a th:href="@{/lessons/{id}(id=${lesson.id})}" class="card-btn">Voir</a>
                 </div>
             </div>
-            <p th:if="${#lists.isEmpty(chapterDTO.lessons)}">Aucune leçon</p>
+            <div th:if="${#lists.isEmpty(chapterDTO.lessons)}" class="empty-state">
+                Aucune leçon pour le moment
+            </div>
         </div>
 
         <div class="detail-actions">
@@ -29,7 +31,7 @@
             <a th:href="@{/chapters}" class="card-btn">Retour</a>
         </div>
     </div>
-</div>
+</main>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>

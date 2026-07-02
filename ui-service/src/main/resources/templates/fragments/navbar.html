@@ -1,10 +1,40 @@
-<nav th:fragment="navbar" class="navbar">
-    <a th:href="@{/}" class="nav-pill">HOME</a>
-    <a th:href="@{/chapters}" class="nav-pill">Chapitres</a>
-    <a th:href="@{/}">
-        <img th:src="@{/images/logo.png}" alt="PopJav" class="nav-logo">
-    </a>
-    <a th:if="${session.token != null}" th:href="@{/profile}" class="nav-pill">Profil</a>
-    <a th:if="${session.token == null}" th:href="@{/auth/login}" class="nav-pill btn-connect">Connexion</a>
-    <a th:if="${session.token != null}" th:href="@{/auth/logout}" class="nav-pill btn-logout">Déconnexion</a>
-</nav>
+<div th:fragment="navbar" th:remove="tag">
+    <a href="#main-content" class="skip-link">Aller au contenu</a>
+    <nav class="navbar">
+        <a th:href="@{/}" class="nav-logo-top">
+            <img th:src="@{/images/logo.png}" alt="PopJav" class="nav-logo">
+        </a>
+
+        <button class="nav-burger" id="nav-burger" type="button"
+                aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </button>
+
+        <div class="nav-links" id="nav-links">
+            <a th:href="@{/}" class="nav-pill">HOME</a>
+            <a th:href="@{/chapters}" class="nav-pill">Chapitres</a>
+
+            <details th:if="${session.role == 'ADMIN'}" class="nav-admin">
+                <summary class="nav-pill">Administration</summary>
+                <ul class="nav-admin-menu">
+                    <li><a th:href="@{/chapters}">Chapitres</a></li>
+                    <li><a th:href="@{/lessons}">Leçons</a></li>
+                    <li><a th:href="@{/quizzes}">Quiz</a></li>
+                    <li><a th:href="@{/questions}">Questions</a></li>
+                    <li><a th:href="@{/answers}">Réponses</a></li>
+                    <li><a th:href="@{/comments}">Commentaires</a></li>
+                </ul>
+            </details>
+
+            <a th:href="@{/}" class="nav-logo-link" aria-hidden="true" tabindex="-1">
+                <img th:src="@{/images/logo.png}" alt="" class="nav-logo">
+            </a>
+
+            <a th:if="${session.token != null}" th:href="@{/profile}" class="nav-pill">Profil</a>
+            <a th:if="${session.token == null}" th:href="@{/auth/login}" class="nav-pill btn-connect">Connexion</a>
+            <a th:if="${session.token != null}" th:href="@{/auth/logout}" class="nav-pill btn-logout">Déconnexion</a>
+        </div>
+    </nav>
+</div>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('Détail de la question')}"></head>
 <body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<div class="detail-container">
+<main class="detail-container" id="main-content">
     <div class="detail-card">
         <h1 th:text="${questionDTO.text}">Question</h1>
 
@@ -15,11 +15,13 @@
                     <div>
                         <h3 th:text="${answer.text}">Réponse</h3>
                     </div>
-                    <span th:if="${answer.correct}" style="color:#22c55e;font-weight:600;">✓ Correct</span>
-                    <span th:if="${!answer.correct}" style="color:#dc2626;font-weight:600;">✗ Incorrect</span>
+                    <span th:if="${answer.correct}" class="text-success">✓ Correct</span>
+                    <span th:if="${!answer.correct}" class="text-danger">✗ Incorrect</span>
                 </div>
             </div>
-            <p th:if="${#lists.isEmpty(questionDTO.answers)}">Aucune réponse</p>
+            <div th:if="${#lists.isEmpty(questionDTO.answers)}" class="empty-state">
+                Aucune réponse
+            </div>
         </div>
 
         <div class="detail-actions">
@@ -28,7 +30,7 @@
             <a th:href="@{/questions}" class="card-btn">Retour</a>
         </div>
     </div>
-</div>
+</main>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>

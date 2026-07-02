@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('Détail de la réponse')}"></head>
 <body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<div class="detail-container">
+<main class="detail-container" id="main-content">
     <div class="detail-card">
         <h1 th:text="${answerDTO.text}">Réponse</h1>
-        <p th:if="${answerDTO.correct}" style="color:#22c55e;font-weight:600;">✓ Réponse correcte</p>
-        <p th:if="${!answerDTO.correct}" style="color:#dc2626;font-weight:600;">✗ Réponse incorrecte</p>
+        <p th:if="${answerDTO.correct}" class="text-success">✓ Réponse correcte</p>
+        <p th:if="${!answerDTO.correct}" class="text-danger">✗ Réponse incorrecte</p>
 
         <div class="detail-actions">
             <a th:if="${session.role == 'ADMIN'}" th:href="@{/answers/edit/{id}(id=${answerDTO.id})}" class="card-btn-secondary">Modifier</a>
@@ -16,7 +16,7 @@
             <a th:href="@{/answers}" class="card-btn">Retour</a>
         </div>
     </div>
-</div>
+</main>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>

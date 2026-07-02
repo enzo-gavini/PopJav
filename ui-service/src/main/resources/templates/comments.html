@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('Commentaires')}"></head>
 <body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<main class="flex-grow max-w-4xl mx-auto p-6 w-full">
+<main class="flex-grow max-w-4xl mx-auto p-6 w-full" id="main-content">
     <h1 class="text-center text-3xl mb-6">Commentaires</h1>
 
     <div class="cards">
         <div th:each="comment : ${comments}" class="card">
             <div>
                 <p th:text="${comment.text}">Commentaire</p>
-                <small style="color:#888;" th:text="${comment.createdAt}">Date</small>
+                <small class="text-muted" th:text="${comment.createdAt}">Date</small>
             </div>
             <div class="flex gap-2 items-center">
                 <a th:href="@{/comments/{id}(id=${comment.id})}" class="card-btn">Voir</a>

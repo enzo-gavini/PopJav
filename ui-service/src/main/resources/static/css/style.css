@@ -1,39 +1,191 @@
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+    outline: 3px solid #FFC300;
+    outline-offset: 2px;
+}
+
+:root {
+    --rose: #F72585;
+    --rose-clair: #FF4FA3;
+    --violet: #4B1D74;
+    --violet-moyen: #6A2CA0;
+    --violet-clair: #9C6ADE;
+    --or: #FFC300;
+    --or-clair: #FFD84D;
+
+    --vert: #22c55e;
+    --rouge: #dc2626;
+    --rouge-clair: #ef4444;
+
+    --fond: #F5F5F7;
+    --fond-doux: #F7F6FA;
+    --fond-vert: #f0fdf4;
+    --fond-rouge: #fef2f2;
+    --fond-rose: #fef2f8;
+    --texte: #2C2C2C;
+    --texte-gris: #6b6b6b;
+    --bordure: #E2E2E6;
+    --bordure-fine: #F0F0F3;
+
+    --gradient-rose: linear-gradient(120deg, #F72585, #FF4FA3);
+    --gradient-or: linear-gradient(120deg, #FFC300, #FFD84D);
+    --gradient-rouge: linear-gradient(120deg, #dc2626, #ef4444);
+    --gradient-violet: linear-gradient(135deg, #4B1D74 0%, #6A2CA0 50%, #9C6ADE 100%);
+    --gradient-violet-doux: linear-gradient(135deg, #4B1D74 0%, #6A2CA0 100%);
+
+    --ombre-carte: 0 2px 10px rgba(75, 29, 116, 0.08);
+    --ombre-carte-hover: 0 8px 22px rgba(75, 29, 116, 0.13);
+    --ombre-flottante: 0 6px 20px rgba(75, 29, 116, 0.1);
+    --ombre-rose: 0 4px 14px rgba(247, 37, 133, 0.3);
+    --ombre-rose-hover: 0 6px 18px rgba(247, 37, 133, 0.4);
+
+    --radius: 14px;
+    --radius-sm: 10px;
+    --radius-pill: 50px;
+
+    --font-titre: 'Baloo 2', cursive;
+    --font-corps: 'Poppins', sans-serif;
+
+    --transition: 0.2s ease;
+}
+
 body {
-    font-family: 'Poppins', sans-serif;
-    background-color: #F5F5F7;
-    color: #2C2C2C;
+    font-family: var(--font-corps);
+    background-color: var(--fond);
+    color: var(--texte);
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 h1 {
-    font-family: 'Baloo 2', cursive;
-    color: #4B1D74;
+    font-family: var(--font-titre);
+    color: var(--violet);
+    font-size: 26px;
+    letter-spacing: 0.3px;
 }
 
 h2 {
-    font-family: 'Baloo 2', cursive;
-    color: #6A2CA0;
+    font-family: var(--font-titre);
+    color: var(--violet-moyen);
+    font-size: 21px;
+    letter-spacing: 0.3px;
 }
 
 a {
-    color: #F72585;
+    color: var(--rose);
+    transition: color var(--transition);
 }
 
 a:hover {
-    color: #FF4FA3;
+    color: var(--rose-clair);
 }
 
 .error-title {
-    font-size: 48px;
+    font-size: 38px;
     margin-bottom: 8px;
 }
 
 .error-message {
-    font-size: 18px;
-    color: #888;
-    margin-bottom: 24px;
+    font-size: 17px;
+    color: var(--texte-gris);
+    margin-bottom: 22px;
+    padding: 0 16px;
 }
 
 .error-btn {
-    padding: 10px 28px;
-    font-size: 14px;
+    padding: 11px 26px;
+    font-size: 15px;
+}
+
+.text-success {
+    color: var(--vert);
+    font-weight: 600;
+}
+
+.text-danger {
+    color: var(--rouge);
+    font-weight: 600;
+}
+
+.text-muted {
+    color: var(--texte-gris);
+    font-size: 13px;
+}
+
+.nav-pill-outline {
+    border-color: var(--violet-moyen);
+    color: var(--violet-moyen);
+}
+
+.text-4xl {
+    font-size: 30px;
+}
+
+.text-3xl {
+    font-size: 26px;
+}
+
+.text-2xl {
+    font-size: 22px;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+.card-btn:focus-visible,
+.card-btn-secondary:focus-visible,
+.card-btn-danger:focus-visible {
+    outline: 3px solid rgba(106, 44, 160, 0.45);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+@media (min-width: 768px) {
+    h1 {
+        font-size: 36px;
+    }
+
+    h2 {
+        font-size: 25px;
+    }
+
+    .error-title {
+        font-size: 52px;
+    }
+
+    .error-message {
+        font-size: 20px;
+        margin-bottom: 24px;
+        padding: 0;
+    }
+
+    .error-btn {
+        padding: 12px 30px;
+        font-size: 15px;
+    }
+
+    .text-4xl {
+        font-size: 40px;
+    }
+
+    .text-3xl {
+        font-size: 33px;
+    }
+
+    .text-2xl {
+        font-size: 27px;
+    }
 }

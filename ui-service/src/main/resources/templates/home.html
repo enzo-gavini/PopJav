@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('Accueil')}"></head>
 <body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
@@ -10,12 +10,8 @@
     <a th:href="@{/chapters}" class="hero-btn">Commencer l'aventure</a>
 </div>
 
-<main th:if="${session.token == null}" class="flex-grow max-w-4xl mx-auto p-6 w-full text-center mt-8">
-    <a th:href="@{/auth/login}" class="nav-pill btn-connect mr-4">Se connecter</a>
-    <a th:href="@{/auth/register}" class="nav-pill" style="border-color:#6A2CA0;color:#6A2CA0;">S'inscrire</a>
-</main>
-
 <main class="flex-grow max-w-4xl mx-auto p-6 w-full" id="main-content">
+    <th:block th:if="${chapters != null}">
     <h2 class="text-center text-2xl mb-6">Chapitres disponibles</h2>
     <div class="cards">
         <div th:each="chapter : ${chapters}" class="card">
@@ -26,6 +22,7 @@
             <a th:href="@{/chapters/{id}(id=${chapter.id})}" class="card-btn">Voir</a>
         </div>
     </div>
+    </th:block>
 
     <div class="quiz-banner">
         <h3>Prêt pour un quiz ?</h3>

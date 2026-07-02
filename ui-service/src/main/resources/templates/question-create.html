@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('Créer une question')}"></head>
 <body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<div class="form-container">
+<main class="form-container" id="main-content">
     <div class="form-card">
         <h1 class="form-title">Créer une question</h1>
         <form th:action="@{/questions/create}" th:object="${questionDTO}" method="post">
+            <label for="text" class="form-label">Texte de la question</label>
             <input type="text" th:field="*{text}" placeholder="Texte de la question" class="form-input">
+            <label for="quizId" class="form-label">ID du quiz</label>
             <input type="number" th:field="*{quizId}" placeholder="ID du quiz" class="form-input">
             <button type="submit" class="form-btn">Créer</button>
         </form>
         <p class="form-link"><a th:href="@{/questions}">Retour aux questions</a></p>
     </div>
-</div>
+</main>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>

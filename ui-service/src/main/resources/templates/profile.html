@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('Profil')}"></head>
 <body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<div class="detail-container">
+<main class="detail-container" id="main-content">
     <div class="detail-card detail-card-center">
         <h1>Mon Profil</h1>
 
@@ -32,6 +32,18 @@
                     <span class="profile-stat-label">Quiz réussis</span>
                 </div>
             </div>
+
+            <div th:if="${totalQuizzes > 0}" class="profile-progress">
+                <div class="profile-progress-label">
+                    <span>Taux de réussite</span>
+                    <span class="profile-progress-percent"
+                          th:data-passed="${quizzesPassed}"
+                          th:data-total="${totalQuizzes}">0%</span>
+                </div>
+                <div class="profile-progress-track">
+                    <div class="profile-progress-fill"></div>
+                </div>
+            </div>
         </div>
 
         <div th:if="${!results.isEmpty()}" class="detail-section">
@@ -45,8 +57,9 @@
             </div>
         </div>
     </div>
-</div>
+</main>
 
+<script th:src="@{/js/profile.js}"></script>
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>

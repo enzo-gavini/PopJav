@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('Détail du quiz')}"></head>
 <body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<div class="detail-container">
+<main class="detail-container" id="main-content">
     <div class="detail-card">
         <h1 th:text="${quizDTO.title}">Titre</h1>
         <p>Vies : <span th:text="${quizDTO.lives}">0</span></p>
@@ -20,7 +20,9 @@
                     <a th:href="@{/questions/{id}(id=${question.id})}" class="card-btn">Voir</a>
                 </div>
             </div>
-            <p th:if="${#lists.isEmpty(quizDTO.questions)}">Aucune question</p>
+            <div th:if="${#lists.isEmpty(quizDTO.questions)}" class="empty-state">
+                Aucune question pour ce quiz
+            </div>
         </div>
 
         <div class="detail-actions">
@@ -30,7 +32,7 @@
             <a th:href="@{/quizzes}" class="card-btn">Retour</a>
         </div>
     </div>
-</div>
+</main>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>

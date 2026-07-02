@@ -1,22 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('Modifier une leçon')}"></head>
 <body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<div class="form-container-lg">
+<main class="form-container-lg" id="main-content">
     <div class="form-card">
         <h1 class="form-title">Modifier une leçon</h1>
         <form th:action="@{/lessons/edit/{id}(id=${lessonDTO.id})}" th:object="${lessonDTO}" method="post">
+            <label for="title" class="form-label">Titre</label>
             <input type="text" th:field="*{title}" placeholder="Titre" class="form-input">
+            <label for="content" class="form-label">Contenu de la leçon</label>
             <textarea th:field="*{content}" placeholder="Contenu de la leçon" class="form-input form-textarea"></textarea>
+            <label for="orderIndex" class="form-label">Ordre</label>
             <input type="number" th:field="*{orderIndex}" placeholder="Ordre" class="form-input">
+            <label for="chapterId" class="form-label">ID du chapitre</label>
             <input type="number" th:field="*{chapterId}" placeholder="ID du chapitre" class="form-input">
             <button type="submit" class="form-btn">Modifier</button>
         </form>
         <p class="form-link"><a th:href="@{/lessons}">Retour aux leçons</a></p>
     </div>
-</div>
+</main>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>

@@ -1,21 +1,24 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('Inscription')}"></head>
 <body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<div class="form-container">
+<main class="form-container" id="main-content">
     <div class="form-card">
         <h1 class="form-title">Inscription</h1>
         <form th:action="@{/auth/register}" th:object="${registerRequest}" method="post">
+            <label for="username" class="form-label">Nom d'utilisateur</label>
             <input type="text" th:field="*{username}" placeholder="Nom d'utilisateur" class="form-input">
+            <label for="email" class="form-label">Email</label>
             <input type="email" th:field="*{email}" placeholder="Email" class="form-input">
+            <label for="password" class="form-label">Mot de passe</label>
             <input type="password" th:field="*{password}" placeholder="Mot de passe" class="form-input">
             <button type="submit" class="form-btn">S'inscrire</button>
         </form>
         <p class="form-link">Déjà un compte ? <a th:href="@{/auth/login}">Se connecter</a></p>
     </div>
-</div>
+</main>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>

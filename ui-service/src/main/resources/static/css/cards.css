@@ -6,102 +6,112 @@
 
 .card {
     background: white;
-    border-radius: 12px;
-    padding: 16px 20px;
+    border-radius: var(--radius);
+    padding: 15px 17px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-left: 4px solid #F72585;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    border-left: 4px solid var(--rose);
+    box-shadow: var(--ombre-carte);
+    transition: transform var(--transition), box-shadow var(--transition);
 }
 
-.card:nth-child(2) {
-    border-left-color: #FFC300;
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--ombre-carte-hover);
 }
 
-.card:nth-child(3) {
-    border-left-color: #9C6ADE;
+.card:nth-child(3n + 2) {
+    border-left-color: var(--or);
 }
 
-.card:nth-child(4) {
-    border-left-color: #F72585;
-}
-
-.card:nth-child(5) {
-    border-left-color: #FFC300;
+.card:nth-child(3n + 3) {
+    border-left-color: var(--violet-clair);
 }
 
 .card h3 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 16px;
+    font-family: var(--font-corps);
+    font-size: 17px;
     font-weight: 600;
-    color: #2C2C2C;
+    color: var(--texte);
 }
 
 .card p {
-    font-size: 13px;
-    color: #888;
+    font-size: 14px;
+    color: var(--texte-gris);
     margin-top: 2px;
 }
 
-.card-btn {
-    background: linear-gradient(135deg, #F72585, #FF4FA3);
-    color: white;
+.card > .flex {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 8px;
+}
+
+.card-btn,
+.card-btn-secondary,
+.card-btn-danger {
     text-decoration: none;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 600;
-    padding: 6px 16px;
-    border-radius: 50px;
-    font-family: 'Poppins', sans-serif;
+    padding: 9px 16px;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-corps);
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    transition: transform 0.15s ease, box-shadow var(--transition), opacity var(--transition);
+}
+
+.card-btn {
+    background: var(--gradient-rose);
+    color: white;
+    box-shadow: 0 3px 10px rgba(247, 37, 133, 0.25);
 }
 
 .card-btn:hover {
-    opacity: 0.9;
     color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 5px 14px rgba(247, 37, 133, 0.35);
 }
 
 .card-btn-secondary {
-    background: linear-gradient(135deg, #FFC300, #FFD84D);
-    color: #4B1D74;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 6px 16px;
-    border-radius: 50px;
-    font-family: 'Poppins', sans-serif;
+    background: var(--gradient-or);
+    color: var(--violet);
+    box-shadow: 0 3px 10px rgba(255, 195, 0, 0.28);
 }
 
 .card-btn-secondary:hover {
-    opacity: 0.9;
-    color: #4B1D74;
+    color: var(--violet);
+    transform: translateY(-1px);
+    box-shadow: 0 5px 14px rgba(255, 195, 0, 0.4);
 }
 
 .card-btn-danger {
-    background: linear-gradient(135deg, #dc2626, #ef4444);
+    background: var(--gradient-rouge);
     color: white;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 6px 16px;
-    border-radius: 50px;
-    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 3px 10px rgba(220, 38, 38, 0.25);
 }
 
 .card-btn-danger:hover {
-    opacity: 0.9;
     color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 5px 14px rgba(220, 38, 38, 0.35);
 }
 
 .detail-container {
     max-width: 900px;
     margin: 0 auto;
-    padding: 40px 24px;
+    padding: 24px 14px;
 }
 
 .detail-card {
     background: white;
-    border-radius: 12px;
-    padding: 48px;
-    box-shadow: 0 4px 12px rgba(75, 29, 116, 0.15);
+    border-radius: var(--radius);
+    padding: 26px 20px;
+    box-shadow: var(--ombre-flottante);
 }
 
 .detail-card-center {
@@ -109,35 +119,57 @@
 }
 
 .detail-card h1 {
-    margin-bottom: 24px;
-    font-size: 36px;
+    margin-bottom: 16px;
+    font-size: 24px;
 }
 
 .detail-card p {
-    font-size: 16px;
-    line-height: 1.8;
-    color: #2C2C2C;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--texte);
     margin-bottom: 12px;
+}
+
+.detail-card ul {
+    margin: 0 0 12px;
+    padding-left: 22px;
+}
+
+.detail-card li {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--texte);
+    margin-bottom: 6px;
+}
+
+.detail-card li::marker {
+    color: var(--violet-clair);
 }
 
 .detail-actions {
     display: flex;
+    flex-direction: column;
     gap: 8px;
-    margin-top: 40px;
+    margin-top: 28px;
     padding-top: 24px;
-    border-top: 3px solid #F5F5F7;
+    border-top: 2px solid var(--bordure-fine);
+}
+
+.detail-actions a,
+.detail-actions button {
+    text-align: center;
 }
 
 .detail-actions-center {
-    justify-content: center;
+    align-items: center;
 }
 
 .detail-section {
-    margin-top: 40px;
-    padding: 24px;
-    background: #F5F5F7;
-    border-radius: 12px;
-    border-left: 4px solid #6A2CA0;
+    margin-top: 28px;
+    padding: 18px 16px;
+    background: var(--fond-doux);
+    border-radius: var(--radius-sm);
+    border-left: 4px solid var(--violet-moyen);
 }
 
 .detail-section-left {
@@ -145,12 +177,12 @@
 }
 
 .detail-section h2 {
-    margin-bottom: 20px;
-    font-size: 22px;
+    margin-bottom: 14px;
+    font-size: 18px;
 }
 
 .detail-section .card {
-    box-shadow: 0 4px 12px rgba(75, 29, 116, 0.15);
+    box-shadow: var(--ombre-carte);
     margin-bottom: 12px;
     background: white;
 }
@@ -160,39 +192,128 @@
 }
 
 .quiz-banner {
-    background: linear-gradient(135deg, #F72585 0%, #FF4FA3 50%, #FFC300 100%);
-    border-radius: 12px;
-    padding: 24px;
+    background: linear-gradient(110deg, var(--rose) 0%, var(--rose-clair) 50%, var(--or) 100%);
+    border-radius: var(--radius);
+    padding: 22px 16px;
     text-align: center;
-    margin-top: 24px;
+    margin-top: 26px;
+    box-shadow: 0 6px 20px rgba(247, 37, 133, 0.22);
 }
 
 .quiz-banner h3 {
-    font-family: 'Baloo 2', cursive;
-    font-size: 22px;
+    font-family: var(--font-titre);
+    font-size: 18px;
     color: white;
     margin-bottom: 8px;
+    letter-spacing: 0.3px;
 }
 
 .quiz-banner p {
-    color: rgba(255,255,255,0.9);
+    color: rgba(255,255,255,0.92);
     font-size: 14px;
-    margin-bottom: 16px;
+    margin-bottom: 18px;
 }
 
 .quiz-banner-btn {
     display: inline-block;
     background: white;
-    color: #F72585;
+    color: var(--rose);
     font-weight: 700;
-    padding: 10px 28px;
-    border-radius: 50px;
+    padding: 11px 26px;
+    border-radius: var(--radius-sm);
     text-decoration: none;
-    font-size: 14px;
-    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-family: var(--font-corps);
+    transition: transform var(--transition), box-shadow var(--transition);
 }
 
 .quiz-banner-btn:hover {
-    color: #F72585;
-    opacity: 0.9;
+    color: var(--rose);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 28px 16px;
+    color: var(--texte-gris);
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    .card {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 20px;
+        gap: 0;
+    }
+
+    .card > .flex {
+        flex-direction: row;
+        align-items: center;
+        width: auto;
+        gap: 8px;
+    }
+
+    .card-btn,
+    .card-btn-secondary,
+    .card-btn-danger {
+        width: auto;
+        padding: 7px 16px;
+    }
+
+    .detail-container {
+        padding: 40px 24px;
+    }
+
+    .detail-card {
+        padding: 48px;
+    }
+
+    .detail-card h1 {
+        font-size: 36px;
+        margin-bottom: 24px;
+    }
+
+    .detail-card p {
+        font-size: 16px;
+        line-height: 1.8;
+    }
+
+    .detail-actions {
+        flex-direction: row;
+        margin-top: 40px;
+    }
+
+    .detail-actions-center {
+        justify-content: center;
+    }
+
+    .detail-section {
+        margin-top: 40px;
+        padding: 24px;
+    }
+
+    .detail-section h2 {
+        margin-bottom: 20px;
+        font-size: 22px;
+    }
+
+    .quiz-banner {
+        padding: 26px;
+    }
+
+    .quiz-banner h3 {
+        font-size: 22px;
+    }
+
+    .quiz-banner p {
+        font-size: 14px;
+    }
+
+    .quiz-banner-btn {
+        padding: 11px 30px;
+        font-size: 14px;
+    }
 }

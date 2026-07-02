@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="~{fragments/header :: header('Résultat du quiz')}"></head>
 <body class="min-h-screen flex flex-col">
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<div class="detail-container">
+<main class="detail-container" id="main-content">
     <div class="detail-card detail-card-center">
         <h1 th:if="${result.passed}" class="quiz-passed">Quiz réussi !</h1>
         <h1 th:if="${!result.passed}" class="quiz-failed">Quiz raté</h1>
@@ -33,7 +33,7 @@
             <a th:href="@{/quizzes}" class="card-btn">Retour aux quiz</a>
         </div>
     </div>
-</div>
+</main>
 
 <div th:replace="~{fragments/footer :: footer}"></div>
 </body>

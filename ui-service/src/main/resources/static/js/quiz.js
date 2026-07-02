@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
             timerDisplay.textContent = minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
 
             if (totalSeconds <= 30) {
-                timerDisplay.style.color = '#dc2626';
+                timerDisplay.classList.add('quiz-timer-urgent');
             }
 
             if (totalSeconds <= 0) {
