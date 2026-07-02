@@ -7,6 +7,7 @@ import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
@@ -47,7 +48,22 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
             return exchange.getResponse().setComplete();
         }
 
-        return chain.filter(exchange);
+        // Propagate a trusted identity from the token so downstream services never
+        // rely on a client-supplied userId. Incoming values are overwritten so a
+        // client cannot forge them.
+        String userId = jwtService.extractUserId(token);
+        ServerHttpRequest request = exchange.getRequest().mutate()
+                .headers(headers -> {
+                    headers.remove("X-User-Id");
+                    headers.remove("X-User-Role");
+                    if (userId != null) {
+                        headers.set("X-User-Id", userId);
+                    }
+                    headers.set("X-User-Role", jwtService.extractRole(token));
+                })
+                .build();
+
+        return chain.filter(exchange.mutate().request(request).build());
     }
 
     private boolean isPublicRoute(String path) {
