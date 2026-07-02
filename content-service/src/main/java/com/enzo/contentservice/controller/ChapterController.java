@@ -1,6 +1,7 @@
 package com.enzo.contentservice.controller;
 
 import com.enzo.contentservice.dto.ChapterDTO;
+import com.enzo.contentservice.dto.ChapterSummaryDTO;
 import com.enzo.contentservice.service.ChapterService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,11 @@ public class ChapterController {
     @GetMapping
     public List<ChapterDTO> getAllChapter() {
         return chapterService.findAll();
+    }
+
+    @GetMapping("/summary")
+    public List<ChapterSummaryDTO> getChapterSummaries() {
+        return chapterService.findAllSummary();
     }
 
     @GetMapping("/{id}")

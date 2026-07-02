@@ -1,6 +1,7 @@
 package com.enzo.contentservice.service.proxy;
 
 import com.enzo.contentservice.dto.ChapterDTO;
+import com.enzo.contentservice.dto.ChapterSummaryDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,9 @@ public interface ChapterFeignClient {
 
     @GetMapping
     public List<ChapterDTO> getAllChapter();
+
+    @GetMapping("/summary")
+    public List<ChapterSummaryDTO> getChapterSummaries();
 
     @GetMapping("/{id}")
     public ChapterDTO getChapterById(@PathVariable Long id);

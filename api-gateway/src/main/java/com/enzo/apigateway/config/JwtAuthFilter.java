@@ -24,7 +24,7 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String path = exchange.getRequest().getPath().toString();
 
-        if (isPublicRoute(path)) {
+        if (isPublicRoute(path) || isPublicCatalog(exchange.getRequest().getMethod(), path)) {
             return chain.filter(exchange);
         }
 
@@ -52,6 +52,12 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
 
     private boolean isPublicRoute(String path) {
         return publicRoutes.stream().anyMatch(path::startsWith);
+    }
+
+    // Public read-only catalog: the chapter list (metadata only) is browsable
+    // by anonymous visitors. Full content stays authenticated.
+    private boolean isPublicCatalog(HttpMethod method, String path) {
+        return HttpMethod.GET.equals(method) && path.equals("/api/chapters/summary");
     }
 
     private boolean requiresAdmin(HttpMethod method, String path) {

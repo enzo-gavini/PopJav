@@ -2,6 +2,7 @@ package com.enzo.persistenceservice.controller;
 
 import com.enzo.persistenceservice.entity.Chapter;
 import com.enzo.persistenceservice.service.ChapterService;
+import com.enzo.persistenceservice.service.dto.ChapterSummaryDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,13 @@ public class ChapterController {
     @GetMapping
     public List<Chapter> getAllChapter() {
         return chapterService.findAll();
+    }
+
+    @GetMapping("/summary")
+    public List<ChapterSummaryDTO> getChapterSummaries() {
+        return chapterService.findAll().stream()
+                .map(c -> new ChapterSummaryDTO(c.getId(), c.getTitle(), c.getDescription(), c.getOrderIndex()))
+                .toList();
     }
 
     @GetMapping("/{id}")
