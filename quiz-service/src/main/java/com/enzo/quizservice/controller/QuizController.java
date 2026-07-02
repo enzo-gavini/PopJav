@@ -41,7 +41,9 @@ public class QuizController {
     }
 
     @PostMapping("/submit")
-    public QuizResultDTO submitQuiz(@RequestBody QuizSubmissionDTO submission) {
+    public QuizResultDTO submitQuiz(@RequestBody QuizSubmissionDTO submission,
+                                    @RequestHeader("X-User-Id") Long userId) {
+        submission.setUserId(userId);
         return quizService.submitQuiz(submission);
     }
 }

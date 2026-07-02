@@ -3,7 +3,9 @@ package com.enzo.quizservice.controller;
 import com.enzo.quizservice.dto.ResultDTO;
 import com.enzo.quizservice.service.ResultService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -29,7 +31,13 @@ public class ResultController {
     }
 
     @GetMapping("/user/{userId}")
-    public List<ResultDTO> getResultsByUserId(@PathVariable Long userId) {
+    public List<ResultDTO> getResultsByUserId(@PathVariable Long userId,
+                                              @RequestHeader("X-User-Id") Long callerId,
+                                              @RequestHeader(value = "X-User-Role", required = false) String callerRole) {
+        // Ownership check: a user may only read their own results; an admin may read anyone's.
+        if (!userId.equals(callerId) && !"ADMIN".equals(callerRole)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access denied");
+        }
         return resultService.findByUserId(userId);
     }
 

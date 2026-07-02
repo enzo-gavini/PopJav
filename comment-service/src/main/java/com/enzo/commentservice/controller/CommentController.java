@@ -14,7 +14,9 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping
-    public Comment save(@RequestBody Comment comment) {
+    public Comment save(@RequestBody Comment comment, @RequestHeader("X-User-Id") Long userId) {
+        // Trust the identity from the gateway, not the client-supplied userId.
+        comment.setUserId(userId);
         return commentService.save(comment);
     }
 

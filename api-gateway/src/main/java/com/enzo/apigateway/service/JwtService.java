@@ -38,6 +38,19 @@ public class JwtService {
         }
     }
 
+    public String extractUserId(String token) {
+        try {
+            Object userId = extractAllClaims(token).get("userId");
+            return userId != null ? userId.toString() : null;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public String extractRole(String token) {
+        return isAdmin(token) ? "ADMIN" : "USER";
+    }
+
     public boolean validateToken(String token) {
         try {
             Claims claims = extractAllClaims(token);
