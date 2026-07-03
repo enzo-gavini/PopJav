@@ -1,7 +1,7 @@
 # PopJav
 
-> Plateforme d'apprentissage du langage **Java**, construite en **microservices Spring Boot**.
-> Chapitres, leçons et quiz s'enchaînent pour transformer la théorie en pratique, avec un suivi de progression.
+> A **Java** learning platform built as **Spring Boot microservices**.
+> Chapters, lessons and quizzes turn theory into practice, with progress tracking.
 
 ![Java](https://img.shields.io/badge/Java-17-orange)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2.1-6DB33F)
@@ -10,49 +10,49 @@
 ![MongoDB](https://img.shields.io/badge/MongoDB-7-47A248)
 ![Tests](https://img.shields.io/badge/tests-JUnit5%20%2B%20JaCoCo-blue)
 
-Projet réalisé dans le cadre du titre professionnel **DWWM** (Développeur Web et Web Mobile).
+Project built for the French **DWWM** professional certification (Web and Mobile Web Developer).
 
 ---
 
-## Sommaire
+## Table of contents
 
-- [Fonctionnalités](#fonctionnalités)
+- [Features](#features)
 - [Architecture](#architecture)
-- [Stack technique](#stack-technique)
-- [Modèle de données](#modèle-de-données)
-- [Prérequis](#prérequis)
-- [Démarrage](#démarrage)
+- [Tech stack](#tech-stack)
+- [Data model](#data-model)
+- [Prerequisites](#prerequisites)
+- [Getting started](#getting-started)
 - [Configuration](#configuration)
-- [Routes de l'API](#routes-de-lapi)
-- [Sécurité](#sécurité)
-- [Tests et couverture](#tests-et-couverture)
-- [Structure du projet](#structure-du-projet)
+- [API routes](#api-routes)
+- [Security](#security)
+- [Tests and coverage](#tests-and-coverage)
+- [Project structure](#project-structure)
 - [Roadmap](#roadmap)
-- [Auteur](#auteur)
+- [Author](#author)
 
 ---
 
-## Fonctionnalités
+## Features
 
-- 📚 **Contenu pédagogique** : chapitres → leçons, catalogue consultable publiquement.
-- 📝 **Quiz interactifs** : système de vies, score, seuil de réussite, correction côté serveur.
-- 👤 **Comptes & rôles** : inscription / connexion, rôles `USER` / `ADMIN`.
-- 💬 **Commentaires** sur les leçons (stockés dans MongoDB).
-- 📊 **Suivi de progression** depuis le profil utilisateur.
-- 🛠️ **Back-office admin** : gestion des chapitres, leçons, quiz, questions, réponses.
-- ♿ **Interface responsive et accessible** (RGAA : labels, focus, ARIA, contrastes).
+- 📚 **Learning content**: chapters → lessons, with a publicly browsable catalog.
+- 📝 **Interactive quizzes**: lives system, scoring, passing threshold, server-side grading.
+- 👤 **Accounts & roles**: sign-up / login, `USER` / `ADMIN` roles.
+- 💬 **Comments** on lessons (stored in MongoDB).
+- 📊 **Progress tracking** from the user profile.
+- 🛠️ **Admin back-office**: manage chapters, lessons, quizzes, questions and answers.
+- ♿ **Responsive and accessible UI** (labels, keyboard focus, ARIA, color contrast).
 
 ---
 
 ## Architecture
 
-Application découpée en **7 microservices** Spring Boot, avec service discovery (Consul),
-passerelle unique (Spring Cloud Gateway) et communication interne via OpenFeign.
+The application is split into **7 Spring Boot microservices**, with service discovery
+(Consul), a single entry point (Spring Cloud Gateway) and internal calls over OpenFeign.
 
 ```mermaid
 flowchart TD
-    B[Navigateur] --> UI[ui-service<br/>Thymeleaf · sessions]
-    UI --> GW[api-gateway<br/>JWT · RBAC · routage]
+    B[Browser] --> UI[ui-service<br/>Thymeleaf · sessions]
+    UI --> GW[api-gateway<br/>JWT · RBAC · routing]
     GW --> AUTH[auth-service]
     GW --> CONTENT[content-service]
     GW --> QUIZ[quiz-service]
@@ -62,53 +62,53 @@ flowchart TD
     QUIZ --> PERS
     PERS --> PG[(PostgreSQL)]
     COMMENT --> MONGO[(MongoDB)]
-    GW -. découverte .- CONSUL{{Consul}}
+    GW -. discovery .- CONSUL{{Consul}}
 ```
 
-| Service | Rôle |
+| Service | Responsibility |
 |---|---|
-| `api-gateway` | Point d'entrée unique, validation JWT, contrôle d'accès par rôle (RBAC). |
-| `auth-service` | Inscription / connexion, hachage BCrypt, émission des JWT. |
-| `content-service` | Façade des chapitres et leçons. |
-| `quiz-service` | Quiz, questions, réponses, correction et calcul des résultats. |
-| `comment-service` | Commentaires (MongoDB). |
-| `persistence-service` | Accès aux données relationnelles (source de vérité PostgreSQL). |
-| `ui-service` | Interface web (Thymeleaf) consommant l'API via la gateway. |
+| `api-gateway` | Single entry point, JWT validation, role-based access control (RBAC). |
+| `auth-service` | Sign-up / login, BCrypt hashing, JWT issuance. |
+| `content-service` | Facade for chapters and lessons. |
+| `quiz-service` | Quizzes, questions, answers, grading and result computation. |
+| `comment-service` | Comments (MongoDB). |
+| `persistence-service` | Relational data access (PostgreSQL source of truth). |
+| `ui-service` | Web UI (Thymeleaf) consuming the API through the gateway. |
 
 ---
 
-## Stack technique
+## Tech stack
 
-| Domaine | Technologies |
+| Area | Technologies |
 |---|---|
-| **Langage / build** | Java 17, Maven (wrapper), Lombok |
+| **Language / build** | Java 17, Maven (wrapper), Lombok |
 | **Framework** | Spring Boot 3.2.1, Spring Cloud 2023.0.0 |
 | **Microservices** | Spring Cloud Gateway, Consul Discovery, OpenFeign, HashiCorp Consul 1.21.3, Actuator |
-| **Sécurité** | Spring Security, JWT (jjwt 0.11.5), BCrypt |
-| **Persistance** | Spring Data JPA / Hibernate, PostgreSQL 16, Spring Data MongoDB, MongoDB 7, Bean Validation |
-| **Front-end** | Thymeleaf, Tailwind CSS, CSS custom, JavaScript vanilla, Google Fonts |
-| **Tests / qualité** | JUnit 5, Mockito, Spring Security Test, JaCoCo 0.8.11 |
+| **Security** | Spring Security, JWT (jjwt 0.11.5), BCrypt |
+| **Persistence** | Spring Data JPA / Hibernate, PostgreSQL 16, Spring Data MongoDB, MongoDB 7, Bean Validation |
+| **Front-end** | Thymeleaf, Tailwind CSS, custom CSS, vanilla JavaScript, Google Fonts |
+| **Tests / quality** | JUnit 5, Mockito, Spring Security Test, JaCoCo 0.8.11 |
 | **DevOps** | Docker, Docker Compose, Git / GitHub |
 
 ---
 
-## Modèle de données
+## Data model
 
-**PostgreSQL** héberge le domaine pédagogique ; **MongoDB** héberge les commentaires
-(*persistance polyglotte*). Les références inter-services (`RESULT.user_id`,
-`COMMENT.user_id/lesson_id`) sont **logiques** (sans clé étrangère), pour garder les
-contextes faiblement couplés.
+**PostgreSQL** holds the learning domain; **MongoDB** holds the comments
+(*polyglot persistence*). Cross-service references (`RESULT.user_id`,
+`COMMENT.user_id/lesson_id`) are **logical** (no foreign key), to keep the bounded
+contexts loosely coupled.
 
 ```mermaid
 erDiagram
-    CHAPTER  ||--o{ LESSON   : contient
-    LESSON   ||--o| QUIZ     : possède
-    QUIZ     ||--|{ QUESTION : compose
-    QUESTION ||--|{ ANSWER   : propose
-    USERS    ||--o{ RESULT   : réalise
-    QUIZ     ||--o{ RESULT   : obtient
-    USERS    ||..o{ COMMENT  : écrit
-    LESSON   ||..o{ COMMENT  : "porte sur"
+    CHAPTER  ||--o{ LESSON   : contains
+    LESSON   ||--o| QUIZ     : has
+    QUIZ     ||--|{ QUESTION : "is composed of"
+    QUESTION ||--|{ ANSWER   : offers
+    USERS    ||--o{ RESULT   : takes
+    QUIZ     ||--o{ RESULT   : "is scored in"
+    USERS    ||..o{ COMMENT  : writes
+    LESSON   ||..o{ COMMENT  : "is commented in"
 
     USERS {
         bigint id PK
@@ -154,48 +154,47 @@ erDiagram
         int score
         boolean completed
         int attempts
-        bigint user_id "réf. logique"
+        bigint user_id "logical ref"
         bigint quiz_id FK
     }
     COMMENT {
         string id PK
         string text
-        bigint user_id "réf. logique"
-        bigint lesson_id "réf. logique"
+        bigint user_id "logical ref"
+        bigint lesson_id "logical ref"
         datetime created_at
     }
 ```
 
 ---
 
-## Prérequis
+## Prerequisites
 
 - **JDK 17**
-- **Maven 3.9+** (ou le wrapper `./mvnw` fourni)
+- **Maven 3.9+** (or the bundled `./mvnw` wrapper)
 - **Docker** + **Docker Compose**
 
 ---
 
-## Démarrage
+## Getting started
 
 ### 1. Configuration
 
 ```bash
 cp .env.example .env
 ```
-Renseigne au minimum `JWT_SECRET` (voir la commande dans `.env.example`) et les mots de
-passe des bases.
+Fill in at least `JWT_SECRET` (see the command in `.env.example`) and the database passwords.
 
 ### 2. Infrastructure (PostgreSQL, MongoDB, Consul)
 
 ```bash
 docker compose up -d
 ```
-> Interface Consul : http://localhost:8500
+> Consul UI: http://localhost:8500
 
-### 3. Lancement des services
+### 3. Run the services
 
-Dans un terminal par service (ou via l'IDE), **`persistence-service` en premier** :
+One terminal per service (or via your IDE), **`persistence-service` first**:
 
 ```bash
 cd persistence-service && ./mvnw spring-boot:run
@@ -207,89 +206,89 @@ cd api-gateway         && ./mvnw spring-boot:run
 cd ui-service          && ./mvnw spring-boot:run
 ```
 
-### 4. Accès
+### 4. Access
 
-Interface web : **http://localhost:8085** (`UI_SERVICE_PORT`).
+Web UI: **http://localhost:8085** (`UI_SERVICE_PORT`).
 
 ---
 
 ## Configuration
 
-Toute la configuration sensible est externalisée dans `.env` (non versionné). Voir
-`.env.example` pour la liste complète : ports des services, identifiants PostgreSQL /
-MongoDB, hôte Consul, secret et durée de vie des JWT.
+All sensitive configuration is externalized in `.env` (not versioned). See
+`.env.example` for the full list: service ports, PostgreSQL / MongoDB credentials,
+Consul host, JWT secret and lifetime.
 
 ---
 
-## Routes de l'API
+## API routes
 
-| Préfixe | Service | Authentification |
+| Prefix | Service | Authentication |
 |---|---|---|
 | `/auth/**` | auth-service | Public |
-| `/api/chapters/summary` | content-service | **Public** (catalogue) |
+| `/api/chapters/summary` | content-service | **Public** (catalog) |
 | `/api/chapters/**`, `/api/lessons/**` | content-service | JWT |
 | `/api/quizzes/**`, `/api/questions/**`, `/api/answers/**`, `/api/results/**` | quiz-service | JWT |
 | `/api/comments/**` | comment-service | JWT |
 | `/api/users/**` | persistence-service | JWT |
 
-Règles RBAC (appliquées à la gateway) :
-- **Écritures de contenu** (`POST`/`PUT`/`DELETE` sur chapters, lessons, quizzes, questions, answers) → **ADMIN**.
-- **Actions utilisateur** (soumettre un quiz, poster un commentaire, enregistrer un résultat) → ouvertes.
-- Liste des utilisateurs, suppression de compte, endpoint interne `/api/users/credentials` → **ADMIN**.
+RBAC rules (enforced at the gateway):
+- **Content writes** (`POST`/`PUT`/`DELETE` on chapters, lessons, quizzes, questions, answers) → **ADMIN**.
+- **User actions** (submitting a quiz, posting a comment, saving a result) → open.
+- User listing, account deletion, internal `/api/users/credentials` endpoint → **ADMIN**.
 
 ---
 
-## Sécurité
+## Security
 
-- Mots de passe hachés avec **BCrypt**, jamais renvoyés au client (`UserResponseDTO`).
-- Authentification **JWT** (HS256), validée de façon centralisée à l'API Gateway.
-- **RBAC** par rôle pour les opérations sensibles.
-- **Anti-usurpation (IDOR)** : la gateway extrait l'identité du JWT et l'injecte en
-  en-tête de confiance (`X-User-Id`) ; les identifiants fournis par le client sont ignorés.
-- Message de connexion **générique** (anti-énumération de comptes).
-- Réponses de quiz **masquées** côté client (le flag `correct` n'est jamais exposé).
-- Secrets externalisés (`.env` non versionné).
+- Passwords hashed with **BCrypt**, never returned to the client (`UserResponseDTO`).
+- **JWT** authentication (HS256), validated centrally at the API gateway.
+- **RBAC** by role for sensitive operations.
+- **IDOR protection**: the gateway extracts the identity from the JWT and injects it as a
+  trusted header (`X-User-Id`); client-supplied identifiers are ignored.
+- **Generic login error** message (prevents account enumeration).
+- Quiz answers **hidden** from the client (the `correct` flag is never exposed).
+- Secrets externalized (`.env`, not versioned).
 
 ---
 
-## Tests et couverture
+## Tests and coverage
 
-Tests unitaires (JUnit 5 + Mockito) sur la logique métier critique — `AuthService`
-(inscription / connexion) et `QuizService` (calcul de score). Couverture mesurée par **JaCoCo**.
+Unit tests (JUnit 5 + Mockito) on the core business logic — `AuthService`
+(sign-up / login) and `QuizService` (score computation). Coverage measured with **JaCoCo**.
 
 ```bash
 cd auth-service && ./mvnw clean test
-# rapport : target/site/jacoco/index.html
+# report: target/site/jacoco/index.html
 ```
 
 ---
 
-## Structure du projet
+## Project structure
 
 ```
 PopJav/
-├── api-gateway/          # Passerelle (routage, JWT, RBAC)
-├── auth-service/         # Authentification, JWT
-├── content-service/      # Chapitres, leçons
-├── quiz-service/         # Quiz, questions, réponses, résultats
-├── comment-service/      # Commentaires (MongoDB)
-├── persistence-service/  # Accès aux données (PostgreSQL)
-├── ui-service/           # Front Thymeleaf
+├── api-gateway/          # Gateway (routing, JWT, RBAC)
+├── auth-service/         # Authentication, JWT
+├── content-service/      # Chapters, lessons
+├── quiz-service/         # Quizzes, questions, answers, results
+├── comment-service/      # Comments (MongoDB)
+├── persistence-service/  # Data access (PostgreSQL)
+├── ui-service/           # Thymeleaf front-end
 ├── docker-compose.yml    # Infrastructure (postgres, mongo, consul)
-└── .env.example          # Modèle de configuration
+└── .env.example          # Configuration template
 ```
 
 ---
 
 ## Roadmap
 
-- [ ] **Conteneurisation complète** : un `Dockerfile` par microservice et orchestration
-      de l'ensemble (services + infra) via `docker-compose`.
-- [ ] Commentaires de code en anglais sur l'ensemble du projet.
-- [ ] Enrichissement de la couverture de tests aux autres services.
+- [ ] **Full containerization**: a `Dockerfile` per microservice and full-stack
+      orchestration (services + infra) via `docker-compose`.
+- [ ] English code comments across the whole project.
+- [ ] Extend test coverage to the remaining services.
 
 ---
 
-## Auteur
+## Author
 
-**Enzo Gavini** — projet de certification DWWM.
+**Enzo Gavini** — DWWM certification project.
