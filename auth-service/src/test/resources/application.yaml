@@ -1,0 +1,11 @@
+spring:
+  cloud:
+    consul:
+      enabled: false
+      discovery:
+        enabled: false
+        register: false
+
+jwt:
+  secret: dGVzdC1zZWNyZXQtZm9yLXVuaXQtdGVzdHMtb25seS1ub3QtcmVhbA==
+  expiration: 3600000
