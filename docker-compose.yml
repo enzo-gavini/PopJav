@@ -30,9 +30,14 @@ services:
       - mongo-data:/data/db
     ports:
       - "27017:27017"
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
     networks:
       - popjav-network
-
 
   consul:
     image: hashicorp/consul:1.21.3
@@ -46,6 +51,115 @@ services:
       timeout: 5s
       retries: 5
       start_period: 10s
+    networks:
+      - popjav-network
+
+  persistence-service:
+    image: enzogavini/persistence-service:latest
+    container_name: persistence-service
+    env_file: .env
+    environment:
+      CONSUL_HOST: consul
+      PERSISTENCE_DB_HOST: postgres-popjav
+      SPRING_CLOUD_CONSUL_DISCOVERY_PREFER_IP_ADDRESS: "true"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      consul:
+        condition: service_healthy
+    networks:
+      - popjav-network
+
+  auth-service:
+    image: enzogavini/auth-service:latest
+    container_name: auth-service
+    env_file: .env
+    environment:
+      CONSUL_HOST: consul
+      SPRING_CLOUD_CONSUL_DISCOVERY_PREFER_IP_ADDRESS: "true"
+    depends_on:
+      consul:
+        condition: service_healthy
+      persistence-service:
+        condition: service_started
+    networks:
+      - popjav-network
+
+  content-service:
+    image: enzogavini/content-service:latest
+    container_name: content-service
+    env_file: .env
+    environment:
+      CONSUL_HOST: consul
+      SPRING_CLOUD_CONSUL_DISCOVERY_PREFER_IP_ADDRESS: "true"
+    depends_on:
+      consul:
+        condition: service_healthy
+      persistence-service:
+        condition: service_started
+    networks:
+      - popjav-network
+
+  quiz-service:
+    image: enzogavini/quiz-service:latest
+    container_name: quiz-service
+    env_file: .env
+    environment:
+      CONSUL_HOST: consul
+      SPRING_CLOUD_CONSUL_DISCOVERY_PREFER_IP_ADDRESS: "true"
+    depends_on:
+      consul:
+        condition: service_healthy
+      persistence-service:
+        condition: service_started
+    networks:
+      - popjav-network
+
+  comment-service:
+    image: enzogavini/comment-service:latest
+    container_name: comment-service
+    env_file: .env
+    environment:
+      CONSUL_HOST: consul
+      COMMENT_DB_HOST: mongo-popjav
+      SPRING_CLOUD_CONSUL_DISCOVERY_PREFER_IP_ADDRESS: "true"
+    depends_on:
+      consul:
+        condition: service_healthy
+      mongo:
+        condition: service_healthy
+    networks:
+      - popjav-network
+
+  api-gateway:
+    image: enzogavini/api-gateway:latest
+    container_name: api-gateway
+    env_file: .env
+    environment:
+      CONSUL_HOST: consul
+      SPRING_CLOUD_CONSUL_DISCOVERY_PREFER_IP_ADDRESS: "true"
+    ports:
+      - "${GATEWAY_PORT}:${GATEWAY_PORT}"
+    depends_on:
+      consul:
+        condition: service_healthy
+    networks:
+      - popjav-network
+
+  ui-service:
+    image: enzogavini/ui-service:latest
+    container_name: ui-service
+    env_file: .env
+    environment:
+      CONSUL_HOST: consul
+      SPRING_CLOUD_CONSUL_DISCOVERY_PREFER_IP_ADDRESS: "true"
+    ports:
+      - "${UI_SERVICE_PORT}:${UI_SERVICE_PORT}"
+    depends_on:
+      consul:
+        condition: service_healthy
+      api-gateway:
+        condition: service_started
     networks:
       - popjav-network
 
