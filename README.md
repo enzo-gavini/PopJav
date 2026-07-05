@@ -88,7 +88,7 @@ flowchart TD
 | **Persistence** | Spring Data JPA / Hibernate, PostgreSQL 16, Spring Data MongoDB, MongoDB 7, Bean Validation |
 | **Front-end** | Thymeleaf, Tailwind CSS, custom CSS, vanilla JavaScript, Google Fonts |
 | **Tests / quality** | JUnit 5, Mockito, Spring Security Test, JaCoCo 0.8.11 |
-| **DevOps** | Docker, Docker Compose, Git / GitHub |
+| **DevOps** | Docker, Docker Compose, Jib (image build), Docker Hub, Git / GitHub |
 
 ---
 
@@ -185,30 +185,33 @@ cp .env.example .env
 ```
 Fill in at least `JWT_SECRET` (see the command in `.env.example`) and the database passwords.
 
-### 2. Infrastructure (PostgreSQL, MongoDB, Consul)
+### 2. Start the whole stack
+
+The service images are published on Docker Hub. `docker compose` pulls them and starts
+the infrastructure (PostgreSQL, MongoDB, Consul) **and** the 7 microservices:
 
 ```bash
+docker compose pull
 docker compose up -d
 ```
-> Consul UI: http://localhost:8500
+> Give the services ~30–60 s to register with Consul on first start.
 
-### 3. Run the services
+### 3. Access
 
-One terminal per service (or via your IDE), **`persistence-service` first**:
+- Web UI: **http://localhost:8085**
+- API gateway: http://localhost:8080
+- Consul UI: http://localhost:8500
+
+### Running from source (development)
+
+Alternatively, start only the infrastructure and run each service from your IDE
+(**`persistence-service` first**):
 
 ```bash
+docker compose up -d postgres mongo consul
 cd persistence-service && ./mvnw spring-boot:run
-cd auth-service        && ./mvnw spring-boot:run
-cd content-service     && ./mvnw spring-boot:run
-cd quiz-service        && ./mvnw spring-boot:run
-cd comment-service     && ./mvnw spring-boot:run
-cd api-gateway         && ./mvnw spring-boot:run
-cd ui-service          && ./mvnw spring-boot:run
+# ...then auth, content, quiz, comment, api-gateway, ui-service
 ```
-
-### 4. Access
-
-Web UI: **http://localhost:8085** (`UI_SERVICE_PORT`).
 
 ---
 
@@ -274,7 +277,7 @@ PopJav/
 ├── comment-service/      # Comments (MongoDB)
 ├── persistence-service/  # Data access (PostgreSQL)
 ├── ui-service/           # Thymeleaf front-end
-├── docker-compose.yml    # Infrastructure (postgres, mongo, consul)
+├── docker-compose.yml    # Full stack (infra + 7 services)
 └── .env.example          # Configuration template
 ```
 
@@ -282,8 +285,8 @@ PopJav/
 
 ## Roadmap
 
-- [ ] **Full containerization**: a `Dockerfile` per microservice and full-stack
-      orchestration (services + infra) via `docker-compose`.
+- [x] **Full containerization**: images built with Jib and published to Docker Hub,
+      full-stack orchestration (services + infra) via `docker-compose`.
 - [ ] English code comments across the whole project.
 - [ ] Extend test coverage to the remaining services.
 
