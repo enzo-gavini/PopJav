@@ -12,7 +12,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+/**
+ * Service for login and registration. It does not own user data: persistence
+ * is relayed to persistence-service via Feign. Issues the JWT on success.
+ */
 @Service
 @AllArgsConstructor
 public class AuthService {
@@ -29,6 +32,7 @@ public class AuthService {
             throw new UsernameAlreadyExistsException("Username already exists");
         }
 
+        // Validation by server because validation from the front can be bypassed by calling the API directly
         if (request.getPassword().length() < 8 ||
                 !request.getPassword().matches(".*[A-Z].*") ||
                 !request.getPassword().matches(".*[a-z].*") ||
@@ -40,7 +44,7 @@ public class AuthService {
         if (!request.getEmail().matches("^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$")) {
             throw new InvalidRequestException("Invalid email format");
         }
-
+        // Passwords are hashed here before being sent to user-service, so persistence-service will only see the BCrypt hash
         String hashedPassWord = passwordEncoder.encode(request.getPassword());
 
         UserCreateRequest userCreate = new UserCreateRequest();
@@ -72,8 +76,7 @@ public class AuthService {
         try {
             user = userFeignClient.getUserByEmail(request.getEmail());
         } catch (FeignException e) {
-            // Unknown email: return the same generic error as a wrong password
-            // so the response does not reveal whether the account exists.
+            // Unknown email and wrong password will return the same error for security, so the response doesn't reveal whether a user exists
             throw new InvalidCredentialsException("Invalid credentials");
         }
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
