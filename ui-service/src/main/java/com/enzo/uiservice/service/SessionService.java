@@ -10,9 +10,9 @@ public class SessionService {
 
     /**
      * Stores the session identity from the auth-service response.
-     * The JWT stays opaque to ui-service: it is only kept to be forwarded as a
-     * Bearer token on outgoing calls. The identity (userId, email, role) comes
-     * from the typed response emitted by auth-service, the identity authority.
+     * The JWT stays hidden: ui-service never looks inside it and only keeps it
+     * as a Bearer token for the outgoing calls. The identity (userId, email,
+     * role) comes from the typed response emitted by auth-service.
      */
     public void storeSession(HttpSession session, AuthResponseDTO response) {
         session.setAttribute("token", response.getToken());

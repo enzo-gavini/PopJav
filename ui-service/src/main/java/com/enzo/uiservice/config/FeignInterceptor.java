@@ -6,7 +6,11 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
+/**
+ * Re-attaches the session JWT as a Bearer token on every outgoing Feign call,
+ * otherwise the gateway would answer 401. The browser never sees the JWT:
+ * it only knows the session cookie.
+ */
 @Component
 public class FeignInterceptor implements RequestInterceptor {
 
@@ -16,6 +20,7 @@ public class FeignInterceptor implements RequestInterceptor {
                 RequestContextHolder.getRequestAttributes();
 
         if (attributes != null) {
+            // getSession(false): do not create a session for an anonymous visitor
             HttpSession session = attributes.getRequest().getSession(false);
 
             if (session != null) {
