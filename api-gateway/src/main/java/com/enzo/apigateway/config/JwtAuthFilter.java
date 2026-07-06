@@ -14,6 +14,10 @@ import reactor.core.publisher.Mono;
 
 import java.util.List;
 
+/**
+ * Global filter executed before routing. Order of the checks: public routes,
+ * JWT validation, admin rights, then injection of X-User-Id/X-User-Role.
+ */
 @Component
 @RequiredArgsConstructor
 public class JwtAuthFilter implements GlobalFilter, Ordered {
@@ -47,10 +51,8 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
             exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
             return exchange.getResponse().setComplete();
         }
-
-        // Propagate a trusted identity from the token so downstream services never
-        // rely on a client-supplied userId. Incoming values are overwritten so a
-        // client cannot forge them.
+        // The identity comes from the signed token, not from the client:
+        // incoming values are overwritten so a client can never forge them
         String userId = jwtService.extractUserId(token);
         ServerHttpRequest request = exchange.getRequest().mutate()
                 .headers(headers -> {
@@ -71,27 +73,27 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
     }
 
     // Public read-only catalog: the chapter list (metadata only) is browsable
-    // by anonymous visitors. Full content stays authenticated.
+    // by anonymous visitors. The full content requires a login
     private boolean isPublicCatalog(HttpMethod method, String path) {
         return HttpMethod.GET.equals(method) && path.equals("/api/chapters/summary");
     }
 
     private boolean requiresAdmin(HttpMethod method, String path) {
-        // Internal credentials lookup (returns the password hash) must never be
-        // reachable by a regular user through the gateway.
+        // Internal credentials lookup (it returns the password hash) must never be
+        // reachable by a regular user through the gateway
         if (path.startsWith("/api/users/credentials")) {
             return true;
         }
-        // Listing every user is an admin-only operation.
+        // Listing every user is for admins only
         if (HttpMethod.GET.equals(method) && path.equals("/api/users")) {
             return true;
         }
-        // Deleting any user account is reserved to admins.
+        // Deleting any user account is for admins only
         if (HttpMethod.DELETE.equals(method) && path.startsWith("/api/users/")) {
             return true;
         }
 
-        // Only writes (create/update/delete) can be admin-restricted; reads stay open.
+        // Only writes (create/update/delete) can need admin rights; reads stay open
         boolean isWrite = HttpMethod.POST.equals(method)
                 || HttpMethod.PUT.equals(method)
                 || HttpMethod.DELETE.equals(method);
@@ -99,8 +101,8 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
             return false;
         }
 
-        // Normal user actions, never admin-only:
-        // submitting a quiz, posting a comment, saving a quiz result.
+        // Normal user actions: submitting a quiz, posting a comment and saving
+        // a quiz result are never admin-only
         if (path.equals("/api/quizzes/submit")) {
             return false;
         }
@@ -111,7 +113,7 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
             return false;
         }
 
-        // Content authoring: only admins may create/update/delete.
+        // Content authoring: only admins can create, update or delete
         return path.startsWith("/api/chapters")
                 || path.startsWith("/api/lessons")
                 || path.startsWith("/api/quizzes")

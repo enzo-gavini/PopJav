@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
-
+/**
+ * Validates the signed JWTs; issuing, on the other hand, lives in auth-service.
+ * The secret is shared with auth-service, so validation is local: no network call.
+ */
 @Service
 public class JwtService {
     @Value("${jwt.secret}")
@@ -28,7 +31,8 @@ public class JwtService {
                 .parseClaimsJws(token)
                 .getBody();
     }
-
+    // Claim readers: if the token is unreadable they return false/null and never
+    // let the exception bubble up (fail-safe)
     public boolean isAdmin(String token) {
         try {
             Object role = extractAllClaims(token).get("role");
@@ -51,6 +55,8 @@ public class JwtService {
         return isAdmin(token) ? "ADMIN" : "USER";
     }
 
+    // Signature and expiration are verified at the same time: parseClaimsJws
+    // throws an exception if the signature is invalid, and the catch returns false
     public boolean validateToken(String token) {
         try {
             Claims claims = extractAllClaims(token);
