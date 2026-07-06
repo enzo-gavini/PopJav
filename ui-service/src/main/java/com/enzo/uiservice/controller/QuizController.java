@@ -68,7 +68,9 @@ public class QuizController {
         model.addAttribute("submission", new QuizSubmissionDTO());
         return "quiz-play";
     }
-
+    // The userId comes from the server-side session, never from the form: a user
+    // can never submit a quiz on behalf of another user. This is the beginning of
+    // the identity chain relayed by the gateway and quiz-service.
     @PostMapping("/play/{id}")
     public String submitQuiz(@PathVariable Long id, @ModelAttribute QuizSubmissionDTO submission, HttpSession session, Model model) {
         submission.setQuizId(id);

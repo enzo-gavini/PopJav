@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+/**
+ * After login/register, the auth-service response is stored in the session
+ * via SessionService. Logout invalidates the session.
+ */
 @Controller
 @RequestMapping("/auth")
 @AllArgsConstructor
