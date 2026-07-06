@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Handles the chapter pages.
+ */
 @Controller
 @RequestMapping("/chapters")
 @AllArgsConstructor

@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Collections;
 
+/**
+ * Displays the home page with the public chapter catalog.
+ */
 @Controller
 @AllArgsConstructor
 public class HomeController {

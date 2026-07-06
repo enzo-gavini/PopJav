@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Handles the lesson pages.
+ */
 @Controller
 @RequestMapping("/lessons")
 @AllArgsConstructor

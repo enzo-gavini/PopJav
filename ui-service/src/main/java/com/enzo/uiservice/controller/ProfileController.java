@@ -16,6 +16,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Displays the profile page: user info and quiz stats aggregated from several services.
+ */
 @Controller
 @AllArgsConstructor
 public class ProfileController {
@@ -30,6 +33,7 @@ public class ProfileController {
         UserDTO user = userFeignClient.getUserByEmail(email);
         List<ResultDTO> results = resultFeignClient.getResultsByUserId(userId);
 
+        // Fallback to "Quiz #id" if a quiz was deleted: the profile page must not crash.
         Map<Long, String> quizNames = new HashMap<>();
         for (ResultDTO result : results) {
             if (!quizNames.containsKey(result.getQuizId())) {

@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Handles the question pages.
+ */
 @Controller
 @RequestMapping("/questions")
 @AllArgsConstructor

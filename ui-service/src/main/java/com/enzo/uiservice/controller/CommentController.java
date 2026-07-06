@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Handles the comment pages (create, edit, delete).
+ */
 @Controller
 @RequestMapping("/comments")
 @AllArgsConstructor

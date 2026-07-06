@@ -5,17 +5,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+/**
+ * Translates Feign errors into French pages/messages for the user.
+ */
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(FeignException.Unauthorized.class)
     public String handleUnauthorized(FeignException.Unauthorized e, Model model) {
-        // A 401 on the login call means wrong credentials: show the message.
+        // A 401 on the login call means wrong credentials, so the message is shown
         if (e.request() != null && e.request().url().contains("/auth/login")) {
             model.addAttribute("message", "Email ou mot de passe incorrect.");
             return "error";
         }
-        // Otherwise the session token is missing/expired: send the user to login.
+        // If not, the session token is missing or expired: the user is sent back to login
         return "redirect:/auth/login";
     }
 

@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Handles the answer management pages.
+ */
 @Controller
 @RequestMapping("/answers")
 @AllArgsConstructor
