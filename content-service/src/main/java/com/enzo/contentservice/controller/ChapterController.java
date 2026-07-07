@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ *  REST CRUD endpoints for chapter, relayed to persistence-service.
+ */
 @RestController
 @RequestMapping("/api/chapters")
 @AllArgsConstructor
@@ -24,6 +27,8 @@ public class ChapterController {
         return chapterService.findAll();
     }
 
+    // Light DTO for public use: no lesson content can leak. Used by the home
+    // page to list the chapters.
     @GetMapping("/summary")
     public List<ChapterSummaryDTO> getChapterSummaries() {
         return chapterService.findAllSummary();

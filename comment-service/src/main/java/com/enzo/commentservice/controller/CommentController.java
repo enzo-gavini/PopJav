@@ -7,6 +7,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * REST CRUD endpoints for comments, stored in MongoDB. The author identity
+ * comes from the gateway X-User-Id header.
+ */
 @RestController
 @RequestMapping("/api/comments")
 @AllArgsConstructor
@@ -15,7 +19,7 @@ public class CommentController {
 
     @PostMapping
     public Comment save(@RequestBody Comment comment, @RequestHeader("X-User-Id") Long userId) {
-        // Trust the identity from the gateway, not the client-supplied userId.
+        // Trust the identity from the gateway and never the client-supplied userId
         comment.setUserId(userId);
         return commentService.save(comment);
     }

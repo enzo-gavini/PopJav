@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * CRUD logic for comments in MongoDB; an update can only change the text.
+ */
 @Service
 @AllArgsConstructor
 public class CommentService {

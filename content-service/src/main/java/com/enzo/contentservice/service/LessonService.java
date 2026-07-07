@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+/**
+ * CRUD logic for lessons: a Feign facade to persistence-service.
+ */
 @Service
 @AllArgsConstructor
 public class LessonService {
