@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * REST CRUD endpoints for questions, relayed to persistence-service.
+ */
 @RestController
 @RequestMapping("/api/questions")
 @AllArgsConstructor

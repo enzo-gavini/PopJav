@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * CRUD logic for answers: a Feign facade to persistence-service, no local storage.
+ */
 @Service
 @AllArgsConstructor
 public class AnswerService {

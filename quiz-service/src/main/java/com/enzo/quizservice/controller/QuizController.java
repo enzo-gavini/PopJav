@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * REST CRUD endpoints for quizzes, relayed to persistence-service.
+ * Also the last link of the X-User-Id identity chain (submit).
+ */
 @RestController
 @RequestMapping("/api/quizzes")
 @AllArgsConstructor
@@ -39,7 +43,9 @@ public class QuizController {
     public void deleteQuiz(@PathVariable Long id) {
         quizService.delete(id);
     }
-
+    // The body userId is replaced by the X-User-Id injected by the gateway, so a
+    // client can never forge the JSON to play as another person. Last link of the
+    // identity chain.
     @PostMapping("/submit")
     public QuizResultDTO submitQuiz(@RequestBody QuizSubmissionDTO submission,
                                     @RequestHeader("X-User-Id") Long userId) {
