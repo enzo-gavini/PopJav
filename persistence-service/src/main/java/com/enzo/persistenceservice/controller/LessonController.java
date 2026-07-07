@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ *  REST CRUD endpoints over the lesson table
+ */
 @RestController
 @RequestMapping("/api/lessons")
 @AllArgsConstructor

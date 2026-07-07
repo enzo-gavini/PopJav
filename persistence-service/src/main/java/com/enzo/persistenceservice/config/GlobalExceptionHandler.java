@@ -6,6 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+/**
+ * Maps ResourceNotFoundException to a 404 response.
+ */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 

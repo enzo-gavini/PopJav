@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ *  CRUD logic for chapter
+ */
 @Service
 @AllArgsConstructor
 public class ChapterService {

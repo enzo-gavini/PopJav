@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ *  CRUD logic for result
+ */
 @Service
 @AllArgsConstructor
 public class ResultService {

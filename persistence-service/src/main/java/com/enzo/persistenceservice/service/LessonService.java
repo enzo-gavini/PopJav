@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ *  CRUD logic for lesson
+ */
 @Service
 @AllArgsConstructor
 public class LessonService {

@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * A chapter groups an ordered list of lessons.
+ */
 @Entity
 @Data
 @AllArgsConstructor
@@ -23,6 +26,9 @@ public class Chapter {
     @Column(columnDefinition = "TEXT")
     private String description;
     private int orderIndex;
+
+    // Parent side: @JsonManagedReference serializes the lessons; the child side
+    // cuts the loop (see Quiz).
     @OneToMany(mappedBy = "chapter")
     @JsonManagedReference
     private List<Lesson> lessons;

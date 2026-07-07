@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ *  CRUD logic for answer
+ */
 @Service
 @AllArgsConstructor
 public class AnswerService {

@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * An answer to a question; the correct flag marks the right one.
+ */
 @Entity
 @Data
 @AllArgsConstructor
@@ -18,6 +21,7 @@ public class Answer {
     private String text;
     private boolean correct;
 
+    // Child side of Question: @JsonBackReference cuts the loop (see Quiz).
     @ManyToOne
     @JoinColumn(name = "question_id")
     @JsonBackReference

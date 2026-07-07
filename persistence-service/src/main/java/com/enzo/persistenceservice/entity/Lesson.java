@@ -8,6 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * A lesson inside a chapter, optionally paired with a quiz.
+ */
 @Entity
 @Data
 @AllArgsConstructor

@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ *  CRUD logic for quiz
+ */
 @Service
 @AllArgsConstructor
 public class QuizService {

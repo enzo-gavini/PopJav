@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * A question of a quiz, with its list of answers.
+ */
 @Entity
 @Data
 @AllArgsConstructor
@@ -21,12 +24,14 @@ public class Question {
 
     @NotBlank
     private String text;
-
+    // Child side of Quiz: @JsonBackReference cuts the loop (see Quiz).
     @ManyToOne
     @JoinColumn(name = "quizId")
     @JsonBackReference
     private Quiz quiz;
 
+    // Parent side: @JsonManagedReference marks the forward direction of the loop;
+    // the children (@JsonBackReference in Answer) cut the way back.
     @OneToMany(mappedBy = "question")
     @JsonManagedReference
     private List<Answer> answers;
