@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * A quiz bound to a lesson, with its questions, lives and passing score.
+ */
 @Entity
 @Data
 @AllArgsConstructor
@@ -24,11 +27,15 @@ public class Quiz {
     private int lives;
     private int passingScore;
 
+    // Child side of Lesson: @JsonBackReference cuts the serialization loop
+    // (Lesson -> quiz -> Quiz -> lesson -> ...).
     @OneToOne
     @JoinColumn(name = "lesson_id")
     @JsonBackReference
     private Lesson lesson;
 
+    // Parent side: @JsonManagedReference marks the forward direction of the loop;
+    // the children (@JsonBackReference in Question and Result) cut the way back.
     @OneToMany(mappedBy = "quiz")
     @JsonManagedReference
     private List<Question> questions;

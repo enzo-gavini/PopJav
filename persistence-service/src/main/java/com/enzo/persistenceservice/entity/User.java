@@ -4,12 +4,15 @@ package com.enzo.persistenceservice.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
+/**
+ * User account stored in the users table: unique username/email and the
+ * BCrypt password hash.
+ */
 @Entity
 @Data
 @Table(name = "users")
@@ -25,15 +28,18 @@ public class User {
 
     @NotBlank(message = "Email cannot be blank")
     @Email(message = "Invalid email format")
+    // Uniqueness is enforced by the database itself: two accounts can never share
+    // the same email, even if the application check is bypassed (the username
+    // column above has the same guarantee).
     @Column(unique = true)
-//    @Pattern( regexp ="^[A-Za-z._-\\d]+@[A-Za-z\\d]+\\.[A-Za-z]{2,6}$" )
     private String email;
 
     private String password;
 
     @Enumerated(EnumType.STRING)
     private Role role;
-
+    // JPA lifecycle hook: sets the creation date just before the INSERT, so the
+    // timestamp is always set by the server and never comes from a client.
     @PrePersist
     protected void onCreate() {
         this.createdAt = LocalDateTime.now();

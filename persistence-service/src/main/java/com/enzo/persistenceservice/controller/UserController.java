@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * REST CRUD endpoints over the users table. Every response is mapped to
+ * UserResponseDTO; only /credentials returns the raw entity.
+ */
 @RestController
 @RequestMapping("/api/users")
 @AllArgsConstructor
@@ -45,9 +49,9 @@ public class UserController {
     }
 
     /**
-     * Internal endpoint returning the full user (including the password hash) so
+     * Internal endpoint that returns the full user (with the password hash) so
      * auth-service can verify credentials. auth-service calls persistence directly
-     * via service discovery; the API gateway restricts this path to ADMIN.
+     * via service discovery; the API gateway restricts this path to ADMIN only.
      */
     @GetMapping("/credentials")
     public User getCredentialsByEmail(@RequestParam String email) {
@@ -63,7 +67,9 @@ public class UserController {
     public boolean existsByUsername(@RequestParam String username) {
         return userService.existsByUsername(username);
     }
-
+    // All the responses go through UserResponseDTO: the password hash can never
+    // leak since the DTO has no password field. The only deliberate exception
+    // is /credentials.
     private UserResponseDTO toResponse(User user) {
         return new UserResponseDTO(
                 user.getId(),

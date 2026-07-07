@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * CRUD and profile logic for users, backed by the PostgreSQL repository.
+ */
 @Service
 @AllArgsConstructor
 public class UserService {
@@ -28,7 +31,9 @@ public class UserService {
     public User findByEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("User not found by email"));
     }
-
+    // A profile update carries no password: the existing hash is kept when the
+    // incoming password is null, otherwise it would be erased and the user
+    // locked out.
     public User updateProfile(User user) {
         User existing = findById(user.getId());
         existing.setUsername(user.getUsername());
