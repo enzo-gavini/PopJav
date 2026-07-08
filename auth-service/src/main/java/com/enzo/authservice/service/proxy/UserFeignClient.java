@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Feign proxy to the persistence-service user API. /credentials is the internal
+ * call that returns the password hash for the login check.
+ */
 @FeignClient(name = "persistence-service", path = "/api/users")
 public interface UserFeignClient {
 

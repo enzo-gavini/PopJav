@@ -3,6 +3,9 @@ package com.enzo.uiservice.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+/**
+ * Serves the static pages (about, contact, legal, privacy).
+ */
 @Controller
 public class PageController {
 

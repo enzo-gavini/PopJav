@@ -9,6 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+/**
+ * Maps the typed exceptions (email/username already taken, invalid credentials)
+ * to HTTP status codes (409, 401, 400).
+ */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
