@@ -92,8 +92,14 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
         if (HttpMethod.DELETE.equals(method) && path.startsWith("/api/users/")) {
             return true;
         }
+        // Reading a question or an answer directly exposes the correct flag and
+        // would defeat hideCorrectAnswers: these two reads are for admins only
+        if (HttpMethod.GET.equals(method)
+                && (path.startsWith("/api/answers") || path.startsWith("/api/questions"))) {
+            return true;
+        }
 
-        // Only writes (create/update/delete) can need admin rights; reads stay open
+        // Apart from the reads listed above, only writes can need admin rights
         boolean isWrite = HttpMethod.POST.equals(method)
                 || HttpMethod.PUT.equals(method)
                 || HttpMethod.DELETE.equals(method);
