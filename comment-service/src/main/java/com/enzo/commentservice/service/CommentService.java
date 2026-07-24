@@ -1,6 +1,7 @@
 package com.enzo.commentservice.service;
 
 import com.enzo.commentservice.entity.Comment;
+import com.enzo.commentservice.exception.ResourceNotFoundException;
 import com.enzo.commentservice.repository.CommentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,8 @@ public class CommentService {
     }
 
     public Comment findById(String id) {
-        return commentRepository.findById(id).orElseThrow(() -> new RuntimeException("Comment not found"));
+        return commentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Comment not found"));
     }
 
     public Comment updateComment(Comment comment) {
