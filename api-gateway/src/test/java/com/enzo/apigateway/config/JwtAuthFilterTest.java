@@ -76,6 +76,88 @@ class JwtAuthFilterTest {
     }
 
     @Test
+    void userReadingAnAccountById_isForbidden() {
+        when(jwtService.isAdmin(anyString())).thenReturn(false);
+        MockServerWebExchange exchange = call(HttpMethod.GET, "/api/users/1");
+
+        filter.filter(exchange, chain).block();
+
+        assertEquals(HttpStatus.FORBIDDEN, exchange.getResponse().getStatusCode());
+        verify(chain, never()).filter(any(ServerWebExchange.class));
+    }
+
+    @Test
+    void userProbingWhetherAnEmailExists_isForbidden() {
+        when(jwtService.isAdmin(anyString())).thenReturn(false);
+        MockServerWebExchange exchange = call(HttpMethod.GET, "/api/users/exists/email");
+
+        filter.filter(exchange, chain).block();
+
+        assertEquals(HttpStatus.FORBIDDEN, exchange.getResponse().getStatusCode());
+        verify(chain, never()).filter(any(ServerWebExchange.class));
+    }
+
+    // The profile page looks the account up by email, so the gateway lets it
+    // through: persistence-service checks there that the caller asks for
+    // their own account
+    @Test
+    void userSearchingAnAccount_reachesTheService() {
+        when(jwtService.isAdmin(anyString())).thenReturn(false);
+        MockServerWebExchange exchange = call(HttpMethod.GET, "/api/users/search");
+
+        filter.filter(exchange, chain).block();
+
+        assertNotEquals(HttpStatus.FORBIDDEN, exchange.getResponse().getStatusCode());
+        verify(chain).filter(any(ServerWebExchange.class));
+    }
+
+    @Test
+    void userBrowsingEveryResult_isForbidden() {
+        when(jwtService.isAdmin(anyString())).thenReturn(false);
+        MockServerWebExchange exchange = call(HttpMethod.GET, "/api/results");
+
+        filter.filter(exchange, chain).block();
+
+        assertEquals(HttpStatus.FORBIDDEN, exchange.getResponse().getStatusCode());
+        verify(chain, never()).filter(any(ServerWebExchange.class));
+    }
+
+    @Test
+    void userReadingOneResultById_isForbidden() {
+        when(jwtService.isAdmin(anyString())).thenReturn(false);
+        MockServerWebExchange exchange = call(HttpMethod.GET, "/api/results/5");
+
+        filter.filter(exchange, chain).block();
+
+        assertEquals(HttpStatus.FORBIDDEN, exchange.getResponse().getStatusCode());
+        verify(chain, never()).filter(any(ServerWebExchange.class));
+    }
+
+    // Without this rule a player could post a perfect score without ever
+    // answering a question
+    @Test
+    void userCreatingAResultByHand_isForbidden() {
+        when(jwtService.isAdmin(anyString())).thenReturn(false);
+        MockServerWebExchange exchange = call(HttpMethod.POST, "/api/results");
+
+        filter.filter(exchange, chain).block();
+
+        assertEquals(HttpStatus.FORBIDDEN, exchange.getResponse().getStatusCode());
+        verify(chain, never()).filter(any(ServerWebExchange.class));
+    }
+
+    @Test
+    void userReadingTheirOwnResults_reachesTheService() {
+        when(jwtService.isAdmin(anyString())).thenReturn(false);
+        MockServerWebExchange exchange = call(HttpMethod.GET, "/api/results/user/2");
+
+        filter.filter(exchange, chain).block();
+
+        assertNotEquals(HttpStatus.FORBIDDEN, exchange.getResponse().getStatusCode());
+        verify(chain).filter(any(ServerWebExchange.class));
+    }
+
+    @Test
     void adminReadingAnswers_isAllowed() {
         when(jwtService.isAdmin(anyString())).thenReturn(true);
         MockServerWebExchange exchange = call(HttpMethod.GET, "/api/answers");

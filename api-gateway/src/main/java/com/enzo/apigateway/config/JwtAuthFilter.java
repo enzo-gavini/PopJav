@@ -98,6 +98,24 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
                 && (path.startsWith("/api/answers") || path.startsWith("/api/questions"))) {
             return true;
         }
+        // Reading an account by id exposes its email and role, and the exists
+        // endpoints let anyone probe whether an address is registered: both are
+        // for admins only. /search stays open because the profile page needs it,
+        // and persistence-service checks there that the caller asks for their own
+        // account
+        if (HttpMethod.GET.equals(method)
+                && (path.startsWith("/api/users/exists")
+                    || path.matches("/api/users/\\d+"))) {
+            return true;
+        }
+        // Results belong to a user: browsing them all, reading one by id or
+        // writing one are back-office actions. /results/user/{id} is the only
+        // route left open, and quiz-service checks there that the caller asks
+        // for their own results. Playing a quiz is unaffected: quiz-service
+        // saves the result by calling persistence-service directly
+        if (path.startsWith("/api/results") && !path.startsWith("/api/results/user")) {
+            return true;
+        }
 
         // Apart from the reads listed above, only writes can need admin rights
         boolean isWrite = HttpMethod.POST.equals(method)
@@ -113,9 +131,6 @@ public class JwtAuthFilter implements GlobalFilter, Ordered {
             return false;
         }
         if (HttpMethod.POST.equals(method) && path.startsWith("/api/comments")) {
-            return false;
-        }
-        if (path.startsWith("/api/results")) {
             return false;
         }
 

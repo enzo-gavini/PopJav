@@ -4,7 +4,9 @@ import com.enzo.persistenceservice.entity.User;
 import com.enzo.persistenceservice.service.UserService;
 import com.enzo.persistenceservice.service.dto.UserResponseDTO;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -44,8 +46,16 @@ public class UserController {
     }
 
     @GetMapping("/search")
-    public UserResponseDTO getUserByEmail(@RequestParam String email) {
-        return toResponse(userService.findByEmail(email));
+    public UserResponseDTO getUserByEmail(@RequestParam String email,
+                                          @RequestHeader(value = "X-User-Id", required = false) Long callerId,
+                                          @RequestHeader(value = "X-User-Role", required = false) String callerRole) {
+        User user = userService.findByEmail(email);
+        // A user can only look up their own account; an admin can look up anyone.
+        // Without this check, any logged-in account could read every email and role.
+        if (!user.getId().equals(callerId) && !"ADMIN".equals(callerRole)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Access denied");
+        }
+        return toResponse(user);
     }
 
     /**
