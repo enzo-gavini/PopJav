@@ -11,7 +11,7 @@
         <div th:each="comment : ${comments}" class="card">
             <div>
                 <p th:text="${comment.text}">Commentaire</p>
-                <small class="text-muted" th:text="${comment.createdAt}">Date</small>
+                <small class="text-muted" th:text="${comment.displayDate}">Date</small>
             </div>
             <div class="flex gap-2 items-center">
                 <a th:href="@{/comments/{id}(id=${comment.id})}" class="card-btn">Voir</a>

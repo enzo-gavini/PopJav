@@ -35,7 +35,7 @@
             <div th:each="comment : ${comments}" class="card">
                 <div>
                     <p th:text="${comment.text}">Commentaire</p>
-                    <small class="text-muted" th:text="${comment.createdAt}">Date</small>
+                    <small class="text-muted" th:text="${comment.displayDate}">Date</small>
                 </div>
                 <a th:if="${session.role == 'ADMIN'}" th:href="@{/comments/delete/{id}(id=${comment.id}, lessonId=${lessonDTO.id})}" class="card-btn-danger">Supprimer</a>
             </div>
