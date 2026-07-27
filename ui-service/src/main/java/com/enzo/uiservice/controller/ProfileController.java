@@ -46,8 +46,17 @@ public class ProfileController {
             }
         }
 
-        long totalQuizzes = results.size();
-        long quizzesPassed = results.stream().filter(ResultDTO::isCompleted).count();
+        // Counted on distinct quizzes, not on rows: every submission saves a new
+        // result, so replaying a quiz would otherwise inflate both counters.
+        long totalQuizzes = results.stream()
+                .map(ResultDTO::getQuizId)
+                .distinct()
+                .count();
+        long quizzesPassed = results.stream()
+                .filter(ResultDTO::isCompleted)
+                .map(ResultDTO::getQuizId)
+                .distinct()
+                .count();
 
         model.addAttribute("user", user);
         model.addAttribute("results", results);

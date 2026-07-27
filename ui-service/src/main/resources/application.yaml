@@ -11,3 +11,10 @@ spring:
         register: true
 server:
   port: ${UI_SERVICE_PORT}
+  servlet:
+    session:
+      # Cookie only: without this, Tomcat falls back to URL rewriting on the very
+      # first request of a session and redirects to /;jsessionid=..., which the
+      # dispatcher fails to route. It also keeps the session id out of the URL,
+      # so it never leaks through history, logs or the Referer header.
+      tracking-modes: cookie
